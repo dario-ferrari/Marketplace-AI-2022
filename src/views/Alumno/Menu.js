@@ -3,23 +3,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
+import Navigator from '../../components/Navigator';
+import Content from '../../components/Content';
+import Header from '../../components/Header';
+import "../../components/ClaseCard.css";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Navigator from './Navigator';
-import Content from './Content';
-import Header from './Header';
-
-{/**function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}**/}
+import { CardActionArea } from '@mui/material';
 
 let theme = createTheme({
   palette: {
@@ -199,11 +191,43 @@ export default function Menu() {
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
-            <Content />
+            <Content/>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea>
+                  <Box
+                    sx={{
+                      width: 345,
+                      height: 35,
+                      backgroundColor: 'primary.dark',
+                      '&:hover': {
+                        backgroundColor: 'primary.main',
+                        opacity: [0.9, 0.8, 0.7],
+                      },
+                    }}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      Inglés IV
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Descripción breve de la clase.
+                    </Typography>
+                    <Box
+                      sx={{
+                      width: 315,
+                      height: 8,
+                      backgroundColor: 'primary.dark',
+                      '&:hover': {
+                        backgroundColor: 'primary.main',
+                        opacity: [0.9, 0.8, 0.7],
+                      },
+                    }}
+                  />
+                    <Typography variant="h7" component="div">Lunes y Viernes</Typography>
+                  </CardContent>
+                </CardActionArea>
+            </Card>
           </Box>
-          {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
-            <Copyright />
-          </Box>**/}
         </Box>
       </Box>
     </ThemeProvider>

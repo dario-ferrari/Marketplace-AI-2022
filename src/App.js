@@ -2,12 +2,11 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Menu from "./views/Alumno/Menu";
 import ForgotPassword from "./views/Login/ForgotPassword";
 import SignIn from "./views/Login/SignIn";
-import Navigator from "./views/Alumno/Navigator";
-{/**import Perfil from "./views/Alumno/Perfil";
-import Perfil from "./views/Alumno/Inscripciones";
-import Perfil from "./views/Alumno/Clases";
-import Perfil from "./views/Alumno/Historial";
-import Perfil from "./views/Alumno/Busqueda";**/}
+import Perfil from "./views/Alumno/Perfil";
+import Inscripciones from "./views/Alumno/Inscripciones";
+import Clases from "./views/Alumno/Clases";
+import Historial from "./views/Alumno/Historial";
+import Busqueda from "./views/Alumno/Busqueda";
 
 {/**Rutas a las distintas vistas de la app*/}
 
@@ -23,11 +22,11 @@ function App() {
           {/**<Navigator>**/}
             <Route path="menu" element={<Menu/>}/>
           {/**</Navigator>**/}
-            {/**<Route path="perfil" element={<Perfil/>}/>
+            <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
             <Route path="clases" element={<Clases/>}/>
             <Route path="historial" element={<Historial/>}/>
-            <Route path="busqueda" element={<Busqueda/>}/>**/}
+            <Route path="busqueda" element={<Busqueda/>}/>
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />
