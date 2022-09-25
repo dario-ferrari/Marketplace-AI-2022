@@ -21,7 +21,7 @@ import { useNavigate , useLocation } from "react-router-dom";
 
 const categories = [
   {
-    id: 'Build',
+    id: 'Alumno',
     children: [
       {
         id: 'Dashboard',
@@ -39,7 +39,7 @@ const categories = [
         path: "/alumno/busqueda",
       },
     ],
-  },
+  }/**,
   {
     id: 'Quality',
     children: [
@@ -47,7 +47,7 @@ const categories = [
       { id: 'Performance', icon: <TimerIcon /> },
       { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
     ],
-  },
+  }, */
 ];
 
 const itemC = {

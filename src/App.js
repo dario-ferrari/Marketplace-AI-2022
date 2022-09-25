@@ -7,8 +7,7 @@ import Inscripciones from "./views/Alumno/Inscripciones";
 import Clases from "./views/Alumno/Clases";
 import Historial from "./views/Alumno/Historial";
 import Busqueda from "./views/Alumno/Busqueda";
-
-{/**Rutas a las distintas vistas de la app*/}
+import clasesInscriptas from "./data/clasesInscriptas.json";
 
 function App() {
   return (
@@ -19,19 +18,19 @@ function App() {
         <Route path="/login" element={<SignIn />} />
 
         <Route path="alumno">
-          {/**<Navigator>**/}
             <Route path="menu" element={<Menu/>}/>
-          {/**</Navigator>**/}
             <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
-            <Route path="clases" element={<Clases/>}/>
+            <Route path="clases" element={<Clases/>}>
+              <Route path=":clasesId"
+                loader={({params}) => clasesInscriptas.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
+            </Route>
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-
     </div>
   );
 }

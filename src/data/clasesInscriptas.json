@@ -1,0 +1,28 @@
+{
+    "clasesI": [
+        {
+        "id": 1,
+        "nombre": "Ingles IV",
+        "icono": "<TranslateIcon/>",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12"
+        },
+        {
+        "id": 2,
+        "nombre": "Matemáticas II",
+        "icono": "<CalculateIcon/>",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Martes y Jueves",
+        "duracion": "30/8 - 15/12"
+        },
+        {
+        "id": 3,
+        "nombre": "Curso de Python I",
+        "icono": "<CalculateIcon/>",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Miercoles y Viernes",
+        "duracion": "30/8 - 15/12"
+        }
+    ]
+}
