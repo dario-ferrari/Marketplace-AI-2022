@@ -19,6 +19,8 @@ import { useNavigate , useLocation } from "react-router-dom";
 import clasesInscriptas from "../../data/clasesInscriptas.json";
 import { Navigate, Route, Routes, createRoutesFromElements, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Clases from './Clases';
+import CardStyled from "../../components/CardStyled";
+import Grid from '@mui/material/Grid';
 
 let theme = createTheme({
   palette: {
@@ -170,9 +172,9 @@ export default function Menu() {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const navigate=useNavigate();
 
-  const ruta = (id) => {
+  /**const ruta = (id) => {
     navigate(`/alumno/clases/${id}`);
-  };
+  };**/
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -204,50 +206,16 @@ export default function Menu() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content/>
-
-              {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
-
-              {clasesInscriptas.clasesI.map(({id, nombre, icono, descripcion, frecuencia, duracion}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
-                <Card key={id} sx={{ maxWidth: 345, maxHeight: 235 }} onClick={()=>ruta(id)}> {/**Al clickear la card se activa el método "ruta" al que le paso la id de la clase, que se va a usar en la dirección (ruta) de esa clase  */}
-                  <CardActionArea>
-                    <Box
-                      sx={{
-                        width: 345,
-                        height: 35,
-                        backgroundColor: 'primary.dark',
-                        '&:hover': {
-                          backgroundColor: 'primary.main',
-                          opacity: [0.9, 0.8, 0.7],
-                        },
-                      }}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                      {nombre}
-                      </Typography>
-                      {icono}
-                      <Typography gutterBottom variant="body2" color="text.secondary">
-                        {descripcion}
-                      </Typography>
-                      <Box
-                        sx={{
-                        width: 315,
-                        height: 5,
-                        backgroundColor: 'primary.dark',
-                        '&:hover': {
-                          backgroundColor: 'primary.main',
-                          opacity: [0.9, 0.8, 0.7],
-                        },
-                      }}
-                    />
-                    <Box sx={{ textAlign: 'center' }}>
-                      <Typography variant="button" component="block">{frecuencia}</Typography>
-                      <Typography variant="button" display="block">{duracion}</Typography>
-                    </Box>
-                    </CardContent>
-                  </CardActionArea>
-              </Card>
+              <Grid container spacing={2} alignItems="center" >
+                {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
+                {clasesInscriptas.clasesI.map(({id, nombre, icono, descripcion, frecuencia, duracion}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                <Grid item xl={3} md={6}>
+                  <CardStyled id={id} nombre={nombre} icono={icono} descripcion={descripcion} frecuencia={frecuencia} duracion={duracion}></CardStyled>
+                </Grid>
+                /**<Card key={id} sx={{ maxWidth: 345, maxHeight: 235 }} onClick={()=>ruta(id)}> {Al clickear la card se activa el método "ruta" al que le paso la id de la clase, que se va a usar en la dirección (ruta) de esa clase  */
+                  
             ))}
+              </Grid>
 
           </Box>
         </Box>
