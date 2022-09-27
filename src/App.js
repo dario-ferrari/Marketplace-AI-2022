@@ -21,10 +21,8 @@ function App() {
             <Route path="menu" element={<Menu/>}/>
             <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
-            <Route path="clases" element={<Clases/>}>
-              <Route path=":clasesId"
+            <Route path="clases/:clasesId" element={<Clases/>}
                 loader={({params}) => clasesInscriptas.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
-            </Route>
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>
         </Route>

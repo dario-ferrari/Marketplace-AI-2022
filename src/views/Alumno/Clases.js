@@ -1,4 +1,5 @@
 import * as React from 'react';
+//**import {useLoaderData } from "react-router-dom";*//
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,6 +9,7 @@ import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
+import ClaseDetallada from '../../components/ClaseDetallada';
 
 {/**function Copyright() {
   return (
@@ -169,6 +171,7 @@ const drawerWidth = 256;
 export default function Clases() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  //**const claseRecibida = useLoaderData();**//
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -200,6 +203,7 @@ export default function Clases() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
+            <ClaseDetallada></ClaseDetallada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
