@@ -12,7 +12,7 @@ import Inscripciones from "./views/Alumno/Inscripciones";
 import Clases from "./views/Alumno/Clases";
 import Historial from "./views/Alumno/Historial";
 import Busqueda from "./views/Alumno/Busqueda";
-import clasesInscriptas from "./data/clasesInscriptas.json";
+import inscripciones from "./data/inscripciones.json";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,9 +25,13 @@ const router = createBrowserRouter(
             <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
             <Route path="clases/:clasesId" element={<Clases/>}
-                loader={({params}) => clasesInscriptas.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
+                loader={({params}) => inscripciones.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>
+          </Route>
+
+          <Route path="profesor">
+          
           </Route>
 
           <Route path="*" element={<Navigate to="/login" replace />} />
