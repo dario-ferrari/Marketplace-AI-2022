@@ -1,73 +1,40 @@
 {
-    "clasesI": [
+    "clasesInscriptas": [
         {
         "id": 1,
-        "titulo": "Ingles IV",
-        "imagen": "https://www.elconfidencialdigital.com/asset/zoomcrop,1280,720//media/elconfidencialdigital/images/2020/12/09/2020120913362017232.png",
+        "nombre": "Ingles IV",
+        "tipo": "IDIOMAS",
         "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
         "frecuencia": "Lunes y Viernes",
         "duracion": "30/8 - 15/12",
-        "precio": "20 USD",
-        "tipo": "Clase Individual",
-        "rating": "3.5",
-        "comentarios": [
-            {
-            "nombre": "Juan Roman Riquelme",
-            "descripcion": "Aguante Boca Vieja!",
-            "likes": 12,
-            "avatar": "https://upload.wikimedia.org/wikipedia/commons/5/58/Homenaje_a_Riquelme_%28cropped%29.jpg"
-            },{
-            "nombre": "Juan Roman Riquelme",
-            "descripcion": "Aguante Boca Vieja!",
-            "likes": 12,
-            "avatar": "https://upload.wikimedia.org/wikipedia/commons/5/58/Homenaje_a_Riquelme_%28cropped%29.jpg"}
-        ]    
+        "color": "primary.dark"
         },
         {
         "id": 2,
-        "titulo": "Matemáticas II",
-        "imagen": "https://gaceta.cch.unam.mx/sites/default/files/styles/imagen_articulos_1920x1080/public/2021-04/jurgen-klopp-y-liverpool.jpg?h=ac2d463f&itok=NicaPj4v",
+        "nombre": "Matemáticas II",
+        "tipo": "CIENCIAS EXACTAS",
         "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
         "frecuencia": "Martes y Jueves",
         "duracion": "30/8 - 15/12",
-        "precio": "37 USD",
-        "tipo": "Clase Individual",
-        "rating": "2.5",
-        "comentarios": [
-            {
-            "nombre": "Juan Roman",
-            "descripcion": "Aguante Boca Vieja!",
-            "likes": 12,
-            "avatar": "https://cnnespanol.cnn.com/wp-content/uploads/2022/08/220820125534-mark-zuckerberg-191023-file-full-169.jpg?quality=100&strip=info"
-            },{
-            "nombre": "Juan Roman Riquelme",
-            "descripcion": "Aguante Boca Vieja!",
-            "likes": 12,
-            "avatar": "https://upload.wikimedia.org/wikipedia/commons/5/58/Homenaje_a_Riquelme_%28cropped%29.jpg"}
-        ] 
+        "color": "red"
         },
         {
         "id": 3,
-        "titulo": "Curso de Python I",
-        "imagen": "https://www.freecodecamp.org/espanol/news/content/images/2021/01/Course-Image-1.png",
+        "nombre": "Curso de Python I",
+        "tipo": "INFORMATICA",
         "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
         "frecuencia": "Miercoles y Viernes",
         "duracion": "30/8 - 15/12",
-        "precio": "55 USD",
-        "tipo": "Clase Grupal",
-        "rating": "5",
-        "comentarios": [
-            {
-            "nombre": "Juan Roman Riquelme",
-            "descripcion": "Aguante Boca Vieja!",
-            "likes": 12,
-            "avatar": "https://upload.wikimedia.org/wikipedia/commons/5/58/Homenaje_a_Riquelme_%28cropped%29.jpg"
-            },{
-            "nombre": "Brujita Veron",
-            "descripcion": "Aguante Estudiantes Vieja!",
-            "likes": 12,
-            "avatar": "https://diariohoynet.nyc3.cdn.digitaloceanspaces.com/adjuntos/galerias/000/451/0000451821.jpg"}
-        ] 
+        "color": "red"
+        },
+        {
+        "id": 4,
+        "nombre": "Derecho Penal III",
+        "tipo": "DERECHO",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Miercoles y Viernes",
+        "duracion": "30/8 - 15/12",
+        "color": "green"
         }
     ]
 }
