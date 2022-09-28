@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import usuarios from "../../data/usuarios.js";
 
 const initialState = {
   username: undefined,
@@ -9,8 +10,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loadUserData(state, action) {
-      state.username = action.payload.username;
-      state.progress = action.payload.progress;
+      console.log(action.payload);
+      const user = usuarios.find((u) => u.email === action.payload.email);
+      state.email = user.email;
+      state.username = user.username;
     },
   },
 });
