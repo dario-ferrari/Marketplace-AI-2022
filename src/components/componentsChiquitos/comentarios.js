@@ -13,13 +13,13 @@ import {
   Button,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import clasesInscriptas from "../../data/clasesInscriptas.json";
+import inscripciones from "../../data/inscripciones.json";
 
 export default function Comentarios(props) {
   return (
     <Grid container paddingX={"4em"} paddingY={"3em"}>
       <List sx={{ width: "100%" }}>
-        {clasesInscriptas.clasesI.find( clases=>clases.id===Number(props.idClase)).comentarios.map(({ nombre, descripcion, likes, avatar }) => (
+        {inscripciones.clasesI.find( clases=>clases.id===Number(props.idClase)).comentarios.map(({ nombre, descripcion, likes, avatar }) => (
         <React.Fragment>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar sx={{ paddingRight: "1ex" }}>
