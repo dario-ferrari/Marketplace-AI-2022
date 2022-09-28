@@ -18,6 +18,9 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
+import CardStyled from "../../components/CardStyled";
+import clasesInscriptas from "../../data/inscripciones.json";
+
 
 
 {/**function Copyright() {
@@ -211,7 +214,9 @@ export default function Inscripciones() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content/>
-            <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+            {/**BARRA DE BÚSQUEDA DE CLASES*/}
+            <Grid container spacing={{xs: 2,  md:3}} rowSpacing={4}>
+            <Paper sx={{ maxWidth: 936, margin: "auto",  marginBottom: 2, overflow: 'hidden' }}>
               <AppBar
               position="static"
               color="default"
@@ -248,6 +253,25 @@ export default function Inscripciones() {
               </Toolbar>
             </AppBar>
             </Paper>
+            </Grid>
+
+            {/**CLASES PARA INSCRIBIRSE:*/}
+
+            <Grid container spacing={2} alignItems="center" >
+                {clasesInscriptas.clasesI.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                <Grid item xl={3} md={6}>
+                  <CardStyled 
+                  id={id} 
+                  titulo={titulo} 
+                  imagen={imagen} 
+                  descripcion={descripcion} 
+                  frecuencia={frecuencia} 
+                  duracion={duracion}
+                  rating={rating}></CardStyled>
+                </Grid>  
+            ))}
+              </Grid>
+
           </Box>
         </Box>
       </Box>
