@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
-import ClaseDetallada from '../../components/ClaseDetallada';
+import ClaseDetallada from '../../components/componentsMedianos/ClaseDetallada';
 
 {/**function Copyright() {
   return (

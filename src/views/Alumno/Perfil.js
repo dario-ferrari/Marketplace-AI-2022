@@ -6,6 +6,9 @@ import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
+import { useState } from "react";
+import { useContext } from 'react';
+import ContentPerfil from '../../components/componentsMedianos/ContentPerfil'
 
 let theme = createTheme({
   palette: {
@@ -156,6 +159,7 @@ export default function Perfil() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -186,7 +190,9 @@ export default function Perfil() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
+            <ContentPerfil></ContentPerfil>
           </Box>
+          
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
           </Box>**/}

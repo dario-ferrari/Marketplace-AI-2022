@@ -9,9 +9,9 @@ import PaidIcon from "@mui/icons-material/Paid";
 import PersonIcon from "@mui/icons-material/Person";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
-import ItemBarrita from "./componentsChiquitos/itemsBarrita";
-import Comentarios from "./componentsChiquitos/comentarios";
+import ContenedorProfesor from '../componentsChiquitos/contenedorProfesor';
+import ItemBarrita from "../componentsChiquitos/itemsBarrita";
+import Comentarios from "../componentsChiquitos/comentarios";
 
 
 export default function ClaseDetallada(props) {
