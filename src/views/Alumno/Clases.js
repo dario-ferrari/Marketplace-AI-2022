@@ -1,5 +1,5 @@
 import * as React from 'react';
-//**import {useLoaderData } from "react-router-dom";*//
+import {useLoaderData } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -171,7 +171,7 @@ const drawerWidth = 256;
 export default function Clases() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  //**const claseRecibida = useLoaderData();**//
+  const claseRecibida = useLoaderData();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -201,9 +201,18 @@ export default function Clases() {
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+          <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
-            <ClaseDetallada></ClaseDetallada>
+            <ClaseDetallada 
+            id={claseRecibida.id}
+            titulo={claseRecibida.titulo} 
+            descripcion={claseRecibida.descripcion} 
+            imagen={claseRecibida.imagen}  
+            frecuencia= {claseRecibida.frecuencia}
+            duracion = {claseRecibida.duracion}
+            precio= {claseRecibida.precio}
+            tipo= {claseRecibida.tipo}
+            ></ClaseDetallada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />

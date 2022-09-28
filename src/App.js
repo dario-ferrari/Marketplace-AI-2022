@@ -1,4 +1,9 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Navigate, Route, Routes,
+  createRoutesFromElements,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import Menu from "./views/Alumno/Menu";
 import ForgotPassword from "./views/Login/ForgotPassword";
 import SignIn from "./views/Login/SignIn";
@@ -9,15 +14,13 @@ import Historial from "./views/Alumno/Historial";
 import Busqueda from "./views/Alumno/Busqueda";
 import clasesInscriptas from "./data/clasesInscriptas.json";
 
-function App() {
-  return (
-    <div className="bg-gradient-to-r from-primary to-secondary w-screen h-screen">
-      
-      <Routes>
-        <Route path="/forgot" element={<ForgotPassword />} />
-        <Route path="/login" element={<SignIn />} />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+      <>
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/login" element={<SignIn />} />
 
-        <Route path="alumno">
+          <Route path="alumno">
             <Route path="menu" element={<Menu/>}/>
             <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
@@ -25,10 +28,19 @@ function App() {
                 loader={({params}) => clasesInscriptas.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>
-        </Route>
+          </Route>
 
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
+          <Route path="*" element={<Navigate to="/login" replace />} />
+      </>
+  )
+);
+
+
+
+function App() {
+  return (
+    <div className="bg-gradient-to-r from-primary to-secondary w-screen h-screen">
+        <RouterProvider router={router}/>
     </div>
   );
 }

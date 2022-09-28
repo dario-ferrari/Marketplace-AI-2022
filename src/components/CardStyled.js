@@ -17,14 +17,14 @@ export default function CardStyled(props) {
         component="img"
         alt="green iguana"
         height="140"
-        image="https://www.hostinger.es/tutoriales/wp-content/uploads/sites/7/2018/07/aprender-programar-gratis.png"
+        image={props.imagen}
       />
       <CardContent>
         <Grid container justifyContent='space-between'>
           <Grid item > 
-            <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+            <Rating name="half-rating-read" defaultValue={props.rating} precision={0.5} readOnly />
             <Typography gutterBottom variant="h5" component="div">
-              {props.nombre}
+              {props.titulo}
             </Typography>
           </Grid>
           <Grid item position="relative" top={-45} right={-7}> 

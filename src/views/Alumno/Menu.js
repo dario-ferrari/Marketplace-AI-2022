@@ -208,9 +208,16 @@ export default function Menu() {
             <Content/>
               <Grid container spacing={2} alignItems="center" >
                 {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
-                {clasesInscriptas.clasesI.map(({id, nombre, icono, descripcion, frecuencia, duracion}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                {clasesInscriptas.clasesI.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
                 <Grid item xl={3} md={6}>
-                  <CardStyled id={id} nombre={nombre} icono={icono} descripcion={descripcion} frecuencia={frecuencia} duracion={duracion}></CardStyled>
+                  <CardStyled 
+                  id={id} 
+                  titulo={titulo} 
+                  imagen={imagen} 
+                  descripcion={descripcion} 
+                  frecuencia={frecuencia} 
+                  duracion={duracion}
+                  rating={rating}></CardStyled>
                 </Grid>
                 /**<Card key={id} sx={{ maxWidth: 345, maxHeight: 235 }} onClick={()=>ruta(id)}> {Al clickear la card se activa el método "ruta" al que le paso la id de la clase, que se va a usar en la dirección (ruta) de esa clase  */
                   
