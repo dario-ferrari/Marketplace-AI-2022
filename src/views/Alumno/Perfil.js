@@ -6,9 +6,24 @@ import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
-import { useState } from "react";
-import { useContext } from 'react';
-import ContentPerfil from '../../components/componentsMedianos/ContentPerfil'
+import {
+  Avatar,
+  Button,
+  Card,
+  CardHeader,
+  CardActions,
+  CardContent,
+  Divider,
+  Grid,
+  Typography,
+  TextField
+} from '@mui/material';
+import { useState } from 'react';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import usuarios from '../../data/usuarios';
+
 
 let theme = createTheme({
   palette: {
@@ -159,9 +174,27 @@ export default function Perfil() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
+  const navigate=useNavigate();
+  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    console.log("auth.logged", auth.logged);
+    if (!auth.logged) {
+      return navigate("/login");
+    }
+  }, []);
+
+  const us = usuarios.find((u) => u.email === user.email);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleChange = (event) => {
+    /**setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    }); */
   };
 
   return (
@@ -188,11 +221,189 @@ export default function Perfil() {
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1', display: 'flex', flexDirection: 'row'}}>
             <Content />
-            <ContentPerfil></ContentPerfil>
+
+            <Card>
+              <CardContent>
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign: 'center'
+                  }}
+                >
+                  <Avatar
+                    src={us.avatar}
+                    sx={{
+                      height: 64,
+                      mb: 2,
+                      width: 64
+                    }}
+                  />
+                  <Typography
+                    color="textPrimary"
+                    gutterBottom
+                    variant="h5"
+                  >
+                    {us.nombre} {us.apellido}
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    variant="body2"
+                  >
+                    Buenos Aires, Argentina
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    variant="body2"
+                  >
+                    GMT-2
+                  </Typography>
+                </Box>
+              </CardContent>
+              <Divider />
+              <CardActions>
+                <Button
+                  color="primary"
+                  fullWidth
+                  variant="text"
+                >
+                  Cambiar Imagen
+                </Button>
+              </CardActions>
+            </Card>
+
+            <form
+              autoComplete="off"
+              noValidate
+            >
+              <Card>
+                <CardHeader
+                  title="Perfil"
+                />
+                <Divider />
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Nombre"
+                        name="firstName"
+                        onChange={handleChange}
+                        required
+                        value={us.nombre}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Apellido"
+                        name="lastName"
+                        onChange={handleChange}
+                        required
+                        value={us.nombre}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Email"
+                        name="email"
+                        onChange={handleChange}
+                        required
+                        value={us.email}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Número de Teléfono"
+                        name="phone"
+                        onChange={handleChange}
+                        type="number"
+                        value={us.telefono}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Fecha de Nacimiento"
+                        name="date"
+                        onChange={handleChange}
+                        required
+                        value={us.nacimiento}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Estudios Cursados"
+                        name="state"
+                        onChange={handleChange}
+                        required
+                        /**select
+                        SelectProps={{ native: true }}
+                        value=""
+                        variant="outlined"**/
+                      >
+                      </TextField>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+                <Divider />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    p: 2
+                  }}
+                >
+                  <Button
+                    color="primary"
+                    variant="contained"
+                  >
+                    Editar
+                  </Button>
+                </Box>
+              </Card>
+            </form>
+
+            
           </Box>
-          
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
           </Box>**/}
