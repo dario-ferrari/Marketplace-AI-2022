@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
-  Box,
   Divider,
-  Rating,
   Grid,
   Typography,
   Avatar,
@@ -11,6 +9,7 @@ import {
   ListItemText,
   ListItemAvatar,
   Button,
+  TextField,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import inscripciones from "../../data/inscripciones.json";
@@ -50,7 +49,28 @@ export default function Comentarios(props) {
             <Divider variant="inset"></Divider>
         </React.Fragment>
         ))}
-      </List>
+        <ListItem alignItems="flex-start">
+                <ListItemAvatar sx={{ paddingRight: "1ex" }}>
+                    <Avatar
+                        sx={{
+                        width: 70,
+                        height: 70,
+                        boxShadow: "0 8px 8px 0 rgba(0, 0, 0, 0.15)",
+                        }}
+                    ></Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                    primary={
+                      <TextField fullWidth id="standard-basic" label="Escribe tu comentario" variant="standard" sx={{ margin:"1ex"}}></TextField>
+                            }
+                    secondary={
+                    <React.Fragment>
+                            <Button variant="outlined">Comentar</Button>
+                    </React.Fragment>
+                            }
+                />
+          </ListItem>
+        </List>
     </Grid>
   );
 }
