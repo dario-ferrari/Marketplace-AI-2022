@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import HelpIcon from '@mui/icons-material/Help';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
+/**import Link from '@mui/material/Link';**/
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Tab from '@mui/material/Tab';
@@ -14,11 +14,43 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { loggOut } from "../store/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import usuarios from '../data/usuarios';
+import { Link } from 'react-router-dom';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
-function Header(props) {
+function Header (props) {
   const { onDrawerToggle } = props;
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(loggOut());
+  };
+
+  const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.logged) {
+      return navigate("/login");
+    }
+  }, [auth.logged]);
+
+  const us = usuarios.find((u) => u.email === user.email);
+
+  const vistas = [
+        { id: 'Dashboard', path: "/alumno/menu" },
+        { id: 'Perfil', path: "/alumno/perfil" }, 
+        { id: 'Inscripciones', path:"/alumno/inscripciones"},
+        { id: 'Clases', path:"/alumno/clases"},
+        { id: 'Historial', path:"/alumno/historial"},
+        { id: 'Búsqueda de Perfiles', path: "/alumno/busqueda"},
+  ]
+  const location=useLocation();
 
   return (
     <React.Fragment>
@@ -37,8 +69,7 @@ function Header(props) {
             </Grid>
             <Grid item xs />
             <Grid item>
-              <Link
-                href="/login"
+              <Button onClick={() => logout()}
                 variant="body2"
                 sx={{
                   textDecoration: 'none',
@@ -49,9 +80,9 @@ function Header(props) {
                 }}
                 rel="noopener noreferrer"
                 target="_blank"
-              >
+                >
                 Cerrar Sesión
-              </Link>
+                </Button>
             </Grid>
             <Grid item>
               <Tooltip title="Alerts • No alerts">
@@ -62,7 +93,7 @@ function Header(props) {
             </Grid>
             <Grid item>
               <IconButton color="inherit" sx={{ p: 0.5 }}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+                <Link to="/alumno/perfil"><Avatar src={us.avatar}/></Link>
               </IconButton>
             </Grid>
           </Grid>
@@ -79,7 +110,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Dashboard
+               Dashboard
               </Typography>
             </Grid>
             <Grid item>

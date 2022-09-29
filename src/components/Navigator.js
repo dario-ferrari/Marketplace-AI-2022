@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from "react";
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -18,6 +19,10 @@ import HistoryIcon from '@mui/icons-material/History';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useNavigate , useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loggOut } from "../store/auth/authSlice";
+import {loadUserData} from "../store/user/usersSlice";
+import usuarios from '../data/usuarios';
 
 const categories = [
   {
@@ -70,17 +75,30 @@ export default function Navigator(props) {
   const navigate=useNavigate();
   const location=useLocation();
 
+  {/**Trayendo los datos del usuario loggeado:*/}
+  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    console.log("auth.logged", auth.logged);
+    if (!auth.logged) {
+      return navigate("/login");
+    }
+  }, []);
+
+  const us = usuarios.find((u) => u.email === user.email);
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding> {/**Componente que contiene la lista*/}
         <ListItem sx={{ ...itemC, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          Marketplace
+          Marketplace 
         </ListItem>
         <ListItem sx={{ ...itemC, ...itemCategory }}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>Clases Particulares</ListItemText>
+          <ListItemText>¡Hola {us.nombre}!</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }} >
