@@ -184,9 +184,31 @@ export default function Inscripciones() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
+  const [clases, setClases]= React.useState([]);  
+  const [busqueda, setBusqueda] = React.useState([]);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  React.useEffect(() => {
+    setClases(clasesInscriptas.clasesI);
+  }, []);
+
+  const handleChange=(e)=>{
+    setBusqueda(e.target.value);
+    filtrarClases(e.target.value);
+  }
+
+  const filtrarClases=(filtro)=>{
+    var clasesTotales = clasesInscriptas.clasesI
+    let resultadosBusqueda = clasesTotales.filter((clase)=>{
+      if(clase.titulo.toString().toLowerCase().includes(filtro.toLowerCase())){
+        return clase;
+      }
+    });
+    setClases(resultadosBusqueda);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -232,11 +254,13 @@ export default function Inscripciones() {
                     <TextField
                       fullWidth
                       placeholder="Buscar por materia, tipo de clase, frecuencia o calificación"
+                      value={busqueda}
                       InputProps={{
                         disableUnderline: true,
                         sx: { fontSize: 'default' },
                       }}
                       variant="standard"
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item>
@@ -258,7 +282,7 @@ export default function Inscripciones() {
             {/**CLASES PARA INSCRIBIRSE:*/}
 
             <Grid container spacing={2} alignItems="center" >
-                {clasesInscriptas.clasesI.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                {clases.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
                 <Grid item xl={3} md={6}>
                   <CardStyled 
                   id={id} 

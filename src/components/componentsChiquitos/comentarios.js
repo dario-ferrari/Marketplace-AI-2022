@@ -13,8 +13,10 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import inscripciones from "../../data/inscripciones.json";
+import usuarios from "../../data/usuarios";
 
 export default function Comentarios(props) {
+  const user = usuarios.find((u) => u.id === props.idUsario);
   return (
     <Grid container paddingX={"4em"} paddingY={"3em"}>
       <List sx={{ width: "100%" }}>
@@ -51,7 +53,7 @@ export default function Comentarios(props) {
         ))}
         <ListItem alignItems="flex-start">
                 <ListItemAvatar sx={{ paddingRight: "1ex" }}>
-                    <Avatar
+                    <Avatar src={user.avatar}
                         sx={{
                         width: 70,
                         height: 70,

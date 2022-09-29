@@ -10,6 +10,8 @@ import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
 import ClaseDetallada from '../../components/ClaseDetallada';
+import { useSelector } from "react-redux";
+import usuarios from '../../data/usuarios';
 
 {/**function Copyright() {
   return (
@@ -173,6 +175,10 @@ export default function Clases() {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const claseRecibida = useLoaderData();
 
+  const user = useSelector((state) => state.user);
+
+  const us = usuarios.find((u) => u.email === user.email);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -212,6 +218,7 @@ export default function Clases() {
             duracion = {claseRecibida.duracion}
             precio= {claseRecibida.precio}
             tipo= {claseRecibida.tipo}
+            user={us.id}
             ></ClaseDetallada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>

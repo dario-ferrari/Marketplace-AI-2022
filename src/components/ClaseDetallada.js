@@ -87,7 +87,7 @@ export default function ClaseDetallada(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    <Comentarios idClase={props.id}></Comentarios>
+    <Comentarios idClase={props.id} idUsario={props.user}></Comentarios>
     </Box>
   );
 }
