@@ -26,15 +26,6 @@
         "frecuencia": "Miercoles y Viernes",
         "duracion": "30/8 - 15/12",
         "color": "red"
-        },
-        {
-        "id": 4,
-        "nombre": "Derecho Penal III",
-        "tipo": "DERECHO",
-        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
-        "frecuencia": "Miercoles y Viernes",
-        "duracion": "30/8 - 15/12",
-        "color": "green"
         }
     ]
 }
