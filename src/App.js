@@ -23,13 +23,14 @@ import GestionarClase from "./views/Profesor/GestionarClase";
 import PerfilProfesor from "./views/Profesor/PerfilProfesor";
 import ClasesProfesor from "./views/Profesor/ClasesProfesor";
 import clasesCreadas from "./data/clasesCreadas.json";
-
+import CrearUsuario from "./views/Login/CrearUsuario";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
       <>
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/createuser" element={<CrearUsuario/>}/>
 
           <Route path="alumno">
             <Route path="menu" element={<Menu/>}/>

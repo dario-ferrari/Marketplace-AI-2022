@@ -54,11 +54,16 @@ const SignIn = () => {
             <InputForm type="password" placeholder="Contraseña" />
           </div>
           <ButtonForm text={"Login"} onClick={() => handleLogIn()} />
-          <p className="text-center">
-            ¿Olvidaste{" "}
+          <p className="text-center"> 
             <Link to="/forgot">
               <a className="text-secondary hover:underline	 font-bold ">
-                tu contraseña?
+              ¿Olvidaste{" "}tu contraseña?
+              </a>
+            </Link>
+            {" "}/ {" "}
+            <Link to="/createuser">
+              <a className="text-secondary hover:underline	 font-bold ">
+                Crear Usuario
               </a>
             </Link>
           </p>
