@@ -58,7 +58,7 @@ export default function CardStyled(props) {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Link to={`/alumno/clases/${props.id}`}>
+            <Link to={`/alumno/clasesCompradas/${props.id}`}>
               <Button variant="outlined" size="medium">
                 Saber Mas
               </Button>

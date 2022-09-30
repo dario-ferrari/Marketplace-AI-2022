@@ -35,7 +35,7 @@ const router = createBrowserRouter(
             <Route path="inscripciones" element={<Inscripciones/>}/>
             <Route path="clases/:clasesId" element={<Clases/>}
                 loader={({params}) => inscripciones.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
-            <Route path="clasesCompradas/:clasesId" element={<Clases/>}
+            <Route path="clasesCompradas/:clasesId" element={<ClasesCompradas/>}
                 loader={({params}) => clasesInscriptas.clasesInscriptas.find(clases => clases.id === Number(params.clasesId))}/>    
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>

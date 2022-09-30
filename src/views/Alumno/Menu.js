@@ -169,11 +169,7 @@ const drawerWidth = 256;
 export default function Menu() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const navigate=useNavigate();
 
-  const ruta = (id) => {
-    navigate(`/alumno/clases/${id}`);
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -209,7 +205,7 @@ export default function Menu() {
               <Grid container spacing={2} alignItems="center">
               {clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard titulo={titulo} estado={estado} imagen={imagen} valorada={valorada} frecuencia={frecuencia}></SimpleCard>
+                <SimpleCard id={id} titulo={titulo} estado={estado} imagen={imagen} valorada={valorada} frecuencia={frecuencia}></SimpleCard>
                 
               </Grid>
             ))}
