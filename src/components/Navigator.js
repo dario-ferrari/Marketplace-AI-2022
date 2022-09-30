@@ -36,7 +36,6 @@ const categories = [
       },
       { id: 'Perfil', icon: <PersonIcon/>, path: "/alumno/perfil" }, 
       { id: 'Inscripciones', icon: <LocalGroceryStoreIcon />, path:"/alumno/inscripciones"},
-      { id: 'Clases', icon: <SchoolIcon />, path:"/alumno/clases"},
       { id: 'Historial', icon: <HistoryIcon />, path:"/alumno/historial"},
       {
         id: 'Búsqueda de Perfiles',
