@@ -345,6 +345,7 @@ export default function PerfilProfesor() {
                         name="phone"
                         onChange={handleChange}
                         type="number"
+                        required
                         value={us.telefono}
                         variant="outlined"
                       />
@@ -359,7 +360,6 @@ export default function PerfilProfesor() {
                         label="Título"
                         name="date"
                         onChange={handleChange}
-                        required
                         value={us.titulo}
                         variant="outlined"
                       />
@@ -374,7 +374,6 @@ export default function PerfilProfesor() {
                         label="Experiencia"
                         name="state"
                         onChange={handleChange}
-                        required
                         value={us.experiencia}
                         variant="outlined"
                         /**select

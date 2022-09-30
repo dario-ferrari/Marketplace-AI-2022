@@ -1,0 +1,85 @@
+{
+    "clasesCreadas": [
+        {
+        "id": 1,
+        "nombre": "Ingles IV",
+        "tipo": "IDIOMAS",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12",
+        "estadoClase": "Publicada",
+        "precio": "20 USD",
+        "color": "primary.dark"
+        },
+        {
+        "id": 2,
+        "nombre": "Matemáticas II",
+        "tipo": "CIENCIAS EXACTAS",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Martes y Jueves",
+        "duracion": "30/8 - 15/12",
+        "precio": "37 USD",
+        "estadoClase": "Publicada",
+        "color": "red"
+        },
+        {
+        "id": 3,
+        "nombre": "Curso de Python I",
+        "tipo": "INFORMATICA",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Miercoles y Viernes",
+        "duracion": "30/8 - 15/12",
+        "precio": "55 USD",
+        "estadoClase": "Publicada",
+        "color": "red"
+        },
+        {
+        "id": 4,
+        "nombre": "Derecho Penal III",
+        "tipo": "DERECHO",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12",
+        "alumnado": "Grupal",
+        "precio": "55 USD",
+        "estadoClase": "Cancelada",
+        "color": "primary.dark"
+        },
+        {
+        "id": 5,
+        "nombre": "Historia Contemporánea",
+        "tipo": "IDIOMAS",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12",
+        "alumnado": "Individual",
+        "precio": "37 USD",
+        "estadoClase": "Despublicada",
+        "color": "primary.dark"
+        },
+        {
+        "id": 6,
+        "nombre": "Curso de Java III",
+        "tipo": "IDIOMAS",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12",
+        "alumnado": "Individual",
+        "precio": "37 USD",
+        "estadoClase": "Finalizada",
+        "color": "primary.dark"
+        },
+        {
+        "id": 7,
+        "nombre": "Alemán I",
+        "tipo": "IDIOMAS",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12",
+        "alumnado": "Individual",
+        "precio": "37 USD",
+        "estadoClase": "Despublicada",
+        "color": "primary.dark"
+        }
+    ]
+}

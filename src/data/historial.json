@@ -1,0 +1,13 @@
+{
+    "historial": [
+        {
+        "id": 1,
+        "nombre": "Alemán I",
+        "tipo": "IDIOMAS",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Lunes y Viernes",
+        "duracion": "30/8 - 15/12",
+        "color": "primary.dark"
+        }
+    ]
+}
