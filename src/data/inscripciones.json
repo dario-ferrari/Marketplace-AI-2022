@@ -9,6 +9,7 @@
         "duracion": "30/8 - 15/12",
         "precio": "20 USD",
         "tipo": "Individual",
+        "estado": "Solicitada",
         "rating": "3",
         "comentarios": [
             {
@@ -32,6 +33,7 @@
         "duracion": "30/8 - 15/12",
         "precio": "37 USD",
         "tipo": "Individual",
+        "estado": "Aceptada",
         "rating": "2",
         "comentarios": [
             {
@@ -55,6 +57,7 @@
         "duracion": "30/8 - 15/12",
         "precio": "55 USD",
         "tipo": "Grupal",
+        "estado": "Finalizada",
         "rating": "5",
         "comentarios": [
             {
@@ -78,6 +81,7 @@
             "duracion": "30/8 - 15/12",
             "precio": "55 USD",
             "tipo": "Grupal",
+            "estado": "Cancelada",
             "rating": "5",
             "comentarios": [
                 {
