@@ -1,0 +1,48 @@
+[{
+    "id": 1,
+    "titulo": "Ingles IV",
+    "imagen": "https://www.elconfidencialdigital.com/asset/zoomcrop,1280,720//media/elconfidencialdigital/images/2020/12/09/2020120913362017232.png",
+    "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+    "frecuencia": "Lunes y Viernes",
+    "duracion": "30/8 - 15/12",
+    "precio": "20 USD",
+    "tipo": "Clase Individual",
+    "estado": "Solicitada",
+    "rating": "3.5"
+    },
+    {
+    "id": 2,
+    "titulo": "Matemáticas II",
+    "imagen": "https://gaceta.cch.unam.mx/sites/default/files/styles/imagen_articulos_1920x1080/public/2021-04/jurgen-klopp-y-liverpool.jpg?h=ac2d463f&itok=NicaPj4v",
+    "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+    "frecuencia": "Martes y Jueves",
+    "duracion": "30/8 - 15/12",
+    "precio": "37 USD",
+    "tipo": "Clase Individual",
+    "estado": "Aceptada",
+    "rating": "2.5"
+    },
+    {
+    "id": 3,
+    "titulo": "Curso de Python I",
+    "imagen": "https://www.freecodecamp.org/espanol/news/content/images/2021/01/Course-Image-1.png",
+    "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+    "frecuencia": "Miercoles y Viernes",
+    "duracion": "30/8 - 15/12",
+    "precio": "55 USD",
+    "tipo": "Clase Grupal",
+    "estado": "Finalizada",
+    "rating": "5"
+    },
+    {
+        "id": 4,
+        "titulo": "Derecho Penal III",
+        "imagen": "https://concepto.de/wp-content/uploads/2018/09/derecho-penal1-e1538147633685.jpg",
+        "descripcion": "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+        "frecuencia": "Miercoles y Viernes",
+        "duracion": "30/8 - 15/12",
+        "precio": "55 USD",
+        "tipo": "Clase Grupal",
+        "estado": "Cancelada",
+        "rating": "5"
+    }]
