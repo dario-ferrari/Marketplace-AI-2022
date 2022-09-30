@@ -21,6 +21,8 @@ import Contrataciones from "./views/Profesor/Contrataciones";
 import CrearClase from "./views/Profesor/CrearClase";
 import GestionarClase from "./views/Profesor/GestionarClase";
 import PerfilProfesor from "./views/Profesor/PerfilProfesor";
+import ClasesProfesor from "./views/Profesor/ClasesProfesor";
+import clasesCreadas from "./data/clasesCreadas.json";
 
 
 const router = createBrowserRouter(
@@ -47,6 +49,8 @@ const router = createBrowserRouter(
             <Route path="perfilprofesor" element={<PerfilProfesor/>}/>
             <Route path="busquedaprofesor" element={<BusquedaProfesor/>}/>
             <Route path="crearclase" element={<CrearClase/>}/>
+            <Route path="clasesprofesor/:clasesprofesorId" element={<ClasesProfesor/>}
+                loader={({params}) => clasesCreadas.clasesCreadas.find(clases => clases.id === Number(params.clasesprofesorId))}/>
             <Route path="gestionarclase" element={<GestionarClase/>}/>
             <Route path="contrataciones" element={<Contrataciones/>}/>
           </Route>
