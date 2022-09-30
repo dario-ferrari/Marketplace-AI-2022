@@ -8,18 +8,12 @@ import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
+import historial from "../../data/historial.json";
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { CardActionArea } from '@mui/material';
 
-{/**function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}**/}
 
 let theme = createTheme({
   palette: {
@@ -200,10 +194,55 @@ export default function Historial() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
+
+            <Grid container spacing={{xs: 2, md:3}} rowSpacing={1} columns={{xs:4, sm:8, md: 12}}>
+              {historial.historial.map(({id, nombre, icono, descripcion, frecuencia, duracion}) => ( 
+                <Grid item xs={2} sm={4} md={4} key={id}>
+                <Card key={id} sx={{ maxWidth: 345, maxHeight: 235 }}>
+                  <CardActionArea>
+                    <Box
+                      sx={{
+                        width: 345,
+                        height: 35,
+                        backgroundColor: "black",
+                        '&:hover': {
+                          backgroundColor: 'primary.main',
+                          opacity: [0.9, 0.8, 0.7],
+                        },
+                      }}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                      {nombre}
+                      </Typography>
+                      
+                      <Typography gutterBottom variant="body2" color="text.secondary">
+                        {descripcion}
+                      </Typography>
+                      <Box
+                        sx={{
+                        width: 315,
+                        height: 5,
+                        backgroundColor: 'black',
+                        '&:hover': {
+                          backgroundColor: 'primary.main',
+                          opacity: [0.9, 0.8, 0.7],
+                        },
+                      }}
+                    />
+                    <Box sx={{ textAlign: 'center' }}>
+                      <Typography variant="button" component="block">{frecuencia}</Typography>
+                      <Typography variant="button" display="block">{duracion}</Typography>
+                    </Box>
+                    </CardContent>
+                  </CardActionArea>
+              </Card>
+              </Grid>
+            ))}
+            </Grid>
+
+
           </Box>
-          {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
-            <Copyright />
-          </Box>**/}
         </Box>
       </Box>
     </ThemeProvider>
