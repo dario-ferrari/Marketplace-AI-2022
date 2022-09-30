@@ -8,6 +8,8 @@ import Menu from "./views/Alumno/Menu";
 import ForgotPassword from "./views/Login/ForgotPassword";
 import SignIn from "./views/Login/SignIn";
 import Perfil from "./views/Alumno/Perfil";
+import clasesInscriptas from "./data/clasesInscriptas.json";
+import ClasesCompradas from "./views/Alumno/ClasesCompradas";
 import Inscripciones from "./views/Alumno/Inscripciones";
 import Clases from "./views/Alumno/Clases";
 import Historial from "./views/Alumno/Historial";
@@ -33,6 +35,8 @@ const router = createBrowserRouter(
             <Route path="inscripciones" element={<Inscripciones/>}/>
             <Route path="clases/:clasesId" element={<Clases/>}
                 loader={({params}) => inscripciones.clasesI.find(clases => clases.id === Number(params.clasesId))}/>
+            <Route path="clasesCompradas/:clasesId" element={<Clases/>}
+                loader={({params}) => clasesInscriptas.clasesInscriptas.find(clases => clases.id === Number(params.clasesId))}/>    
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>
           </Route>

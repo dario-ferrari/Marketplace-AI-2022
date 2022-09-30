@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
-import "../../components/ClaseCard.css";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,10 +14,12 @@ import { CardActionArea } from '@mui/material';
 import TranslateIcon from '@mui/icons-material/Translate';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import { useNavigate , useLocation } from "react-router-dom";
-import clasesInscriptas from "../../data/clasesInscriptas.json";
+import clasesInscriptas from '../../data/clasesInscriptas.json';
 import Grid from '@mui/material/Grid';
 import ComputerIcon from '@mui/icons-material/Computer';
 import BalanceIcon from '@mui/icons-material/Balance';
+import SimpleCard from '../../components/componentsChiquitos/cardSimple';
+
 
 let theme = createTheme({
   palette: {
@@ -203,51 +204,13 @@ export default function Menu() {
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1'}}>
-            <Content/>
 
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
-              <Grid container spacing={{xs: 2, md:3}} rowSpacing={1} columns={{xs:4, sm:8, md: 12}}>
-              {clasesInscriptas.clasesInscriptas.map(({id, nombre, icono, descripcion, frecuencia, duracion}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
-                <Grid item xs={2} sm={4} md={4} key={id}>
-                <Card key={id} sx={{ maxWidth: 345, maxHeight: 235 }} onClick={()=>ruta(id)}> {/**Al clickear la card se activa el método "ruta" al que le paso la id de la clase, que se va a usar en la dirección (ruta) de esa clase  */}
-                  <CardActionArea>
-                    <Box
-                      sx={{
-                        width: 345,
-                        height: 35,
-                        backgroundColor: "primary.dark",
-                        '&:hover': {
-                          backgroundColor: 'primary.main',
-                          opacity: [0.9, 0.8, 0.7],
-                        },
-                      }}
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                      {nombre}
-                      </Typography>
-                      
-                      <Typography gutterBottom variant="body2" color="text.secondary">
-                        {descripcion}
-                      </Typography>
-                      <Box
-                        sx={{
-                        width: 315,
-                        height: 5,
-                        backgroundColor: 'primary.dark',
-                        '&:hover': {
-                          backgroundColor: 'primary.main',
-                          opacity: [0.9, 0.8, 0.7],
-                        },
-                      }}
-                    />
-                    <Box sx={{ textAlign: 'center' }}>
-                      <Typography variant="button" component="block">{frecuencia}</Typography>
-                      <Typography variant="button" display="block">{duracion}</Typography>
-                    </Box>
-                    </CardContent>
-                  </CardActionArea>
-              </Card>
+              <Grid container spacing={2} alignItems="center">
+              {clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                <Grid item xs={2} sm={3} md={3}>
+                <SimpleCard titulo={titulo} estado={estado} imagen={imagen} valorada={valorada} frecuencia={frecuencia}></SimpleCard>
+                
               </Grid>
             ))}
             </Grid>

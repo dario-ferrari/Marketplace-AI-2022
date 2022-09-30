@@ -466,7 +466,7 @@ export default function Inscripciones() {
 {/**CLASES PARA INSCRIBIRSE:*/}
 
             <Grid container spacing={2} alignItems="center" >
-                {clases.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                {clases.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating,precio}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
                 <Grid item xl={3} md={6}>
                   <CardStyled 
                   id={id} 
@@ -475,7 +475,8 @@ export default function Inscripciones() {
                   descripcion={descripcion} 
                   frecuencia={frecuencia} 
                   duracion={duracion}
-                  rating={rating}></CardStyled>
+                  rating={rating}
+                  precio={precio}></CardStyled>
                 </Grid>  
             ))}
               </Grid>

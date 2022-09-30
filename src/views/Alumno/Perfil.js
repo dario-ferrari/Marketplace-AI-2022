@@ -224,7 +224,7 @@ export default function Perfil() {
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1', display: 'flex', flexDirection: 'row'}}>
             <Content />
 
-            <Card>
+            <Card sx={{marginRight: '10px'}}>
               <CardContent>
                 <Box
                   sx={{

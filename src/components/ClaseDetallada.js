@@ -12,9 +12,19 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
 import ItemBarrita from "./componentsChiquitos/itemsBarrita";
 import Comentarios from "./componentsChiquitos/comentarios";
+import Content from "./Content";
+import StarIcon from '@mui/icons-material/Star';
 
 
-export default function ClaseDetallada(props) {
+export default function ClaseDetalladaComprada(props) {
+  var estado
+  if (props.estado === 'Aceptado'){
+    estado = "#3a7c2d"
+  }if(props.estado === "Finalizada"){
+    estado = "#6741e7"
+  }if (props.estado=== "Cancelada"){
+    estado = "#f6492d"
+  }
   return (
     <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
       {/**la imagen de cover estaria bueno que se achicara un poco al bajar, investigar */}
@@ -33,15 +43,18 @@ export default function ClaseDetallada(props) {
       />
       {/**titulo de la clase  */}
       <Grid container>
-        <Grid item xs={8}>
+        <Grid item xs={11}>
             <Typography variant="h1" py={3} px={5}>
                 {props.titulo}
             </Typography>
         <Divider></Divider>
         </Grid>
-        <Grid xs={4} container justifyContent={"end"}
-        alignContent={"center"} sx={{paddingRight:"10em"}}>
-            <Button size="large" variant="contained" startIcon={<ShoppingCartIcon/>} color="success" >Comprar</Button>
+        <Grid item xs={1} container justifyContent={"space-between"}
+        alignContent={"center"} sx={{paddingRight:"0", margin:"0"}}>
+          <Grid item alignSelf={"center"}>
+            <Button size="large" variant="contained" color="success" startIcon={<ShoppingCartIcon/>}  >Comprar</Button> 
+            </Grid>
+            
         </Grid>
         
         {/* seccion donde se describe el curso */}
@@ -63,7 +76,7 @@ export default function ClaseDetallada(props) {
           marginY={"5em"}
           direction="row"
           alignItems="center"
-          justifyContent="space-evently"
+          justifyContent="space-around"
           sx={{ bgcolor: "#e2e3e3",boxShadow: " inset 0 0px 8px 10px rgba(0, 0, 0, 0.15)"}}
         >
           <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={props.duracion} />
