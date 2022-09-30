@@ -29,7 +29,7 @@ const SignIn = () => {
       dispatch(loggIn());
       
       if (user.tipo === "PROFESOR") {
-        navigate("/profesor");
+        navigate("/profesor/clasespublicadas");
       } else {
         navigate("/alumno/menu");
       }
