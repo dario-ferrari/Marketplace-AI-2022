@@ -315,7 +315,7 @@ export default function Perfil() {
                         name="lastName"
                         onChange={handleChange}
                         required
-                        value={us.nombre}
+                        value={us.apellido}
                         variant="outlined"
                       />
                     </Grid>
