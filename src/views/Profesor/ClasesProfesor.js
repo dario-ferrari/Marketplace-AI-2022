@@ -9,7 +9,9 @@ import Content from '../../components/Content';
 import Header from '../../components/Header';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 import {useLoaderData } from "react-router-dom";
-import modificarClase from '../../components/modificarClase';
+import ClaseDetalladaProfesor from '../../components/ClaseDetalladaProfesor';
+import { useSelector } from "react-redux";
+import usuarios from '../../data/usuarios';
 
 let theme = createTheme({
   palette: {
@@ -160,7 +162,11 @@ export default function BusquedaProfesor() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const modifClase = useLoaderData();
+  const claseRecibida = useLoaderData();
+
+  const user = useSelector((state) => state.user);
+
+  const us = usuarios.find((u) => u.email === user.email);
 
 
   const handleDrawerToggle = () => {
@@ -193,14 +199,16 @@ export default function BusquedaProfesor() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
-                <modificarClase
-                    id= {modifClase.id}
-                    nombre= {modifClase.nombre}
-                    frecuencia={modifClase.frecuencia}
-                    duracion={modifClase.duracion}
-                    estadoClase={modifClase.estadoClase}
-                    precio={modifClase.precio}
-                ></modificarClase>
+              <ClaseDetalladaProfesor
+            id={claseRecibida.id}
+            titulo={claseRecibida.titulo} 
+            descripcion={claseRecibida.descripcion} 
+            imagen={claseRecibida.imagen}  
+            frecuencia= {claseRecibida.frecuencia}
+            duracion = {claseRecibida.duracion}
+            precio= {claseRecibida.precio}
+            tipo= {claseRecibida.tipo}
+            user={us.id}></ClaseDetalladaProfesor>
           </Box>
         </Box>
       </Box>

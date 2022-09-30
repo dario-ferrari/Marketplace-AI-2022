@@ -16,7 +16,7 @@ import Content from "./Content";
 import StarIcon from '@mui/icons-material/Star';
 
 
-export default function ClaseDetalladaComprada(props) {
+export default function ClaseDetalladaProfesor(props) {
   var estado
   if (props.estado === 'Aceptado'){
     estado = "#3a7c2d"
@@ -48,17 +48,6 @@ export default function ClaseDetalladaComprada(props) {
                 {props.titulo}
             </Typography>
         <Divider></Divider>
-        </Grid>
-        <Grid item xs={3} container justifyContent={"space-between"} columnSpacing={5}
-        alignContent={"center"} sx={{paddingRight:"0"}}>
-          <Grid item alignSelf={"center"}>
-            <Button size="large" variant="outlined" startIcon={<StarIcon/>}  >Valorar</Button> 
-            </Grid>
-            <Grid item alignContent={"center"} sx={{padding:"30px", borderTopLeftRadius:"20px", borderBottomLeftRadius:"20px",bgcolor:"#3a7c2d" }}> 
-            <Typography>Aceptada</Typography>
-            </Grid>
-             
-            
         </Grid>
         
         {/* seccion donde se describe el curso */}

@@ -16,7 +16,7 @@ import Content from "./Content";
 import StarIcon from '@mui/icons-material/Star';
 
 
-export default function ClaseDetalladaComprada(props) {
+export default function ClaseDetallada(props) {
   var estado
   if (props.estado === 'Aceptado'){
     estado = "#3a7c2d"
@@ -87,7 +87,7 @@ export default function ClaseDetalladaComprada(props) {
 
           <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion={props.precio} />
+          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion={props.precio } />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
           

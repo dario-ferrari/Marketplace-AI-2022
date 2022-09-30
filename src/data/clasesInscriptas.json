@@ -12,7 +12,8 @@
         "estado": "Aceptada",
         "rating": "2",
         "profesor" : "Carlos Tevez",
-        "valorada" : true
+        "valorada" : true,
+        "comentariosNuevos": 1
         },
         {
         "id": 2,
@@ -26,7 +27,8 @@
         "estado": "Aceptada",
         "rating": "2",
         "profesor" : "Carlos Tevez",
-        "valorada" : false
+        "valorada" : false,
+        "comentariosNuevos": 1
         },
         {
         "id": 3,
@@ -40,7 +42,8 @@
         "estado": "Finalizada",
         "rating": "5",
         "profesor" : "Carlos Tevez",
-        "valorada" : false
+        "valorada" : false,
+        "comentariosNuevos": 1
         }
     ]
 }

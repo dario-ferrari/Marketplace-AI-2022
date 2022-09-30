@@ -49,8 +49,8 @@ const router = createBrowserRouter(
             <Route path="perfilprofesor" element={<PerfilProfesor/>}/>
             <Route path="busquedaprofesor" element={<BusquedaProfesor/>}/>
             <Route path="crearclase" element={<CrearClase/>}/>
-            <Route path="clasesprofesor/:clasesprofesorId" element={<ClasesProfesor/>}
-                loader={({params}) => clasesCreadas.clasesCreadas.find(clases => clases.id === Number(params.clasesprofesorId))}/>
+            <Route path="clasesProfesor/:clasesprofesorId" element={<ClasesProfesor/>}
+                loader={({params}) => clasesInscriptas.clasesInscriptas.find(clases => clases.id === Number(params.clasesprofesorId))}/>
             <Route path="gestionarclase" element={<GestionarClase/>}/>
             <Route path="contrataciones" element={<Contrataciones/>}/>
           </Route>

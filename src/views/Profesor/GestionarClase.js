@@ -202,7 +202,7 @@ export default function GestionarClase() {
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
               <Grid container spacing={{xs: 2, md:3}} rowSpacing={1} columns={{xs:4, sm:8, md: 12}}>
-                {clasesCreadas.clasesCreadas.map(({id, nombre, frecuencia, duracion, estadoClase}) => ( 
+                {clasesCreadas.clasesCreadas.map(({id, titulo, frecuencia, duracion, estadoClase}) => ( 
                 <Grid item xs={2} sm={4} md={4} key={id}>
                   <Link to={`/profesor/clasesprofesor/${id}`}>
                     <Card sx={{ maxWidth: 345, maxHeight: 235 }} >
@@ -220,7 +220,7 @@ export default function GestionarClase() {
                           />
                           <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                            {nombre}
+                            {titulo}
                             </Typography>
                             
                             <Typography gutterBottom variant="body2" color="text.secondary">

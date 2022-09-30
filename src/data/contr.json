@@ -8,7 +8,8 @@
     "precio": "20 USD",
     "tipo": "Clase Individual",
     "estado": "Solicitada",
-    "rating": "3.5"
+    "rating": "3.5",
+    "comentariosNuevos": 1
     },
     {
     "id": 2,
