@@ -17,7 +17,9 @@ export default [
             telefono: 49029452,
             tipo: "PROFESOR",
             avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png",
-            nacimiento: "22/4/1995"           
+            nacimiento: "22/4/1995",
+            titulo: "Lic. en Sistemas",
+            experiencia: ""           
         },
         {
             id: 2,
@@ -47,7 +49,9 @@ export default [
             telefono: 47829595,
             tipo: "PROFESOR",
             avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png",
-            nacimiento: "22/4/1995"            
+            nacimiento: "22/4/1995",
+            titulo: "Doctorado en Fulbo",
+            experiencia: "River Plate, Manchester City"                       
         },
         {
             id: 5,
@@ -77,6 +81,8 @@ export default [
             telefono: 0,
             tipo: "PROFESOR",
             avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png",
-            nacimiento: "22/4/1995"            
+            nacimiento: "22/4/1995",
+            titulo: "Lic. en Economía",
+            experiencia: ""                       
         }
 ]
