@@ -28,7 +28,7 @@
         "rating": "2",
         "profesor" : "Carlos Tevez",
         "valorada" : false,
-        "comentariosNuevos": 1
+        "comentariosNuevos": 3
         },
         {
         "id": 3,
@@ -43,7 +43,7 @@
         "rating": "5",
         "profesor" : "Carlos Tevez",
         "valorada" : false,
-        "comentariosNuevos": 1
+        "comentariosNuevos": 0
         }
     ]
 }
