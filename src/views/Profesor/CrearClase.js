@@ -8,6 +8,23 @@ import Link from '@mui/material/Link';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
+import {
+  Avatar,
+  Button,
+  Card,
+  CardHeader,
+  CardActions,
+  CardContent,
+  Divider,
+  Grid,
+  TextField
+} from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
+import Swal from "sweetalert2";
+
 
 {/**function Copyright() {
   return (
@@ -166,6 +183,22 @@ theme = {
 
 const drawerWidth = 256;
 
+const frecuencias = [
+  {
+    value: '1',
+    label: 'Única',
+  },
+  {
+    value: '7',
+    label: 'Semanal',
+  },
+  {
+    value: '30',
+    label: 'Mensual',
+  },
+];
+
+
 export default function CrearClase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -173,6 +206,34 @@ export default function CrearClase() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleChange = (event) => {
+    /**setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    }); */
+  };
+
+  const handleClassCreation = () => {
+    Swal.fire({
+      title: '¡Clase Creada!',
+      text: "¿Quieres publicarla?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, publicar!',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Publicada!',
+          'La clase ha sido creada y publicada.',
+          'success'
+        )
+      }
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -200,6 +261,127 @@ export default function CrearClase() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
+
+            <form
+              autoComplete="off"
+              noValidate
+            >
+              <Card>
+                <CardHeader
+                  title="Crear una Nueva Clase"
+                />
+                <Divider />
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Nombre"
+                        name="firstName"
+                        onChange={handleChange}
+                        variant="standard"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Materia"
+                        name="lastName"
+                        onChange={handleChange}
+                        variant="standard"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Duración"
+                        name="email"
+                        onChange={handleChange}
+                        variant="standard"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        id="standard-select-frequency-native"
+                        fullWidth
+                        label="Frecuencia"
+                        select
+                        onChange={handleChange}
+                        SelectProps={{
+                          native: true,
+                        }}
+                        helperText="Por favor elige la frecuencia"
+                        variant="standard"
+                      >
+                        {frecuencias.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+                        <InputLabel htmlFor="standard-adornment-amount">Costo</InputLabel>
+                        <Input
+                          id="standard-adornment-amount"
+                          onChange={handleChange('amount')}
+                          startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                        />
+                      </FormControl>
+
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      
+                    </Grid>
+                  </Grid>
+                </CardContent>
+                <Divider />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    p: 2
+                  }}
+                >
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => handleClassCreation()}
+                  >
+                    Crear
+                  </Button>
+                </Box>
+              </Card>
+            </form>
+
 
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
