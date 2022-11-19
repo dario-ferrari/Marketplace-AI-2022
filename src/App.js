@@ -24,10 +24,12 @@ import PerfilProfesor from "./views/Profesor/PerfilProfesor";
 import ClasesProfesor from "./views/Profesor/ClasesProfesor";
 import clasesCreadas from "./data/clasesCreadas.json";
 import CrearUsuario from "./views/Login/CrearUsuario";
+import TestConexion from "./views/TestConexion";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
       <>
+          <Route path="/test" element={<TestConexion/>}/>
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/createuser" element={<CrearUsuario/>}/>
@@ -56,7 +58,7 @@ const router = createBrowserRouter(
             <Route path="contrataciones" element={<Contrataciones/>}/>
           </Route>
 
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          {/**<Route path="*" element={<Navigate to="/login" replace />} />*/}
       </>
   )
 );
