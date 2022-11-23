@@ -1,13 +1,14 @@
 import urlWebServices from './webServices.js';
 
-export const login= async function(login)
+export const login= async function(email,pass)
 {
+    console.log("usuario :", email, "pass :", pass)
     //url webservices
     let url = urlWebServices.login;
     //armo json con datos
     const formData = new URLSearchParams();
-    formData.append('email', login.email);
-    formData.append('password', login.password);
+    formData.append('email', email);
+    formData.append('password', pass);
     //console.log("dato",formData);
     console.log("url",url);
     try
@@ -64,6 +65,90 @@ export const login= async function(login)
     };
 }
 
+export const buscarUsuarioPorId = async function(id)
+{//url webservices
+    let url = urlWebServices.obtenerClasesPorId;
+    //armo json con datos
+    const formData = new URLSearchParams();
+    formData.append('id', id);
+    //console.log("dato",formData);
+    //console.log("url",url);
+    try{
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Accept':'application/x-www-form-urlencoded',
+               // 'x-access-token': WebToken.webToken,
+                'Origin':'http://localhost:3000',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData,
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, clase:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+
+}
+
+export const buscarUsuarioPorEmail = async function(email)
+{//url webservices
+    let url = urlWebServices.obtenerUsuariobyEmail;
+    //armo json con datos
+    const formData = new URLSearchParams();
+    formData.append('email', email);
+    //console.log("dato",formData);
+    //console.log("url",url);
+    try{
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Accept':'application/x-www-form-urlencoded',
+               // 'x-access-token': WebToken.webToken,
+                'Origin':'http://localhost:3000',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData,
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, user:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+}
 export const listadoUsuarios = async function (){
     //console.log("aca llego en el controller")
     //url webservices
@@ -84,24 +169,23 @@ export const listadoUsuarios = async function (){
                 'Content-Type': 'application/x-www-form-urlencoded'},
             //body:formData
         });
-        //console.log("aca llego en el oontroller 2")
-        if (response.status===200)
-        {
-            let data = await response.json();
-            console.log("listado de usuarios",data);
-            let listadoUsuarios = data.data.docs;
-            return listadoUsuarios;
-        }
-        else
-        {
-            let vacio=[];
-            console.log("No hay usuarios")
-            return (vacio);
-            
-        }
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, usuario:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
     }
-    catch(error)
-    {
+    catch(error){
         console.log("error",error);
     };
 }
@@ -128,19 +212,24 @@ export const guardarImgUser = async function(message)
                 'Content-Type': 'application/x-www-form-urlencoded'},
             body:formData
         });
-        if (response.status===201)
-        {
-            return true;
-        }
-        else
-        {
-           return false; 
-        }
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, img:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
     }
-    catch(error)
-    {
+    catch(error){
         console.log("error",error);
-        return false;
     };
 }
 
@@ -201,23 +290,23 @@ export const getImagenesByUser = async function()
                 'Content-Type': 'application/x-www-form-urlencoded'},
             body:formData
         });
-        if (response.status===200)
-        {
-            let data = await response.json();
-            console.log("imagenesUser",data);
-            let listaImg = data.data.docs;
-            return listaImg;
-        }
-        else
-        {
-            let vacio=[];
-            console.log("No hay imagenes")
-            return (vacio);
-            
-        }
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, img:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
     }
-    catch(error)
-    {
+    catch(error){
         console.log("error",error);
     };
 }

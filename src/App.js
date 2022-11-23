@@ -58,7 +58,7 @@ const router = createBrowserRouter(
             <Route path="contrataciones" element={<Contrataciones/>}/>
           </Route>
 
-          {/**<Route path="*" element={<Navigate to="/login" replace />} />*/}
+          <Route path="*" element={<Navigate to="/login" replace />} />
       </>
   )
 );

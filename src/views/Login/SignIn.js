@@ -8,15 +8,62 @@ import { loggIn } from "../../store/auth/authSlice";
 import { loadUserData } from "../../store/user/usersSlice";
 import Swal from "sweetalert2";
 import usuarios from "../../data/usuarios.js";
+import {login, buscarUsuarioPorEmail } from "../../controller/usuarios.controller";
 
 {/**Vista del Login*/}
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword]= useState("")
 
   const handleLogIn = () => {
-    {/**Método que se activa al clickear el botón de Login */}
+    console.log("email en front:",email,"pass en front:",password)
+    const getUser = async function(){
+      let respuestaUsuario = await buscarUsuarioPorEmail(email)
+      console.log(
+        "Console log de respuesta de back para usuario ",
+        JSON.stringify(respuestaUsuario)
+      );
+      if (respuestaUsuario.rdo === 1) {
+        alert(respuestaUsuario.mensaje)
+      }else{
+        dispatch(
+          loadUserData({
+            email: respuestaUsuario.user[0].email,
+            username: respuestaUsuario.user[0].nombre,
+          })
+        );
+        dispatch(loggIn());
+        console.log("usuario recuperado",respuestaUsuario.user[0])
+        if (respuestaUsuario.user[0].rol === "PROFESOR") {
+          navigate("/profesor/clasespublicadas");
+        } else {
+          navigate("/alumno/menu");
+        }
+      }
+    };
+
+    const getLogin = async function(){
+      const respuesta = await login(email,password);
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuesta)
+      );
+      if (respuesta.rdo === 1) {
+        Swal.fire({
+          icon: "error",
+          title: respuesta.mensaje,
+          confirmButtonText: "Ok",})
+      }else{
+        getUser()
+      }
+    };
+    getLogin();
+    
+    
+    {/**Método que se activa al clickear el botón de Login 
     const user = usuarios.find((u) => u.email === email);
 
     if (user) {
@@ -40,9 +87,9 @@ const SignIn = () => {
         confirmButtonText: "Ok",
       });
     }
-  };
+  };*/}
+  }
 
-  const [email, setEmail] = useState("");
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">
@@ -51,7 +98,7 @@ const SignIn = () => {
         <div className="h-4/6 max-w-sm my-14 mx-auto flex flex-col justify-between">
           <div className="h-2/5 flex flex-col justify-around">
             <InputForm type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
-            <InputForm type="password" placeholder="Contraseña" />
+            <InputForm type="password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)}/>
           </div>
           <ButtonForm text={"Login"} onClick={() => handleLogIn()} />
           <p className="text-center"> 

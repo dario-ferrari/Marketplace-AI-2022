@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -23,6 +23,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loggOut } from "../store/auth/authSlice";
 import {loadUserData} from "../store/user/usersSlice";
 import usuarios from '../data/usuarios';
+import {buscarUsuarioPorEmail} from "../controller/usuarios.controller"
 
 const categories = [
   {
@@ -75,17 +76,28 @@ export default function Navigator(props) {
   const location=useLocation();
 
   {/**Trayendo los datos del usuario loggeado:*/}
-  const user = useSelector((state) => state.user);
+  const userMail = useSelector((state) => state.user);
   const auth = useSelector((state) => state.auth);
+  const [user,setUser]= useState(null)
 
   useEffect(() => {
     console.log("auth.logged", auth.logged);
     if (!auth.logged) {
       return navigate("/login");
     }
+    const getUser = async function(){
+      console.log(userMail.email)
+      let respuestaUsuario = await buscarUsuarioPorEmail(userMail.email)
+      console.log(
+        "Console log de respuesta de back para usuario ",
+        JSON.stringify(respuestaUsuario)
+      );
+      setUser(respuestaUsuario.user[0])
+      console.log(user)
+      }
+      getUser()
   }, []);
 
-  const us = usuarios.find((u) => u.email === user.email);
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -97,7 +109,7 @@ export default function Navigator(props) {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>¡Hola {us.nombre}!</ListItemText>
+          <ListItemText>¡Hola !</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }} >

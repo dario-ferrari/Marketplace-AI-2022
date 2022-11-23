@@ -8,6 +8,7 @@ const urlWebServices = {
     obtenerUsuarios : urlApi + "usuarios/all",
     actualizarUsuario : urlApi + "usuarios/update",
     borrarUsuario : urlApi + "usuarios/delete/:id",
+    obtenerUsuariobyEmail: urlApi + "usuarios/userByMail",
     //guardarImgUser: urlApi + "users/guardarImgUser",
     //getImgUser: urlApi + "users/imgUserByMail",
     //uploadFileImg: urlApi + "users/uploadImg",

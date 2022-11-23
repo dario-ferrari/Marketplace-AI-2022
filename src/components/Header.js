@@ -93,7 +93,7 @@ function Header (props) {
             </Grid>
             <Grid item>
               <IconButton color="inherit" sx={{ p: 0.5 }}>
-                <Link to="/alumno/perfil"><Avatar src={us.avatar}/></Link>
+                <Link to="/alumno/perfil"><Avatar/></Link>
               </IconButton>
             </Grid>
           </Grid>
