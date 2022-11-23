@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,7 @@ import Header from '../../components/Header';
 import ClaseDetallada from '../../components/ClaseDetallada';
 import { useSelector } from "react-redux";
 import usuarios from '../../data/usuarios';
+import { buscarClasePorId } from '../../controller/clases.controller';
 
 {/**function Copyright() {
   return (
@@ -173,15 +175,35 @@ const drawerWidth = 256;
 export default function Clases() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const claseRecibida = useLoaderData();
 
   const user = useSelector((state) => state.user);
+
+  const idClase = useParams()
+  console.log(idClase)
+  const [clase,setClase]=React.useState(null)
 
   const us = usuarios.find((u) => u.email === user.email);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  React.useState(()=>{
+    const getClase = async function () {
+      const respuesta = await buscarClasePorId(idClase.clasesId);
+     
+      console.log("CASHDKJCVHASJKLFHASDKJLFHAJKSLpara saber que clase traje ", respuesta);
+      if (respuesta.rdo === 1) {
+        alert("Error al obtener Clase");
+      } else {
+        setClase(respuesta.clase);
+        console.log("Clase obtenida: ", respuesta.clase);
+      }
+    };
+    getClase()
+    console.log(clase)
+    
+  },[idClase])
 
   return (
     <ThemeProvider theme={theme}>
@@ -205,26 +227,31 @@ export default function Clases() {
             sx={{ display: { sm: 'block', xs: 'none' } }}
           />
         </Box>
+        {clase === null ? (
+            <Box display="flex" justifyContent="center">
+              <Typography>CARGANDO</Typography>
+            </Box>
+        ) : (
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             <ClaseDetallada 
-            id={claseRecibida.id}
-            titulo={claseRecibida.titulo} 
-            descripcion={claseRecibida.descripcion} 
-            imagen={claseRecibida.imagen}  
-            frecuencia= {claseRecibida.frecuencia}
-            duracion = {claseRecibida.duracion}
-            precio= {claseRecibida.precio}
-            tipo= {claseRecibida.tipo}
+            
+            titulo={clase.titulo} 
+            descripcion={clase.descripcion} 
+            imagen={clase.imagen}  
+            frecuencia= {clase.frecuencia}
+            duracion = {clase.duracion}
+            precio= {clase.precio}
+            tipo= {clase.tipo}
             user={us.id}
             ></ClaseDetallada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
           </Box>**/}
-        </Box>
+        </Box>)}
       </Box>
     </ThemeProvider>
   );

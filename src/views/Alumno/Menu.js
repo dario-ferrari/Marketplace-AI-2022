@@ -170,12 +170,14 @@ export default function Menu() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const [clases, setClases] = React.useState([]); 
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  
+  const [clases, setClases] = React.useState([]); 
 
   React.useEffect(()=>{
     const getClases = async function () {

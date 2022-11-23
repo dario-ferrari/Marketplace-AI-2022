@@ -21,9 +21,11 @@ const SignIn = () => {
   const handleLogIn = () => {
     console.log("email en front:",email,"pass en front:",password)
     const getUser = async function(){
+      console.log("email de meirda",email)
       let respuestaUsuario = await buscarUsuarioPorEmail(email)
+      console.log(respuestaUsuario)
       console.log(
-        "Console log de respuesta de back para usuario ",
+        "Console log de respuesta de back para usuario en singin ",
         JSON.stringify(respuestaUsuario)
       );
       if (respuestaUsuario.rdo === 1) {

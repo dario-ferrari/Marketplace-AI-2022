@@ -26,6 +26,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
+import {listadoClases} from '../../controller/clases.controller'
 
 
 
@@ -190,7 +191,25 @@ export default function Inscripciones() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const [clases, setClases]= React.useState([]);  
+  const [clases, setClases]= React.useState([]);
+
+
+  React.useEffect(()=>{
+    const getClases = async function () {
+      const respuestaClases = await listadoClases()
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaClases)
+      );
+      if (respuestaClases.rdo === 1) {
+        alert("No existe el doctor");
+      } else {
+        setClases(respuestaClases.clase);
+      }
+    };
+    getClases();
+  }, [])
+  
   const [busqueda, setBusqueda] = React.useState('');
   
   const [checkbox, setCheckbox] = React.useState({
@@ -210,9 +229,6 @@ export default function Inscripciones() {
     setMobileOpen(!mobileOpen);
   };
 
-  React.useEffect(() => {
-    setClases(clasesInscriptas.clasesI);
-  }, []);
 
   let filtro = {
     titulo : '',
@@ -466,10 +482,10 @@ export default function Inscripciones() {
 {/**CLASES PARA INSCRIBIRSE:*/}
 
             <Grid container spacing={2} alignItems="center" >
-                {clases.map(({id, titulo, imagen, descripcion, frecuencia, duracion, rating,precio}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                {clases.map(({_id, titulo, imagen, descripcion, frecuencia, duracion, rating,precio}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
                 <Grid item xl={3} md={6}>
                   <CardStyled 
-                  id={id} 
+                  id={_id} 
                   titulo={titulo} 
                   imagen={imagen} 
                   descripcion={descripcion} 

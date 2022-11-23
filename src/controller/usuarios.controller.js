@@ -8,7 +8,7 @@ export const login= async function(email,pass)
     //armo json con datos
     const formData = new URLSearchParams();
     formData.append('email', email);
-    formData.append('password', pass);
+    formData.append('pass', pass);
     //console.log("dato",formData);
     console.log("url",url);
     try
@@ -67,7 +67,7 @@ export const login= async function(email,pass)
 
 export const buscarUsuarioPorId = async function(id)
 {//url webservices
-    let url = urlWebServices.obtenerClasesPorId;
+    let url = urlWebServices.obtenerUsuariobyId;
     //armo json con datos
     const formData = new URLSearchParams();
     formData.append('id', id);
@@ -113,6 +113,7 @@ export const buscarUsuarioPorEmail = async function(email)
     let url = urlWebServices.obtenerUsuariobyEmail;
     //armo json con datos
     const formData = new URLSearchParams();
+    console.log(email)
     formData.append('email', email);
     //console.log("dato",formData);
     //console.log("url",url);
