@@ -29,7 +29,7 @@ export default function SimpleCard(props) {
         <Grid item xs={6}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="success" gutterBottom>
-              {props.estado}
+              {props.frecuencia}
             </Typography>
             <Typography variant="h5" component="div">
               {props.titulo}

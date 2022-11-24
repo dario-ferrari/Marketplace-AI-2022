@@ -19,7 +19,7 @@ import Grid from '@mui/material/Grid';
 import ComputerIcon from '@mui/icons-material/Computer';
 import BalanceIcon from '@mui/icons-material/Balance';
 import SimpleCard from '../../components/componentsChiquitos/cardSimple';
-
+import {listadoClases} from '../../controller/clases.controller'
 
 let theme = createTheme({
   palette: {
@@ -170,10 +170,31 @@ export default function Menu() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  
+  const [clases, setClases] = React.useState([]); 
+
+  React.useEffect(()=>{
+    const getClases = async function () {
+      const respuestaClases = await listadoClases()
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaClases)
+      );
+      if (respuestaClases.rdo === 1) {
+        alert("No existe el doctor");
+      } else {
+        setClases(respuestaClases.clase);
+      }
+    };
+    getClases();
+  }, [])
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -203,12 +224,14 @@ export default function Menu() {
 
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
               <Grid container spacing={2} alignItems="center">
-              {clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+              {( /**clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                clases.map((prop)=>
+                (
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard id={id} titulo={titulo} estado={estado} imagen={imagen} valorada={valorada} frecuencia={frecuencia}></SimpleCard>
-                
-              </Grid>
-            ))}
+                <SimpleCard id={prop.id} titulo={prop.titulo} descripcion={prop.descripcion} duracion={prop.duracion} imagen={prop.imagen} frecuencia={prop.frecuencia}></SimpleCard>
+                </Grid>
+                ))
+            )}
             </Grid>
           </Box>
         </Box>

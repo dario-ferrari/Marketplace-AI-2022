@@ -71,15 +71,15 @@ const TestConexion = ()=>{
 
 
         const clase = {
-          titulo: "Analisis Matematico I",
-          imagen: "https://gaceta.cch.unam.mx/sites/default/files/styles/imagen_articulos_1920x1080/public/2021-04/jurgen-klopp-y-liverpool.jpg?h=ac2d463f&itok=NicaPj4v",
+          titulo: "Derecho Penal III",
+          imagen: "https://concepto.de/wp-content/uploads/2018/09/derecho-penal1-e1538147633685.jpg",
           descripcion: "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
-          frecuencia: "Semanal",
-          duracion: 3,
+          frecuencia: "Unica",
+          duracion: 1,
           fechaLimite: new Date(),
-          precio: 55,
+          precio: 80,
           tipo: "Grupal",
-          rating: 4,
+          rating: 1,
           Usuarios_id:"635b20092f07badf94bfc03c",
           disponibilidad: true,
           comentarios: []

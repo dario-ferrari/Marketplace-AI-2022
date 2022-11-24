@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,7 @@ import Header from '../../components/Header';
 import ClaseDetallada from '../../components/ClaseDetallada';
 import { useSelector } from "react-redux";
 import usuarios from '../../data/usuarios';
+
 
 {/**function Copyright() {
   return (
@@ -173,15 +175,16 @@ const drawerWidth = 256;
 export default function Clases() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const claseRecibida = useLoaderData();
 
   const user = useSelector((state) => state.user);
 
-  const us = usuarios.find((u) => u.email === user.email);
+  const idClase = useParams()
+  console.log("id de la calse en clases para encontrarr l;a caslaes",idClase)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -210,15 +213,7 @@ export default function Clases() {
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             <ClaseDetallada 
-            id={claseRecibida.id}
-            titulo={claseRecibida.titulo} 
-            descripcion={claseRecibida.descripcion} 
-            imagen={claseRecibida.imagen}  
-            frecuencia= {claseRecibida.frecuencia}
-            duracion = {claseRecibida.duracion}
-            precio= {claseRecibida.precio}
-            tipo= {claseRecibida.tipo}
-            user={us.id}
+            id={idClase.clasesId}
             ></ClaseDetallada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>

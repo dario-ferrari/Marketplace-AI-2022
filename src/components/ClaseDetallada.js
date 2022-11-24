@@ -2,7 +2,7 @@ import * as React from "react";
 import { Image } from "mui-image";
 import {useLoaderData } from "react-router-dom";
 import { Box, Divider, Rating, Grid, Typography, Avatar, List, ListItem,ListItemText, ListItemAvatar,Button  } from "@mui/material";
-
+import { buscarClasePorId } from '../controller/clases.controller';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaidIcon from "@mui/icons-material/Paid";
@@ -17,19 +17,36 @@ import StarIcon from '@mui/icons-material/Star';
 
 
 export default function ClaseDetallada(props) {
-  var estado
-  if (props.estado === 'Aceptado'){
-    estado = "#3a7c2d"
-  }if(props.estado === "Finalizada"){
-    estado = "#6741e7"
-  }if (props.estado=== "Cancelada"){
-    estado = "#f6492d"
-  }
+  
+  const [clase, setClase]= React.useState(null); 
+
+  React.useState(()=>{
+    const getClase = async function () {
+      console.log("clase locuaras jajað",props.id)
+      const respuesta = await buscarClasePorId(props.id);
+     
+      console.log("Lpara saber que clase traje ", respuesta);
+      if (respuesta.rdo === 1) {
+        alert("Error al obtener Clase");
+      } else {
+        setClase(respuesta.clase);
+        console.log("Clase obtenida: ", respuesta.clase);
+      }
+    };
+    getClase()
+    console.log(clase)
+    
+  },[props.idClase])
   return (
-    <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
+    <> 
+      {(clase === null) ? (
+      <Typography>CARGANDO</Typography>
+
+    ):(
+      <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
       {/**la imagen de cover estaria bueno que se achicara un poco al bajar, investigar */}
       <Image
-        src={props.imagen}
+        src={clase.imagen}
         fit="cover"
         height="150px"
         style={{
@@ -45,7 +62,7 @@ export default function ClaseDetallada(props) {
       <Grid container>
         <Grid item xs={11}>
             <Typography variant="h1" py={3} px={5}>
-                {props.titulo}
+                {clase.titulo}
             </Typography>
         <Divider></Divider>
         </Grid>
@@ -60,7 +77,7 @@ export default function ClaseDetallada(props) {
         {/* seccion donde se describe el curso */}
         <Grid item xs={8}>
           <Typography variant="body1" py={5} px={5}>
-            {props.descripcion}
+            {clase.descripcion}
           </Typography>
         </Grid>
 
@@ -79,19 +96,19 @@ export default function ClaseDetallada(props) {
           justifyContent="space-around"
           sx={{ bgcolor: "#e2e3e3",boxShadow: " inset 0 0px 8px 10px rgba(0, 0, 0, 0.15)"}}
         >
-          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={props.duracion} />
+          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={clase.duracion} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
 
-          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "4em" }} />} descripcion={props.frecuencia} />
+          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "4em" }} />} descripcion={clase.frecuencia} />
 
           <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion={props.precio } />
+          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion= {clase.precio} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
           
-          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "4em" }} />} descripcion={props.tipo} />
+          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "4em" }} />} descripcion={clase.tipo} />
 
         </Grid>
       </Grid>
@@ -100,7 +117,12 @@ export default function ClaseDetallada(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    <Comentarios idClase={props.id} idUsario={props.user}></Comentarios>
-    </Box>
-  );
+    {/* {clase.comentarios.map((x)=>(
+    <Comentarios idComentario={x.comentarios_id}></Comentarios>
+    ))} */}
+    </Box>  
+      )
+    }
+  </>
+  )
 }

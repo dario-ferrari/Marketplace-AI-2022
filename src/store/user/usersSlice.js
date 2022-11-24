@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import usuarios from "../../data/usuarios.js";
+import {buscarUsuarioPorEmail} from "../../controller/usuarios.controller"
 
 const initialState = {
   username: undefined,
@@ -9,11 +9,16 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loadUserData(state, action) {
+    async loadUserData(state, action) {
       console.log(action.payload);
-      const user = usuarios.find((u) => u.email === action.payload.email);
+      let respuestaUsuario = await buscarUsuarioPorEmail(action.payload.email)
+      console.log(
+        "Console log de respuesta de back para usuario ",
+        JSON.stringify(respuestaUsuario)
+      );
+      const user = respuestaUsuario.user[0];
       state.email = user.email;
-      state.username = user.username;
+      state.username = user.nombre;
     },
   },
 });

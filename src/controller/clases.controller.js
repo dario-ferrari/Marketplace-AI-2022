@@ -97,23 +97,23 @@ export const listadoClases = async function()
                 'Content-Type': 'application/x-www-form-urlencoded'},
             //body:formData
         });
-        if (response.status===200)
-        {
-            let data = await response.json();
-            console.log("Clases",data);
-            let listaClases = data.data.docs;
-            return listaClases;
-        }
-        else
-        {
-            let vacio=[];
-            console.log("No hay clases")
-            return (vacio);
-            
-        }
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, clase:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
     }
-    catch(error)
-    {
+    catch(error){
         console.log("error",error);
     };
 }
@@ -141,23 +141,23 @@ export const buscarClasePorNombre = async function(titulo)
                 'Content-Type': 'application/x-www-form-urlencoded'},
             body:formData
         });
-        if (response.status===200)
-        {
-            let data = await response.json();
-            console.log("Clase",data);
-            let listaClases = data.data.docs;
-            return listaClases;
-        }
-        else
-        {
-            let vacio=[];
-            console.log("No hay clases")
-            return (vacio);
-            
-        }
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, clase:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
     }
-    catch(error)
-    {
+    catch(error){
         console.log("error",error);
     };
 }
@@ -167,7 +167,7 @@ export const buscarClasePorId = async function(id)
     let url = urlWebServices.obtenerClasesPorId;
     //armo json con datos
     const formData = new URLSearchParams();
-    formData.append('id', id);
+    formData.append('_id', id);
     //console.log("dato",formData);
     //console.log("url",url);
     try{
@@ -190,7 +190,7 @@ export const buscarClasePorId = async function(id)
             switch(rdo){
                 case 200:
                 {
-                    return ({rdo:0, doctor:data.doctor});//correcto
+                    return ({rdo:0, clase:data.data});//correcto
                 }
                 default:
                 {

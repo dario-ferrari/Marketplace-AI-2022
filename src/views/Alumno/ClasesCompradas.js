@@ -177,7 +177,6 @@ export default function Clases() {
 
   const user = useSelector((state) => state.user);
 
-  const us = usuarios.find((u) => u.email === user.email);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -210,7 +209,7 @@ export default function Clases() {
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             <ClaseDetalladaComprada 
-            id={claseRecibida.id}
+            id={claseRecibida._id}
             titulo={claseRecibida.titulo} 
             descripcion={claseRecibida.descripcion} 
             imagen={claseRecibida.imagen}  
@@ -218,7 +217,6 @@ export default function Clases() {
             duracion = {claseRecibida.duracion}
             precio= {claseRecibida.precio}
             tipo= {claseRecibida.tipo}
-            user={us.id}
             ></ClaseDetalladaComprada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
