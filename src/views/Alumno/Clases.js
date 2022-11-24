@@ -13,7 +13,7 @@ import Header from '../../components/Header';
 import ClaseDetallada from '../../components/ClaseDetallada';
 import { useSelector } from "react-redux";
 import usuarios from '../../data/usuarios';
-import { buscarClasePorId } from '../../controller/clases.controller';
+
 
 {/**function Copyright() {
   return (
@@ -179,31 +179,12 @@ export default function Clases() {
   const user = useSelector((state) => state.user);
 
   const idClase = useParams()
-  console.log(idClase)
-  const [clase,setClase]=React.useState(null)
-
-  const us = usuarios.find((u) => u.email === user.email);
+  console.log("id de la calse en clases para encontrarr l;a caslaes",idClase)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  React.useState(()=>{
-    const getClase = async function () {
-      const respuesta = await buscarClasePorId(idClase.clasesId);
-     
-      console.log("CASHDKJCVHASJKLFHASDKJLFHAJKSLpara saber que clase traje ", respuesta);
-      if (respuesta.rdo === 1) {
-        alert("Error al obtener Clase");
-      } else {
-        setClase(respuesta.clase);
-        console.log("Clase obtenida: ", respuesta.clase);
-      }
-    };
-    getClase()
-    console.log(clase)
-    
-  },[idClase])
 
   return (
     <ThemeProvider theme={theme}>
@@ -227,31 +208,18 @@ export default function Clases() {
             sx={{ display: { sm: 'block', xs: 'none' } }}
           />
         </Box>
-        {clase === null ? (
-            <Box display="flex" justifyContent="center">
-              <Typography>CARGANDO</Typography>
-            </Box>
-        ) : (
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             <ClaseDetallada 
-            
-            titulo={clase.titulo} 
-            descripcion={clase.descripcion} 
-            imagen={clase.imagen}  
-            frecuencia= {clase.frecuencia}
-            duracion = {clase.duracion}
-            precio= {clase.precio}
-            tipo= {clase.tipo}
-            user={us.id}
+            id={idClase.clasesId}
             ></ClaseDetallada>
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
           </Box>**/}
-        </Box>)}
+        </Box>
       </Box>
     </ThemeProvider>
   );

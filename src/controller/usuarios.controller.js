@@ -70,7 +70,7 @@ export const buscarUsuarioPorId = async function(id)
     let url = urlWebServices.obtenerUsuariobyId;
     //armo json con datos
     const formData = new URLSearchParams();
-    formData.append('id', id);
+    formData.append('_id', id);
     //console.log("dato",formData);
     //console.log("url",url);
     try{

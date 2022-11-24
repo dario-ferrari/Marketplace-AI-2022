@@ -167,7 +167,7 @@ export const buscarClasePorId = async function(id)
     let url = urlWebServices.obtenerClasesPorId;
     //armo json con datos
     const formData = new URLSearchParams();
-    formData.append('id', id);
+    formData.append('_id', id);
     //console.log("dato",formData);
     //console.log("url",url);
     try{

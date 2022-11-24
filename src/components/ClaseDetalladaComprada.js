@@ -104,7 +104,7 @@ export default function ClaseDetalladaComprada(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    <Comentarios idClase={props.id} idUsario={props.user}></Comentarios>
+    
     </Box>
   );
 }
