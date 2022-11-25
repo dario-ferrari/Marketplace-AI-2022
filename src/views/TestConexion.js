@@ -101,8 +101,9 @@ const TestConexion = ()=>{
             //listado()
             //clases()
             //clasesPorNombre("Base")
-            clasesPorId("635b1e862f07badf94bfc02e")
+            //clasesPorId("635b1e862f07badf94bfc02e")
             //creadorClase(clase)
+            //editarClase(clase)
             //eliminator("6378422f86cbfc59c8cdd968")
             
         }
