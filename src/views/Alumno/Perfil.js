@@ -171,7 +171,11 @@ export default function Perfil() {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const [user, setUser]= React.useState(null)
 
+  const [edit,setEdit]= React.useState(true)
+
   const currentUser = React.useContext(UserContext)
+
+ 
 
   useEffect(() => {
     const getUsuario = async function () {
@@ -185,6 +189,15 @@ export default function Perfil() {
       } else {
         console.log("este es el usuario recuperado",respuestaUsuario.user);
         setUser(respuestaUsuario.user)
+        setNuevaData({
+          email: respuestaUsuario.user.email,
+          nombre: respuestaUsuario.user.nombre,
+          apellido: respuestaUsuario.user.apellido,
+          telefono: respuestaUsuario.user.telefono,
+          fechaNac: respuestaUsuario.user.fechaNac,
+          avatar: respuestaUsuario.user.avatar,
+          estudios: respuestaUsuario.user.estudios,
+        })
       }
     };
     getUsuario();
@@ -194,12 +207,29 @@ export default function Perfil() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  
+  const [nuevaData,setNuevaData] = React.useState({
+    email: "",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    fechaNac: "",
+    avatar: "",
+    estudios: "",
+  })
+
+
+  const handleOnClick = ()=>{
+    console.log(nuevaData)
+    setEdit(!edit)
+    console.log(nuevaData)
+  }
 
   const handleChange = (event) => {
-    /**setValues({
-      ...values,
+    setNuevaData({
+      ...nuevaData,
       [event.target.name]: event.target.value
-    }); */
+    })
   };
 
   return (
@@ -307,11 +337,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Nombre"
-                        name="firstName"
+                        name="nombre"
                         onChange={handleChange}
                         required
-                        value={user.nombre}
+                        value={nuevaData.nombre}
                         variant="outlined"
                       />
                     </Grid>
@@ -322,11 +353,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Apellido"
-                        name="lastName"
+                        name="apellido"
                         onChange={handleChange}
                         required
-                        value={user.apellido}
+                        value={nuevaData.apellido}
                         variant="outlined"
                       />
                     </Grid>
@@ -337,11 +369,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Email"
                         name="email"
                         onChange={handleChange}
                         required
-                        value={user.email}
+                        value={nuevaData.email}
                         variant="outlined"
                       />
                     </Grid>
@@ -352,11 +385,11 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Número de Teléfono"
-                        name="phone"
+                        name="telefono"
                         onChange={handleChange}
-                        type="number"
-                        value={user.telefono}
+                        value={nuevaData.telefono}
                         variant="outlined"
                       />
                     </Grid>
@@ -367,11 +400,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Fecha de Nacimiento"
-                        name="date"
+                        name="fechaNac"
                         onChange={handleChange}
                         required
-                        value={user.fechaNac}
+                        value={nuevaData.fechaNac}
                         variant="outlined"
                       />
                     </Grid>
@@ -382,11 +416,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Estudios Cursados"
-                        name="state"
+                        name="estudios"
                         onChange={handleChange}
                         required
-                        value={user.estudios}
+                        value={nuevaData.estudios}
                         variant="outlined"
                       >
                       </TextField>
@@ -401,12 +436,37 @@ export default function Perfil() {
                     p: 2
                   }}
                 >
-                  <Button
+                  {
+                    (edit === true) ? (
+                      <Button
                     color="primary"
                     variant="contained"
+                    onClick={handleOnClick}
                   >
                     Editar
                   </Button>
+            
+                    ):(
+                      <>
+                    <Button
+                    sx={{marginRight:"2vh"}}
+                    color="success"
+                    variant="contained"
+                    onClick={handleOnClick}
+                  >
+                    Guardar
+                  </Button>
+                  <Button
+                  color="error"
+                  variant="contained"
+                  onClick={handleOnClick}
+                >
+                  Cancelar
+                </Button>
+                </>
+                    )
+                  }
+                  
                 </Box>
               </Card>
             </form>

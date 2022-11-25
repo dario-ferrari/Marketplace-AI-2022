@@ -176,17 +176,33 @@ export default function PerfilProfesor() {
 
   const [user, setUser]= React.useState(null)
 
-
+  const [edit,setEdit]= React.useState(true)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const [nuevaData,setNuevaData] = React.useState({
+    email: "",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    fechaNac: "",
+    avatar: "",
+    titulo: "",
+  })
+
+
+  const handleOnClick = ()=>{
+    console.log(nuevaData)
+    setEdit(!edit)
+    console.log(nuevaData)
+  }
 
   const handleChange = (event) => {
-    /**setValues({
-      ...values,
+    setNuevaData({
+      ...nuevaData,
       [event.target.name]: event.target.value
-    }); */
+    })
   };
 
   useEffect(() => {
@@ -201,6 +217,15 @@ export default function PerfilProfesor() {
       } else {
         console.log("este es el usuario recuperado",respuestaUsuario.user);
         setUser(respuestaUsuario.user)
+        setNuevaData({
+          email: respuestaUsuario.user.email,
+          nombre: respuestaUsuario.user.nombre,
+          apellido: respuestaUsuario.user.apellido,
+          telefono: respuestaUsuario.user.telefono,
+          experiencia: respuestaUsuario.user.experiencia,
+          avatar: respuestaUsuario.user.avatar,
+          titulo: respuestaUsuario.user.titulo,
+        })
       }
     };
     getUsuario();
@@ -312,11 +337,12 @@ export default function PerfilProfesor() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Nombre"
-                        name="firstName"
+                        name="nombre"
                         onChange={handleChange}
                         required
-                        value={user.nombre}
+                        value={nuevaData.nombre}
                         variant="outlined"
                       />
                     </Grid>
@@ -327,11 +353,12 @@ export default function PerfilProfesor() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Apellido"
-                        name="lastName"
+                        name="apellido"
                         onChange={handleChange}
                         required
-                        value={user.apellido}
+                        value={nuevaData.apellido}
                         variant="outlined"
                       />
                     </Grid>
@@ -342,11 +369,12 @@ export default function PerfilProfesor() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Email"
                         name="email"
                         onChange={handleChange}
                         required
-                        value={user.email}
+                        value={nuevaData.email}
                         variant="outlined"
                       />
                     </Grid>
@@ -357,12 +385,27 @@ export default function PerfilProfesor() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Número de Teléfono"
-                        name="phone"
+                        name="telefono"
                         onChange={handleChange}
-                        type="number"
+                        value={nuevaData.telefono}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        disabled={edit}
+                        label="Titulo"
+                        name="titulo"
+                        onChange={handleChange}
                         required
-                        value={user.telefono}
+                        value={nuevaData.titulo}
                         variant="outlined"
                       />
                     </Grid>
@@ -373,29 +416,12 @@ export default function PerfilProfesor() {
                     >
                       <TextField
                         fullWidth
-                        label="Título"
-                        name="date"
-                        onChange={handleChange}
-                        value={user.titulo}
-                        variant="outlined"
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <TextField
-                        fullWidth
+                        disabled={edit}
                         label="Experiencia"
-                        name="state"
+                        name="experiencia"
                         onChange={handleChange}
                         value={user.experiencia}
                         variant="outlined"
-                        /**select
-                        SelectProps={{ native: true }}
-                        value=""
-                        variant="outlined"**/
                       >
                       </TextField>
                     </Grid>
@@ -409,12 +435,36 @@ export default function PerfilProfesor() {
                     p: 2
                   }}
                 >
-                  <Button
+                {
+                    (edit === true) ? (
+                      <Button
                     color="primary"
                     variant="contained"
+                    onClick={handleOnClick}
                   >
                     Editar
                   </Button>
+            
+                    ):(
+                      <>
+                    <Button
+                    sx={{marginRight:"2vh"}}
+                    color="success"
+                    variant="contained"
+                    onClick={handleOnClick}
+                  >
+                    Guardar
+                  </Button>
+                  <Button
+                  color="error"
+                  variant="contained"
+                  onClick={handleOnClick}
+                >
+                  Cancelar
+                </Button>
+                </>
+                    )
+                  }
                 </Box>
               </Card>
             </form>

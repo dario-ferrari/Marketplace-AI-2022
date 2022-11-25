@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from "react";
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -13,16 +12,11 @@ import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
-import HistoryIcon from '@mui/icons-material/History';
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useNavigate , useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { loggOut } from "../store/auth/authSlice";
-import {loadUserData} from "../store/user/usersSlice";
-import usuarios from '../data/usuarios';
+
 
 const categories = [
   {
@@ -93,7 +87,7 @@ export default function NavigatorProfesor(props) {
             </ListItem>
             {children.map(({ id: childId, icon, path, active }) => ( /**Acá arranca la lista con las distintas vistas accesibles */
               <ListItem disablePadding key={childId} onClick={()=>navigate(path)}> {/**Método navigate que recibe como parámetro la variable path con la ruta */}
-                <ListItemButton selected={location.pathname==path ? active=true : false} sx={itemC}> {/**Si coincide la ruta con el path la variable active pasa a true y se marca el item */}
+                <ListItemButton selected={location.pathname===path ? active=true : false} sx={itemC}> {/**Si coincide la ruta con el path la variable active pasa a true y se marca el item */}
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText>{childId}</ListItemText>
                 </ListItemButton>
