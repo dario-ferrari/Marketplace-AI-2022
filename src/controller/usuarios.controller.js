@@ -93,7 +93,7 @@ export const buscarUsuarioPorId = async function(id)
             switch(rdo){
                 case 200:
                 {
-                    return ({rdo:0, clase:data.data});//correcto
+                    return ({rdo:0, Usuario:data.data});//correcto
                 }
                 default:
                 {
@@ -199,7 +199,7 @@ export const guardarImgUser = async function(message)
     //console.log("token",WebToken.webToken);
     const formData = new URLSearchParams();
     formData.append('email', message.email);
-    formData.append('nombreImagen',message.imagen);
+    formData.append('nombrecontrasena',message.contrasena);
     
     try
     {
@@ -270,7 +270,7 @@ export const uploadFileImg= async function(files,nombres)
         console.log('Error uploading the files', err)
     }
 }
-export const getImagenesByUser = async function()
+export const getcontrasenaesByUser = async function()
 {
     //url webservices
     let url = urlWebServices.getImgUser;
@@ -309,5 +309,58 @@ export const getImagenesByUser = async function()
     }
     catch(error){
         console.log("error",error);
+    };
+}
+
+export const crearUsuarioNuevo = async function(Usuario)
+{
+    //url webservices
+    let url = urlWebServices.crearUsuario;
+    //console.log("url",url);
+    //console.log("token",WebToken.webToken);
+    const formData = new URLSearchParams();
+    formData.append('email', Usuario.email)
+    formData.append('contrasena', Usuario.contrasena)
+    formData.append('nombre', Usuario.nombre)
+    formData.append('apellido', Usuario.apellido)
+    formData.append('telefono', Usuario.telefono)
+    formData.append('rol', Usuario.rol)
+    formData.append('fechaNac', Usuario.fechaNac)
+    formData.append('avatar', Usuario.avatar)
+    formData.append('contrataciones', Usuario.contrataciones)
+    formData.append('titulo', Usuario.titulo)
+    formData.append('experiencia', Usuario.experiencia)
+    formData.append('clasesPublicadas', Usuario.clasesPublicadas)
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Accept':'application/x-www-form-urlencoded',
+                //'x-access-token': localStorage.getItem('x'),
+                'Origin':'http://localhost:3000',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body:formData
+        });
+        let rdo = response.status;
+        let dataBack = await response.json();
+        switch(rdo){
+            case 201:
+            {                    
+                return ({rdo:0,dataBack});//correcto
+            }
+            default:
+            {
+                //otro error
+                return ({rdo:1,mensaje:dataBack.message});                
+            }
+        }
+    }
+    catch(error)
+    {
+        console.log("error",error);
+        return false;
     };
 }

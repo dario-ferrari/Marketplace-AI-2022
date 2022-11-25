@@ -4,22 +4,77 @@ import { Link, useNavigate } from "react-router-dom";
 import ButtonForm from "../../components/ButtonForm";
 import InputForm from "../../components/InputForm";
 import Swal from "sweetalert2";
+import { crearUsuarioNuevo } from '../../controller/ussuarios.controller';
+import { UserContext } from '../../Contexts/UserContext';
 
-const handleCreate = () => {
+
+const CrearUsuario = () => {
+
+    /**const navigate = useNavigate();
+    const volver = () =>{
+        navigate("/login");
+    };**/
+
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const currentUser = React.useContext(UserContext)
+  
+    const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  
+    const handleDrawerToggle = () => {
+      setMobileOpen(!mobileOpen);
+    };
+  
+    const [usuario,setUsuario] = React.useState({
+      nombre: "",
+      email: "",
+      contrasena: 0,
+      fechaNac: "",
+      experiencia: "",
+      titulo: "",
+    })
+  
+    const handleChange = (event) => {
+      setUsuario({
+        ...usuario,
+        [event.target.name]: event.target.value
+      })
+    };
+
+    const handleCreate = () => {
       Swal.fire({
         icon: 'success',
         title: '¡Usuario creado!',
         showConfirmButton: false,
         timer: 1500
-    });
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const createUsuario = async function () {
+          const respuesta = await crearUsuarioNuevo(usuario)
+          console.log(
+            "Console log de respuesta de back ",
+            JSON.stringify(respuesta)
+          );
+          if (respuesta.rdo === 1) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ocurrio un error',
+              showConfirmButton: false,
+            })
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Se creo correctamente',
+              showConfirmButton: false,
+            })
+          }
+        }
+        createUsuario()
+      }
+    })
 };
 
-const CrearUsuario = () => {
-
-    const navigate = useNavigate();
-    const volver = () =>{
-        navigate("/login");
-    };
+  
 
     return (
         <div className="w-screen h-screen flex justify-center items-center ">

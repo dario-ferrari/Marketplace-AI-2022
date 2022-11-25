@@ -35,11 +35,6 @@ const categories = [
         active: true, 
       },
       { id: 'Perfil', icon: <PersonIcon/>, path: "/profesor/perfilprofesor" }, 
-      {
-        id: 'Búsqueda de Perfiles',
-        icon: <PersonSearchIcon />,
-        path: "/profesor/busquedaprofesor",
-      },
     ],
   },
   {

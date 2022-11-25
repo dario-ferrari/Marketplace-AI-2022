@@ -38,11 +38,6 @@ const categories = [
       { id: 'Perfil', icon: <PersonIcon/>, path: "/alumno/perfil" }, 
       { id: 'Inscripciones', icon: <LocalGroceryStoreIcon />, path:"/alumno/inscripciones"},
       { id: 'Historial', icon: <HistoryIcon />, path:"/alumno/historial"},
-      {
-        id: 'Búsqueda de Perfiles',
-        icon: <PersonSearchIcon />,
-        path: "/alumno/busqueda",
-      },
     ],
   }/**,
   {
