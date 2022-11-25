@@ -36,6 +36,6 @@ const CrearUsuario = () => {
         </div>
       </div>
     );
-      };
+};
     
 export default CrearUsuario;

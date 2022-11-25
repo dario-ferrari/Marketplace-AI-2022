@@ -20,8 +20,21 @@ const urlWebServices = {
     obtenerClasesPorNombre: urlApi +"clases/titulo",
     obtenerClasesPorId : urlApi + "clases/id",
     actualizarClase : urlApi +"clases/edit",
-    borrarClase: urlApi + "clases/delete"
+    borrarClase: urlApi + "clases/delete",
 
+
+    crearComentario: urlApi+"comentarios/create",
+    obtenerComentarios: urlApi+"comentarios/all",
+    obtenerComentariosPorId: urlApi+"comentarios/id",
+    obtenerComentariosPorUsuario: urlApi+"comentarios/user",
+    borrarComentario: urlApi+"comentarios/delete",
+
+
+    crearContrataciones: urlApi+"contrataciones/create",
+    obtenerContrataciones: urlApi+"contrataciones/all",
+    obtenerContratacionesPorId: urlApi+"contrataciones/id",
+    actualizarContrataciones: urlApi+"contrataciones/update",
+    borrarContratacion: urlApi+"contrataciones/delete"
 
 }
 
