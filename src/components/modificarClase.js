@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Content from './Content';
-import Header from './Header';
 import NavigatorProfesor from './NavigatorProfesor';
 import {
   Avatar,

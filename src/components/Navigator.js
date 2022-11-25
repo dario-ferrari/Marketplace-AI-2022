@@ -19,11 +19,9 @@ import HistoryIcon from '@mui/icons-material/History';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useNavigate , useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { loggOut } from "../store/auth/authSlice";
-import {loadUserData} from "../store/user/usersSlice";
 import usuarios from '../data/usuarios';
 import {buscarUsuarioPorEmail} from "../controller/usuarios.controller"
+import { Button } from '@mui/material';
 
 const categories = [
   {
@@ -76,26 +74,9 @@ export default function Navigator(props) {
   const location=useLocation();
 
   {/**Trayendo los datos del usuario loggeado:*/}
-  const userMail = useSelector((state) => state.user);
-  const auth = useSelector((state) => state.auth);
   const [user,setUser]= useState(null)
 
   useEffect(() => {
-    console.log("auth.logged", auth.logged);
-    if (!auth.logged) {
-      return navigate("/login");
-    }
-    const getUser = async function(){
-      console.log(userMail.email)
-      let respuestaUsuario = await buscarUsuarioPorEmail(userMail.email)
-      console.log(
-        "Console log de respuesta de back para usuario ",
-        JSON.stringify(respuestaUsuario)
-      );
-      setUser(respuestaUsuario.user[0])
-      console.log(user)
-      }
-      getUser()
   }, []);
 
 
@@ -109,7 +90,7 @@ export default function Navigator(props) {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>¡Hola !</ListItemText>
+          <ListItemText>¡Bievenido!</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }} >
@@ -130,6 +111,21 @@ export default function Navigator(props) {
           </Box>
         ))}
       </List>
+
+      <Button
+                variant="body2"
+                sx={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  '&:hover': {
+                    color: 'white',
+                  },
+                }}
+                rel="noopener noreferrer"
+                target="_blank"
+                >
+                Cerrar Sesión
+                </Button>
     </Drawer>
   );
 }

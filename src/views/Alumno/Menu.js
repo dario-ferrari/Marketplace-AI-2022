@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -20,6 +19,7 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import BalanceIcon from '@mui/icons-material/Balance';
 import SimpleCard from '../../components/componentsChiquitos/cardSimple';
 import {listadoClases} from '../../controller/clases.controller'
+import { UserContext } from '../../Contexts/UserContext';
 
 let theme = createTheme({
   palette: {
@@ -167,10 +167,11 @@ theme = {
 const drawerWidth = 256;
 
 export default function Menu() {
+
+  const currentUser = React.useContext(UserContext)
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -180,6 +181,7 @@ export default function Menu() {
   const [clases, setClases] = React.useState([]); 
 
   React.useEffect(()=>{
+    console.log('ÉSTE ES EL CURRENT USER', currentUser)
     const getClases = async function () {
       const respuestaClases = await listadoClases()
       console.log(
@@ -219,7 +221,6 @@ export default function Menu() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1'}}>
 
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}

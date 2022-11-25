@@ -9,10 +9,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import ClaseDetallada from '../../components/ClaseDetallada';
-import { useSelector } from "react-redux";
-import usuarios from '../../data/usuarios';
 
 
 {/**function Copyright() {
@@ -176,8 +173,6 @@ export default function Clases() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const user = useSelector((state) => state.user);
-
   const idClase = useParams()
   console.log("id de la calse en clases para encontrarr l;a caslaes",idClase)
 
@@ -209,7 +204,6 @@ export default function Clases() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             <ClaseDetallada 
