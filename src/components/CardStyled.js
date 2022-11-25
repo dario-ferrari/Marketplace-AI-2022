@@ -11,25 +11,26 @@ import Rating from "@mui/material/Rating";
 import { Link } from "react-router-dom";
 
 export default function CardStyled(props) {
+  const clase = props.clase
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         alt="green iguana"
         height="140"
-        image={props.imagen}
+        image={clase.imagen}
       />
       <CardContent>
         <Grid container justifyContent="space-between">
           <Grid item>
             <Rating
               name="half-rating-read"
-              defaultValue={Number(props.rating)}
+              defaultValue={Number(clase.rating)}
               precision={1}
               readOnly
             />
             <Typography gutterBottom variant="h5" component="div">
-              {props.titulo}
+              {clase.titulo}
             </Typography>
           </Grid>
           <Grid item position="relative" top={-45} right={-7}>
@@ -41,9 +42,9 @@ export default function CardStyled(props) {
           </Grid>
           <Grid item>
             <Typography variant="body2" color="text.secondary">
-              {props.descripcion.slice(0,100)}
+              {clase.descripcion.slice(0,100)}
               <br />
-              {props.frecuencia}, {props.duracion}
+              {clase.frecuencia}, {clase.duracion}
             </Typography>
           </Grid>
         </Grid>
@@ -53,11 +54,11 @@ export default function CardStyled(props) {
         <Grid container alignContent={'center'}>
           <Grid item xs={6}>
             <Typography variant="body2" color="text.primary" sx={{display:'flex',fontSize:'1.5em'}} justifyContent={'center'}>
-              {props.precio} USD
+              {clase.precio} USD
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Link to={`/alumno/clases/${props.id}`}>
+            <Link to={`/alumno/clases/${clase._id}`}>
               <Button variant="outlined" size="medium">
                 Saber Mas
               </Button>

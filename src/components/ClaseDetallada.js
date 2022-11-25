@@ -1,11 +1,15 @@
 import * as React from "react";
 import { Image } from "mui-image";
-import { Box, Divider, Grid, Typography,Button  } from "@mui/material";
+import { Box, Divider, Grid, Typography,Button ,List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,Avatar,TextField } from "@mui/material";
 import { buscarClasePorId } from '../controller/clases.controller';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaidIcon from "@mui/icons-material/Paid";
 import PersonIcon from "@mui/icons-material/Person";
+import StarIcon from '@mui/icons-material/Star';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
@@ -13,38 +17,27 @@ import ItemBarrita from "./componentsChiquitos/itemsBarrita";
 import Swal from "sweetalert2";
 import { buscarUsuarioPorId } from "../controller/usuarios.controller";
 import Comentarios from "./componentsChiquitos/comentarios"
+import { UserContext } from '../Contexts/UserContext';
 
 export default function ClaseDetallada(props) {
   
-  const [clase, setClase]= React.useState(null); 
-  const [profe, setProfe]= React.useState(null)
+  const user = props.user
+  const clase = props.clase
+  const profe = props.profe
+
+  console.log(profe,clase,user)
+  const [obtenida,setObtenida] = React.useState(false)
 
   React.useState(()=>{
-    const getClase = async function () {
-      console.log("clase locuaras jajað",props.id)
-      const respuestaClase = await buscarClasePorId(props.id);
-      console.log("Lpara saber que clase traje ", respuestaClase);
-      if (respuestaClase.rdo === 1) {
-        alert("Error al obtener Clase");
-      } else {
-        setClase(respuestaClase.clase);
-        console.log("Clase obtenida: ", respuestaClase.clase);
-        const getProfe = async function (){
-          console.log("profe a buscar",respuestaClase.clase.Usuarios_id)
-            const respuestaUsuario = await buscarUsuarioPorId(respuestaClase.clase.Usuarios_id);
-            console.log("Usuario conseguido ", respuestaUsuario);
-            if (respuestaUsuario.rdo === 1) {
-           alert("Error al obtener usuario");
-          } else {
-            setProfe(respuestaUsuario.user);
-            console.log("Usuario obtenido: ", respuestaUsuario.user);
-            }
-      }
-      getProfe()
-    };}
-    getClase()
-    console.log(clase)
-  },[])
+      user.contrataciones.forEach(element => {
+        if(element.clase._id===clase._id){
+          setObtenida(true)
+        }
+      });
+      //obtengo la clase que me meti
+      
+    }
+  ,[])
 
 
   const comprarClase = ()=>{
@@ -77,11 +70,7 @@ export default function ClaseDetallada(props) {
 
 
   return (
-    <> 
-      {(profe===null) ? (
-      <Typography>CARGANDO</Typography>
-
-    ):(
+    <>
       <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
       {/**la imagen de cover estaria bueno que se achicara un poco al bajar, investigar */}
       <Image
@@ -108,9 +97,12 @@ export default function ClaseDetallada(props) {
         <Grid item xs={1} container justifyContent={"space-between"}
         alignContent={"center"} sx={{paddingRight:"1vh", margin:"0"}}>
           <Grid item alignSelf={"center"}>
-            <Button onClick={comprarClase} size="large" variant="contained" color="success" startIcon={<ShoppingCartIcon/>}  >Comprar</Button> 
+            {(obtenida)?(
+              <Button size="large" variant="contained" color="primary" startIcon={<StarIcon/>}>Valorar</Button>
+            ):(
+              <Button onClick={comprarClase} size="large" variant="contained" color="success" startIcon={<ShoppingCartIcon/>}  >Comprar</Button> )
+            }
             </Grid>
-            
         </Grid>
         
         {/* seccion donde se describe el curso */}
@@ -120,11 +112,14 @@ export default function ClaseDetallada(props) {
           </Typography>
         </Grid>
 
-        {/* seccion donde se describe al maetro */}
+        {/* seccion donde se describe al maetro */
+        (profe === null)? (<Typography>Cargando</Typography>
+        ):(
         <ContenedorProfesor nombre={profe.nombre} linkFoto={profe.avatar}
         cantClases={profe.clasesPublicadas.length} experiencia={profe.experiencia} titulo ={profe.titulo}
         />
-
+        )
+        }
         {/*caracteristicas de la clase la barrita con duracion,frcuencia,etc,etc */}
         <Grid
           container
@@ -156,12 +151,34 @@ export default function ClaseDetallada(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    {clase.comentarios.map((x)=>(
-    <Comentarios idComentario={x.comentarios_id}></Comentarios>
-    ))}
-    </Box>  
-      )
-    }
+    <Comentarios comentarios={clase.comentarios}></Comentarios>
+          <Grid container paddingX={"4em"} paddingY={"3em"}>
+      <List sx={{ width: "100%" }}>
+        <React.Fragment></React.Fragment>
+            <ListItem alignItems="flex-start">
+                <ListItemAvatar sx={{ paddingRight: "1ex" }}>
+                    <Avatar src={user.avatar}
+                        sx={{
+                        width: 70,
+                        height: 70,
+                        boxShadow: "0 8px 8px 0 rgba(0, 0, 0, 0.15)",
+                        }}
+                    ></Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                    primary={
+                      <TextField fullWidth id="standard-basic" label="Escribe tu comentario" variant="standard" sx={{ margin:"1ex"}}></TextField>
+                            }
+                    secondary={
+                    <React.Fragment>
+                            <Button variant="outlined">Comentar</Button>
+                    </React.Fragment>
+                            }
+                />
+          </ListItem>
+        </List>
+    </Grid>
+    </Box>   
   </>
   )
 }

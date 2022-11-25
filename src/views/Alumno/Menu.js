@@ -240,10 +240,10 @@ export default function Menu() {
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
               <Grid container spacing={2} alignItems="center">
               {( /**clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
-                clases.map((prop)=>
+                clases.map((x)=>
                 (
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard id={prop.id} titulo={prop.titulo} descripcion={prop.descripcion} duracion={prop.duracion} imagen={prop.imagen} frecuencia={prop.frecuencia}></SimpleCard>
+                <SimpleCard clase={x}></SimpleCard>
                 </Grid>
                 ))
             )}
