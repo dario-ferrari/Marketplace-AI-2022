@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import {
   Avatar,
   Button,
@@ -18,11 +17,10 @@ import {
   Typography,
   TextField
 } from '@mui/material';
-import { useState } from 'react';
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import usuarios from '../../data/usuarios';
+import { UserContext } from '../../Contexts/UserContext';
+import {buscarUsuarioPorId} from '../../controller/usuarios.controller'
 
 
 let theme = createTheme({
@@ -175,17 +173,28 @@ export default function Perfil() {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const navigate=useNavigate();
-  const user = useSelector((state) => state.user);
-  const auth = useSelector((state) => state.auth);
+  const [user, setUser]= React.useState(null)
+
+  const currentUser = React.useContext(UserContext)
 
   useEffect(() => {
-    console.log("auth.logged", auth.logged);
-    if (!auth.logged) {
-      return navigate("/login");
-    }
+    const getUsuario = async function () {
+      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaUsuario)
+      );
+      if (respuestaUsuario.rdo === 1) {
+        alert("No existe el usuario");
+      } else {
+        console.log("este es el usuario recuperado",respuestaUsuario.user);
+        setUser(respuestaUsuario.user)
+      }
+    };
+    getUsuario();
+  
   }, []);
 
-  const us = usuarios.find((u) => u.email === user.email);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -211,6 +220,7 @@ export default function Perfil() {
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
+              nombre={user.nombre}
             />
           )}
 
@@ -219,12 +229,14 @@ export default function Perfil() {
             sx={{ display: { sm: 'block', xs: 'none' } }}
           />
         </Box>
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1', display: 'flex', flexDirection: 'row'}}>
-            <Content />
+        {(user === null) ? (
+          <Typography>CARGANDO</Typography>
 
-            <Card sx={{marginRight: '10px'}}>
+        ):(
+        <Grid container flexDirection={'column'} alignItems={'center'} >
+          <Grid container item xs={4} alignItems={'center'} justifyContent={'center'}>
+            <Grid item>
+            <Card sx={{marginRight: '10px', boxShadow:'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px'}}>
               <CardContent>
                 <Box
                   sx={{
@@ -235,7 +247,7 @@ export default function Perfil() {
                   }}
                 >
                   <Avatar
-                    src={us.avatar}
+                    src={user.avatar}
                     sx={{
                       height: 64,
                       mb: 2,
@@ -247,7 +259,7 @@ export default function Perfil() {
                     gutterBottom
                     variant="h5"
                   >
-                    {us.nombre} {us.apellido}
+                    {user.nombre} {user.apellido}
                   </Typography>
                   <Typography
                     color="textSecondary"
@@ -274,14 +286,17 @@ export default function Perfil() {
                 </Button>
               </CardActions>
             </Card>
-
+            </Grid>
+          </Grid>
+          <Grid container item xs={8}>
+            <Grid item>
             <form
               autoComplete="off"
               noValidate
             >
-              <Card>
+              <Card sx={{boxShadow:'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px'}}>
                 <CardHeader
-                  title="Perfil"
+                  title="Datos Personales"
                 />
                 <Divider />
                 <CardContent>
@@ -300,7 +315,7 @@ export default function Perfil() {
                         name="firstName"
                         onChange={handleChange}
                         required
-                        value={us.nombre}
+                        value={user.nombre}
                         variant="outlined"
                       />
                     </Grid>
@@ -315,7 +330,7 @@ export default function Perfil() {
                         name="lastName"
                         onChange={handleChange}
                         required
-                        value={us.apellido}
+                        value={user.apellido}
                         variant="outlined"
                       />
                     </Grid>
@@ -330,7 +345,7 @@ export default function Perfil() {
                         name="email"
                         onChange={handleChange}
                         required
-                        value={us.email}
+                        value={user.email}
                         variant="outlined"
                       />
                     </Grid>
@@ -345,7 +360,7 @@ export default function Perfil() {
                         name="phone"
                         onChange={handleChange}
                         type="number"
-                        value={us.telefono}
+                        value={user.telefono}
                         variant="outlined"
                       />
                     </Grid>
@@ -360,7 +375,7 @@ export default function Perfil() {
                         name="date"
                         onChange={handleChange}
                         required
-                        value={us.nacimiento}
+                        value={user.fechaNac}
                         variant="outlined"
                       />
                     </Grid>
@@ -375,10 +390,8 @@ export default function Perfil() {
                         name="state"
                         onChange={handleChange}
                         required
-                        /**select
-                        SelectProps={{ native: true }}
-                        value=""
-                        variant="outlined"**/
+                        value={user.estudios}
+                        variant="outlined"
                       >
                       </TextField>
                     </Grid>
@@ -401,13 +414,10 @@ export default function Perfil() {
                 </Box>
               </Card>
             </form>
-
-            
-          </Box>
-          {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
-            <Copyright />
-          </Box>**/}
-        </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
       </Box>
     </ThemeProvider>
   );

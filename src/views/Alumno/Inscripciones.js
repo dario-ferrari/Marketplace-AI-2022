@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -26,7 +25,8 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
-import {listadoClases} from '../../controller/clases.controller'
+import {buscarUsuarioPorId} from '../../controller/usuarios.controller'
+import { UserContext } from '../../Contexts/UserContext';
 
 
 
@@ -190,24 +190,25 @@ const drawerWidth = 256;
 export default function Inscripciones() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
+  const currentUser = React.useContext(UserContext)
   const [clases, setClases]= React.useState([]);
 
 
+
   React.useEffect(()=>{
-    const getClases = async function () {
-      const respuestaClases = await listadoClases()
+    const getUsuario = async function () {
+      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
       console.log(
         "Console log de respuesta de back ",
-        JSON.stringify(respuestaClases)
+        JSON.stringify(respuestaUsuario)
       );
-      if (respuestaClases.rdo === 1) {
-        alert("No existe el doctor");
+      if (respuestaUsuario.rdo === 1) {
+        alert("No existe el usuario");
       } else {
-        setClases(respuestaClases.clase);
+        console.log("este es el usuario recuperado",respuestaUsuario.user);
       }
     };
-    getClases();
+    getUsuario();
   }, [])
   
   const [busqueda, setBusqueda] = React.useState('');
@@ -349,7 +350,6 @@ export default function Inscripciones() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content/>
 {/**BARRA DE BÚSQUEDA DE CLASES*/}

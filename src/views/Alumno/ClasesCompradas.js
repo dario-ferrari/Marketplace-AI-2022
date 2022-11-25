@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import ClaseDetalladaComprada from '../../components/ClaseDetalladaComprada';
 import { useSelector } from "react-redux";
 import usuarios from '../../data/usuarios';
@@ -205,7 +204,6 @@ export default function Clases() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             <ClaseDetalladaComprada 

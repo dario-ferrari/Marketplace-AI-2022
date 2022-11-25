@@ -1,9 +1,7 @@
-import React from "react";
-import { Navigate, Route, Routes,
-  createRoutesFromElements,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { useState } from "react";
+import { ThemeProvider } from "@mui/material";
+import { Routes, Route,Navigate } from "react-router-dom";
+import { UserContext } from "./Contexts/UserContext";
 import Menu from "./views/Alumno/Menu";
 import ForgotPassword from "./views/Login/ForgotPassword";
 import SignIn from "./views/Login/SignIn";
@@ -26,15 +24,22 @@ import clasesCreadas from "./data/clasesCreadas.json";
 import CrearUsuario from "./views/Login/CrearUsuario";
 import TestConexion from "./views/TestConexion";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-      <>
-          <Route path="/test" element={<TestConexion/>}/>
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/createuser" element={<CrearUsuario/>}/>
 
-          <Route path="alumno">
+
+function App() {
+  const [currentUser, setCurrentUser] = useState('');
+
+  return (
+      <UserContext.Provider value={currentUser}>
+        <Routes>
+        <Route path="/test" element={<TestConexion/>}/>
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/login" element={<SignIn setCurrentUser={setCurrentUser} />} />
+          {!currentUser ? (
+            <Route path="/*" element={<Navigate to="/login" />} />
+          ) : (
+            <>
+            <Route path="alumno">
             <Route path="menu" element={<Menu/>}/>
             <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
@@ -56,19 +61,11 @@ const router = createBrowserRouter(
             <Route path="gestionarclase" element={<GestionarClase/>}/>
             <Route path="contrataciones" element={<Contrataciones/>}/>
           </Route>
-
-          <Route path="*" element={<Navigate to="/login" replace />} />
-      </>
-  )
-);
-
-
-
-function App() {
-  return (
-    <div className="bg-gradient-to-r from-primary to-secondary w-screen h-screen">
-        <RouterProvider router={router}/>
-    </div>
+          </>      
+          )}
+          <Route path="/createuser" element={<CrearUsuario/>}/>
+        </Routes>
+      </UserContext.Provider>
   );
 }
 

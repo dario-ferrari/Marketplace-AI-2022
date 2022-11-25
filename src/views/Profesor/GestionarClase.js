@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link} from "react-router-dom";
 import Content from '../../components/Content';
-import Header from '../../components/Header';
+
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 import clasesCreadas from "../../data/clasesCreadas.json";
 import { useNavigate } from "react-router-dom";
@@ -198,7 +198,6 @@ export default function GestionarClase() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
               <Grid container spacing={{xs: 2, md:3}} rowSpacing={1} columns={{xs:4, sm:8, md: 12}}>

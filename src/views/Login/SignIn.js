@@ -1,20 +1,16 @@
 import React from "react";
 import { ReactDOM, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonForm from "../../components/ButtonForm";
 import InputForm from "../../components/InputForm";
-import { loggIn } from "../../store/auth/authSlice";
-import { loadUserData } from "../../store/user/usersSlice";
 import Swal from "sweetalert2";
 import usuarios from "../../data/usuarios.js";
 import {login, buscarUsuarioPorEmail } from "../../controller/usuarios.controller";
 
 {/**Vista del Login*/}
 
-const SignIn = () => {
+const SignIn = ({ setCurrentUser }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword]= useState("")
 
@@ -31,14 +27,8 @@ const SignIn = () => {
       if (respuestaUsuario.rdo === 1) {
         alert(respuestaUsuario.mensaje)
       }else{
-        dispatch(
-          loadUserData({
-            email: respuestaUsuario.user[0].email,
-            username: respuestaUsuario.user[0].nombre,
-          })
-        );
-        dispatch(loggIn());
         console.log("usuario recuperado",respuestaUsuario.user[0])
+        setCurrentUser(respuestaUsuario.user[0]._id)
         if (respuestaUsuario.user[0].rol === "PROFESOR") {
           navigate("/profesor/clasespublicadas");
         } else {
@@ -65,31 +55,6 @@ const SignIn = () => {
     getLogin();
     
     
-    {/**Método que se activa al clickear el botón de Login 
-    const user = usuarios.find((u) => u.email === email);
-
-    if (user) {
-      dispatch(
-        loadUserData({
-          email: user.email,
-          username: user.name,
-        })
-      );
-      dispatch(loggIn());
-      
-      if (user.tipo === "PROFESOR") {
-        navigate("/profesor/clasespublicadas");
-      } else {
-        navigate("/alumno/menu");
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Usuario/contraseña incorrectos.",
-        confirmButtonText: "Ok",
-      });
-    }
-  };*/}
   }
 
 

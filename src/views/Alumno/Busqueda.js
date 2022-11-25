@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 
 let theme = createTheme({
   palette: {
@@ -185,7 +184,6 @@ export default function Busqueda() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
           </Box>

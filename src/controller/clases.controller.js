@@ -164,6 +164,7 @@ export const buscarClasePorNombre = async function(titulo)
 
 export const buscarClasePorId = async function(id)
 {//url webservices
+    console.log("uid que le llega al controller",id)
     let url = urlWebServices.obtenerClasesPorId;
     //armo json con datos
     const formData = new URLSearchParams();

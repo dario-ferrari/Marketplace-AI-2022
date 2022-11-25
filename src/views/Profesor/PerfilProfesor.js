@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
+
 import {
   Avatar,
   Button,
@@ -220,7 +220,6 @@ export default function PerfilProfesor() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1', display: 'flex', flexDirection: 'row'}}>
             <Content />
 

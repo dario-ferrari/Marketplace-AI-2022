@@ -25,6 +25,9 @@ export default function ClaseDetalladaComprada(props) {
   }if (props.estado=== "Cancelada"){
     estado = "#f6492d"
   }
+
+  
+
   return (
     <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
       {/**la imagen de cover estaria bueno que se achicara un poco al bajar, investigar */}

@@ -14,6 +14,7 @@ import ItemBarrita from "./componentsChiquitos/itemsBarrita";
 import Comentarios from "./componentsChiquitos/comentarios";
 import Content from "./Content";
 import StarIcon from '@mui/icons-material/Star';
+import Swal from "sweetalert2";
 
 
 export default function ClaseDetallada(props) {
@@ -24,7 +25,6 @@ export default function ClaseDetallada(props) {
     const getClase = async function () {
       console.log("clase locuaras jajað",props.id)
       const respuesta = await buscarClasePorId(props.id);
-     
       console.log("Lpara saber que clase traje ", respuesta);
       if (respuesta.rdo === 1) {
         alert("Error al obtener Clase");
@@ -37,6 +37,37 @@ export default function ClaseDetallada(props) {
     console.log(clase)
     
   },[props.idClase])
+
+
+  const comprarClase = ()=>{
+    const { data: formValues } = Swal.fire({
+      title: 'Multiple inputs',
+      html:
+        '<input id="swal-input1" class="swal2-input" placeholder="Telefono">' +
+        '<input id="swal-input2" class="swal2-input" placeholder="Email">' +
+        '<input type="number"id="swal-input3" class="swal2-input" placeholder="Horario de Contacto (24hs)">' +
+        '<textarea id="swal-textarea" class="swal2-input" placeholder="Mensaje">',
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          telefono: document.getElementById('swal-input1').value,
+          mail:  document.getElementById('swal-input2').value,
+          horario:document.getElementById('swal-input3').value,
+          mensaje:document.getElementById('swal-textarea').value
+        }
+      }
+    })
+    
+    if (formValues) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+      })
+    }
+    }
+
+
   return (
     <> 
       {(clase === null) ? (
@@ -60,16 +91,16 @@ export default function ClaseDetallada(props) {
       />
       {/**titulo de la clase  */}
       <Grid container>
-        <Grid item xs={11}>
+        <Grid item xs={10}>
             <Typography variant="h1" py={3} px={5}>
                 {clase.titulo}
             </Typography>
         <Divider></Divider>
         </Grid>
         <Grid item xs={1} container justifyContent={"space-between"}
-        alignContent={"center"} sx={{paddingRight:"0", margin:"0"}}>
+        alignContent={"center"} sx={{paddingRight:"1vh", margin:"0"}}>
           <Grid item alignSelf={"center"}>
-            <Button size="large" variant="contained" color="success" startIcon={<ShoppingCartIcon/>}  >Comprar</Button> 
+            <Button onClick={comprarClase} size="large" variant="contained" color="success" startIcon={<ShoppingCartIcon/>}  >Comprar</Button> 
             </Grid>
             
         </Grid>
@@ -96,19 +127,19 @@ export default function ClaseDetallada(props) {
           justifyContent="space-around"
           sx={{ bgcolor: "#e2e3e3",boxShadow: " inset 0 0px 8px 10px rgba(0, 0, 0, 0.15)"}}
         >
-          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={clase.duracion} />
+          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "3.5em" }} />} descripcion={clase.duracion} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
 
-          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "4em" }} />} descripcion={clase.frecuencia} />
+          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "3.5em" }} />} descripcion={clase.frecuencia} />
 
           <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion= {clase.precio} />
+          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "3.5em" }} />} descripcion= {clase.precio} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
           
-          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "4em" }} />} descripcion={clase.tipo} />
+          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "3.5em" }} />} descripcion={clase.tipo} />
 
         </Grid>
       </Grid>

@@ -93,7 +93,7 @@ export const buscarUsuarioPorId = async function(id)
             switch(rdo){
                 case 200:
                 {
-                    return ({rdo:0, clase:data.data});//correcto
+                    return ({rdo:0, user:data.data});//correcto
                 }
                 default:
                 {
