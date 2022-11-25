@@ -9,12 +9,10 @@ import Content from '../../components/Content';
 
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 import clasesCreadas from "../../data/clasesCreadas.json";
-import { useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import todasClasesProfesor from "../../components/todasClasesProfesor";
 
 let theme = createTheme({
   palette: {
@@ -165,11 +163,7 @@ export default function GestionarClase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const navigate=useNavigate();
 
-  const ruta = (id) => {
-    navigate(`/profesor/clasesprofesor/${id}`);
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

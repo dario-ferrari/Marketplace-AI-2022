@@ -3,8 +3,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Grid from '@mui/material/Grid';
@@ -23,14 +21,13 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import {buscarUsuarioPorId} from '../../controller/usuarios.controller'
 import { UserContext } from '../../Contexts/UserContext';
 
 
 
-{/**function Copyright() {
+/* {/**function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -40,7 +37,7 @@ import { UserContext } from '../../Contexts/UserContext';
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {
@@ -209,7 +206,7 @@ export default function Inscripciones() {
       }
     };
     getUsuario();
-  }, [])
+  },[currentUser])
   
   const [busqueda, setBusqueda] = React.useState('');
   

@@ -4,7 +4,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
-import Content from '../../components/Content';
 import {
   Avatar,
   Button,
@@ -17,7 +16,6 @@ import {
   Typography,
   TextField
 } from '@mui/material';
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { UserContext } from '../../Contexts/UserContext';
 import {buscarUsuarioPorId} from '../../controller/usuarios.controller'
@@ -171,8 +169,6 @@ const drawerWidth = 256;
 export default function Perfil() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const navigate=useNavigate();
   const [user, setUser]= React.useState(null)
 
   const currentUser = React.useContext(UserContext)
@@ -193,7 +189,7 @@ export default function Perfil() {
     };
     getUsuario();
   
-  }, []);
+  }, [currentUser]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

@@ -9,7 +9,6 @@ import Avatar from "@mui/material/Avatar";
 import { Grid } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Link } from "react-router-dom";
-import { Image } from "mui-image";
 
 export default function CardStyled(props) {
   return (

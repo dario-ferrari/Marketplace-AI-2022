@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ThemeProvider } from "@mui/material";
 import { Routes, Route,Navigate } from "react-router-dom";
 import { UserContext } from "./Contexts/UserContext";
 import Menu from "./views/Alumno/Menu";
@@ -12,7 +11,6 @@ import Inscripciones from "./views/Alumno/Inscripciones";
 import Clases from "./views/Alumno/Clases";
 import Historial from "./views/Alumno/Historial";
 import Busqueda from "./views/Alumno/Busqueda";
-import inscripciones from "./data/inscripciones.json";
 import ClasesPublicadas from "./views/Profesor/ClasesPublicadas";
 import BusquedaProfesor from "./views/Profesor/BusquedaProfesor";
 import Contrataciones from "./views/Profesor/Contrataciones";
@@ -20,7 +18,6 @@ import CrearClase from "./views/Profesor/CrearClase";
 import GestionarClase from "./views/Profesor/GestionarClase";
 import PerfilProfesor from "./views/Profesor/PerfilProfesor";
 import ClasesProfesor from "./views/Profesor/ClasesProfesor";
-import clasesCreadas from "./data/clasesCreadas.json";
 import CrearUsuario from "./views/Login/CrearUsuario";
 import TestConexion from "./views/TestConexion";
 

@@ -4,15 +4,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import ClaseDetalladaComprada from '../../components/ClaseDetalladaComprada';
-import { useSelector } from "react-redux";
-import usuarios from '../../data/usuarios';
 
-{/**function Copyright() {
+
+/* {/**function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -22,7 +19,7 @@ import usuarios from '../../data/usuarios';
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {
@@ -174,7 +171,6 @@ export default function Clases() {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const claseRecibida = useLoaderData();
 
-  const user = useSelector((state) => state.user);
 
 
   const handleDrawerToggle = () => {

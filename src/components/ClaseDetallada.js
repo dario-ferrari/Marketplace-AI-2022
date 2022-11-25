@@ -1,19 +1,15 @@
 import * as React from "react";
 import { Image } from "mui-image";
-import {useLoaderData } from "react-router-dom";
-import { Box, Divider, Rating, Grid, Typography, Avatar, List, ListItem,ListItemText, ListItemAvatar,Button  } from "@mui/material";
+import { Box, Divider, Grid, Typography,Button  } from "@mui/material";
 import { buscarClasePorId } from '../controller/clases.controller';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaidIcon from "@mui/icons-material/Paid";
 import PersonIcon from "@mui/icons-material/Person";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
 import ItemBarrita from "./componentsChiquitos/itemsBarrita";
-import Comentarios from "./componentsChiquitos/comentarios";
-import Content from "./Content";
-import StarIcon from '@mui/icons-material/Star';
 import Swal from "sweetalert2";
 
 

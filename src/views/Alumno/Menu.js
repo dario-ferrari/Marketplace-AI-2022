@@ -4,19 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
-import Content from '../../components/Content';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import TranslateIcon from '@mui/icons-material/Translate';
-import CalculateIcon from '@mui/icons-material/Calculate';
-import { useNavigate , useLocation } from "react-router-dom";
-import clasesInscriptas from '../../data/clasesInscriptas.json';
 import Grid from '@mui/material/Grid';
-import ComputerIcon from '@mui/icons-material/Computer';
-import BalanceIcon from '@mui/icons-material/Balance';
 import SimpleCard from '../../components/componentsChiquitos/cardSimple';
 import {listadoClases} from '../../controller/clases.controller'
 import { UserContext } from '../../Contexts/UserContext';
@@ -195,7 +183,7 @@ export default function Menu() {
       }
     };
     getClases();
-  }, [])
+  }, [currentUser])
 
 
   return (

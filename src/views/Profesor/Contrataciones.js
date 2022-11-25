@@ -3,17 +3,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Content from '../../components/Content';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
-import Grid from '@mui/material/Grid';
 import Table from "../../components/contrataciones/MuiTable";
 import styles from "../../components/contrataciones/main.module.css";
 import contr from "../../data/contr.json";
 
 
-{/**function Copyright() {
+/*function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -23,7 +20,7 @@ import contr from "../../data/contr.json";
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {

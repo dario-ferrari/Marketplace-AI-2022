@@ -3,17 +3,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Content from '../../components/Content';
 
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 import {
-  Avatar,
   Button,
   Card,
   CardHeader,
-  CardActions,
   CardContent,
   Divider,
   Grid,
@@ -26,7 +22,7 @@ import Input from '@mui/material/Input';
 import Swal from "sweetalert2";
 
 
-{/**function Copyright() {
+/*function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -36,7 +32,7 @@ import Swal from "sweetalert2";
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {

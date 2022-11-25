@@ -1,18 +1,15 @@
 import * as React from 'react';
-import {useLoaderData } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import ClaseDetallada from '../../components/ClaseDetallada';
 
 
-{/**function Copyright() {
+/* {/**function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -22,7 +19,7 @@ import ClaseDetallada from '../../components/ClaseDetallada';
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {

@@ -72,18 +72,7 @@ export default function NavigatorProfesor(props) {
   const navigate=useNavigate();
   const location=useLocation();
 
-  {/**Trayendo los datos del usuario loggeado:*/}
-  const user = useSelector((state) => state.user);
-  const auth = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    console.log("auth.logged", auth.logged);
-    if (!auth.logged) {
-      return navigate("/login");
-    }
-  }, []);
-
-  const us = usuarios.find((u) => u.email === user.email);
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -95,7 +84,7 @@ export default function NavigatorProfesor(props) {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>¡Hola {us.nombre}!</ListItemText>
+          <ListItemText>¡Bienvenido Profesor!</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }} >

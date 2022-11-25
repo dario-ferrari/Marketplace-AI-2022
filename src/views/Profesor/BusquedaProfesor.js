@@ -3,12 +3,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Content from '../../components/Content';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 
-{/**function Copyright() {
+/* function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -18,7 +16,7 @@ import NavigatorProfesor from '../../components/NavigatorProfesor';
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+} */
 
 let theme = createTheme({
   palette: {

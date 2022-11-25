@@ -1,13 +1,12 @@
 import React from "react";
-import { ReactDOM, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonForm from "../../components/ButtonForm";
 import InputForm from "../../components/InputForm";
 import Swal from "sweetalert2";
-import usuarios from "../../data/usuarios.js";
 import {login, buscarUsuarioPorEmail } from "../../controller/usuarios.controller";
 
-{/**Vista del Login*/}
+/*Vista del Login*/
 
 const SignIn = ({ setCurrentUser }) => {
   const navigate = useNavigate();
@@ -30,7 +29,7 @@ const SignIn = ({ setCurrentUser }) => {
         console.log("usuario recuperado",respuestaUsuario.user[0])
         setCurrentUser(respuestaUsuario.user[0]._id)
         if (respuestaUsuario.user[0].rol === "PROFESOR") {
-          navigate("/profesor/clasespublicadas");
+          navigate("/profesor/perfilprofesor");
         } else {
           navigate("/alumno/menu");
         }
