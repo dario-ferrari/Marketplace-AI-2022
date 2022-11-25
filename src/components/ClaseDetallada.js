@@ -11,28 +11,40 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
 import ItemBarrita from "./componentsChiquitos/itemsBarrita";
 import Swal from "sweetalert2";
-
+import { buscarUsuarioPorId } from "../controller/usuarios.controller";
+import Comentarios from "./componentsChiquitos/comentarios"
 
 export default function ClaseDetallada(props) {
   
   const [clase, setClase]= React.useState(null); 
+  const [profe, setProfe]= React.useState(null)
 
   React.useState(()=>{
     const getClase = async function () {
       console.log("clase locuaras jajað",props.id)
-      const respuesta = await buscarClasePorId(props.id);
-      console.log("Lpara saber que clase traje ", respuesta);
-      if (respuesta.rdo === 1) {
+      const respuestaClase = await buscarClasePorId(props.id);
+      console.log("Lpara saber que clase traje ", respuestaClase);
+      if (respuestaClase.rdo === 1) {
         alert("Error al obtener Clase");
       } else {
-        setClase(respuesta.clase);
-        console.log("Clase obtenida: ", respuesta.clase);
+        setClase(respuestaClase.clase);
+        console.log("Clase obtenida: ", respuestaClase.clase);
+        const getProfe = async function (){
+          console.log("profe a buscar",respuestaClase.clase.Usuarios_id)
+            const respuestaUsuario = await buscarUsuarioPorId(respuestaClase.clase.Usuarios_id);
+            console.log("Usuario conseguido ", respuestaUsuario);
+            if (respuestaUsuario.rdo === 1) {
+           alert("Error al obtener usuario");
+          } else {
+            setProfe(respuestaUsuario.user);
+            console.log("Usuario obtenido: ", respuestaUsuario.user);
+            }
       }
-    };
+      getProfe()
+    };}
     getClase()
     console.log(clase)
-    
-  },[props.idClase])
+  },[])
 
 
   const comprarClase = ()=>{
@@ -66,7 +78,7 @@ export default function ClaseDetallada(props) {
 
   return (
     <> 
-      {(clase === null) ? (
+      {(profe===null) ? (
       <Typography>CARGANDO</Typography>
 
     ):(
@@ -109,8 +121,8 @@ export default function ClaseDetallada(props) {
         </Grid>
 
         {/* seccion donde se describe al maetro */}
-        <ContenedorProfesor nombre={"Juan Carlos Messi"} linkFoto={'https://images.mubicdn.net/images/cast_member/2552/cache-207-1524922850/image-w856.jpg?size=240x'}
-        cantClases={'13'} cantAlumnos={"1392"} titulo ={'Lic en Cosas Chidas'} rating={'5'} 
+        <ContenedorProfesor nombre={profe.nombre} linkFoto={profe.avatar}
+        cantClases={profe.clasesPublicadas.length} experiencia={profe.experiencia} titulo ={profe.titulo}
         />
 
         {/*caracteristicas de la clase la barrita con duracion,frcuencia,etc,etc */}
@@ -123,7 +135,7 @@ export default function ClaseDetallada(props) {
           justifyContent="space-around"
           sx={{ bgcolor: "#e2e3e3",boxShadow: " inset 0 0px 8px 10px rgba(0, 0, 0, 0.15)"}}
         >
-          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "3.5em" }} />} descripcion={clase.duracion} />
+          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "3.5em" }} />} descripcion={clase.duracion + ' hs'} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
 
@@ -131,7 +143,7 @@ export default function ClaseDetallada(props) {
 
           <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "3.5em" }} />} descripcion= {clase.precio} />
+          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "3.5em" }} />} descripcion= {clase.precio + ' USD'} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
           
@@ -144,9 +156,9 @@ export default function ClaseDetallada(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    {/* {clase.comentarios.map((x)=>(
+    {clase.comentarios.map((x)=>(
     <Comentarios idComentario={x.comentarios_id}></Comentarios>
-    ))} */}
+    ))}
     </Box>  
       )
     }

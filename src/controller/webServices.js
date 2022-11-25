@@ -6,7 +6,7 @@ const urlWebServices = {
     login:urlApi +"usuarios/login",
     registration:urlApi +"usuarios/registration",
     obtenerUsuarios : urlApi + "usuarios/all",
-    actualizarUsuario : urlApi + "usuarios/update",
+    actualizarUsuario : urlApi + "usuarios/edit",
     borrarUsuario : urlApi + "usuarios/remove/id",
     obtenerUsuariobyEmail: urlApi + "usuarios/userByMail",
     obtenerUsuariobyId: urlApi + "usuarios/id",

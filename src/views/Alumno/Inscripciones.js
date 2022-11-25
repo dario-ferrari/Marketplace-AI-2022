@@ -22,7 +22,7 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {buscarUsuarioPorId} from '../../controller/usuarios.controller'
+import {listadoClases} from '../../controller/clases.controller'
 import { UserContext } from '../../Contexts/UserContext';
 
 
@@ -193,20 +193,21 @@ export default function Inscripciones() {
 
 
   React.useEffect(()=>{
-    const getUsuario = async function () {
-      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+    console.log('ÉSTE ES EL CURRENT USER', currentUser)
+    const getClases = async function () {
+      const respuestaClases = await listadoClases()
       console.log(
         "Console log de respuesta de back ",
-        JSON.stringify(respuestaUsuario)
+        JSON.stringify(respuestaClases)
       );
-      if (respuestaUsuario.rdo === 1) {
-        alert("No existe el usuario");
+      if (respuestaClases.rdo === 1) {
+        alert("No existe el doctor");
       } else {
-        console.log("este es el usuario recuperado",respuestaUsuario.user);
+        setClases(respuestaClases.clase);
       }
     };
-    getUsuario();
-  },[currentUser])
+    getClases();
+  }, [currentUser])
   
   const [busqueda, setBusqueda] = React.useState('');
   

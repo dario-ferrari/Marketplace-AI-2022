@@ -14,13 +14,30 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import inscripciones from "../../data/inscripciones.json";
 import usuarios from "../../data/usuarios";
+import { buscarComentarioPorId } from "../../controller/comentario.controller";
 
 export default function Comentarios(props) {
-  const user = usuarios.find((u) => u.id === props.idUsario);
+  
+
+  const [comentario,setComentario]= React.useState(null)
+
+  React.useEffect(()=>{
+    const getComment = async function(){
+      const respuestaComentario = await buscarComentarioPorId(props.idComentario)
+      console.log("comentario traido ", respuestaComentario);
+      if (respuestaComentario.rdo === 1) {
+        alert("Error al obtener Comment");
+      } else {
+        setComentario(respuestaComentario.comentario)
+        console.log('comentario traido', respuestaComentario.comentario)
+    }
+  }
+  getComment()
+  },[])
+
   return (
     <Grid container paddingX={"4em"} paddingY={"3em"}>
       <List sx={{ width: "100%" }}>
-        {inscripciones.clasesI.find( clases=>clases.id===Number(props.idClase)).comentarios.map(({ nombre, descripcion, likes, avatar }) => (
         <React.Fragment>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar sx={{ paddingRight: "1ex" }}>

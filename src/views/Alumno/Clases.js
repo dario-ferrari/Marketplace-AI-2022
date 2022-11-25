@@ -171,7 +171,7 @@ export default function Clases() {
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const idClase = useParams()
-  console.log("id de la calse en clases para encontrarr l;a caslaes",idClase)
+  console.log("id de la calse en clases para encontrarr la caslaes",idClase)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
