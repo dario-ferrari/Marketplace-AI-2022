@@ -30,6 +30,10 @@ const CrearUsuario = () => {
               <InputForm type="text" placeholder="Nombre y Apellido"/>
               <InputForm type="text" placeholder="Email"/>
               <InputForm type="password" placeholder="Contraseña" />
+              <InputForm type="text" placeholder="Fecha de Nacimiento" />
+              <InputForm type="text" placeholder="Experiencia" />
+              <InputForm type="text" placeholder="Titulo" />
+    
             </div>
             <ButtonForm text={"Crear"} onClick={() => handleCreate()}/> <ButtonForm text={"Volver"} onClick={() => volver()}/>
           </div>
