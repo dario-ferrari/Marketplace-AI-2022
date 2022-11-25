@@ -7,18 +7,15 @@ export const crearContratacionNueva = async function(contratacion)
     //console.log("url",url);
     //console.log("token",WebToken.webToken);
     const formData = new URLSearchParams();
-    formData.append('Contrataciones_id', contratacion.Contrataciones_id)
     formData.append('estado', contratacion.estado)
-    formData.append('fechaCreacion', contratacion.fechaCreacion)
     formData.append('isValorada', contratacion.isValorada)
     formData.append('telefono', contratacion.telefono)
     formData.append('email', contratacion.email)
     formData.append('horarioRef', contratacion.horarioRef)
     formData.append('mensaje', contratacion.mensaje)
-    formData.append('fechaCreacion', contratacion.fechaCreacion)
-    formData.append('fechaFinalizacion', contratacion.fechaFinalizacion)
     formData.append('alumno', contratacion.alumno)
     formData.append('profesor', contratacion.profesor)
+    formData.append('clase', contratacion.clase)
 
     try
     {

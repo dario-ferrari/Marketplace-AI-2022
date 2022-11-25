@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import { buscarUsuarioPorId } from "../controller/usuarios.controller";
 import Comentarios from "./componentsChiquitos/comentarios"
 import { UserContext } from '../Contexts/UserContext';
+import { crearContratacionNueva } from "../controller/contratacion.controller";import Modal from '@mui/material/Modal';
 
 export default function ClaseDetallada(props) {
   
@@ -25,8 +26,23 @@ export default function ClaseDetallada(props) {
   const clase = props.clase
   const profe = props.profe
 
+  const [open, setOpen] = React.useState(false);
+
   console.log(profe,clase,user)
   const [obtenida,setObtenida] = React.useState(false)
+
+  const [nuevaContratacion, setContratacion]= React.useState({
+    estado:'PENDIENTE',
+    clase: clase._id,
+    alumno : user._id,  
+    profesor: profe._id,
+    mensaje: "",
+    telefono: '',
+    email:'',
+    horarioRef:0,
+    isValorada: false
+
+  })
 
   React.useState(()=>{
       user.contrataciones.forEach(element => {
@@ -38,35 +54,48 @@ export default function ClaseDetallada(props) {
       
     }
   ,[])
-
+  
 
   const comprarClase = ()=>{
-    const { data: formValues } = Swal.fire({
-      title: 'Multiple inputs',
-      html:
-        '<input id="swal-input1" class="swal2-input" placeholder="Telefono">' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Email">' +
-        '<input type="number"id="swal-input3" class="swal2-input" placeholder="Horario de Contacto (24hs)">' +
-        '<textarea id="swal-textarea" class="swal2-input" placeholder="Mensaje">',
-      focusConfirm: false,
-      preConfirm: () => {
-        return {
-          telefono: document.getElementById('swal-input1').value,
-          mail:  document.getElementById('swal-input2').value,
-          horario:document.getElementById('swal-input3').value,
-          mensaje:document.getElementById('swal-textarea').value
-        }
-      }
-    })
-    
-    if (formValues) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Your work has been saved',
-        showConfirmButton: false,
-      })
+    const {values : formulario } = Swal.fire({
+    title: 'Multiple inputs',
+    html:
+      '<input id="swal-input1" class="swal2-input" placeholder="Telefono">' +
+      '<input id="swal-input2" class="swal2-input" placeholder="Email">' +
+      '<input type="number"id="swal-input3" class="swal2-input" placeholder="Horario de Contacto (24hs)">' +
+      '<textarea id="swal-textarea" class="swal2-input" placeholder="Mensaje">',
+    focusConfirm: false,
+    preConfirm: () => {
+        setContratacion({...nuevaContratacion, 
+          telefono : document.getElementById('swal-input1').value})
+        setContratacion({...nuevaContratacion, 
+          email : document.getElementById('swal-input2').value})
+        setContratacion({...nuevaContratacion, 
+          horarioRef : document.getElementById('swal-input3').value})
+        setContratacion({...nuevaContratacion, 
+          mensaje : document.getElementById('swal-textarea').value})
+        console.log(nuevaContratacion)
     }
-    }
+  })
+}
+
+
+<Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box sx={style}>
+    <Typography id="modal-modal-title" variant="h6" component="h2">
+      Text in a modal
+    </Typography>
+    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+    </Typography>
+  </Box>
+</Modal>
+
 
 
   return (
@@ -113,7 +142,7 @@ export default function ClaseDetallada(props) {
         </Grid>
 
         {/* seccion donde se describe al maetro */
-        (profe === null)? (<Typography>Cargando</Typography>
+        (profe === null) ? (<Typography>Cargando</Typography>
         ):(
         <ContenedorProfesor nombre={profe.nombre} linkFoto={profe.avatar}
         cantClases={profe.clasesPublicadas.length} experiencia={profe.experiencia} titulo ={profe.titulo}
@@ -152,7 +181,7 @@ export default function ClaseDetallada(props) {
       Comentarios
     </Typography>
     <Comentarios comentarios={clase.comentarios}></Comentarios>
-          <Grid container paddingX={"4em"} paddingY={"3em"}>
+  <Grid container paddingX={"4em"} paddingY={"3em"}>
       <List sx={{ width: "100%" }}>
         <React.Fragment></React.Fragment>
             <ListItem alignItems="flex-start">

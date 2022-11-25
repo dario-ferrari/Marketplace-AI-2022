@@ -240,11 +240,13 @@ export default function Clases() {
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
             {
-            (user===null)?(
+            (clase===null) ? (
+                <Typography>CARGANDO</Typography>
+              ): (user===null)? (
               <Typography>CARGANDO</Typography>
-            ):(
-              <ClaseDetallada
-              profe={clase.Usuarios_id} 
+              ):(
+              <ClaseDetallada 
+              profe={clase.Usuarios_id}
               clase={clase}
               user={user}
               ></ClaseDetallada>

@@ -274,13 +274,10 @@ export const crearClaseNueva = async function(clase)
     formData.append('descripcion', clase.descripcion)
     formData.append('frecuencia', clase.frecuencia)
     formData.append('duracion', clase.duracion)
-    formData.append('fechaLimite', clase.fechaLimite)
     formData.append('precio', clase.precio)
     formData.append('tipo', clase.tipo)
     formData.append('rating', clase.rating)
     formData.append('Usuarios_id', clase.Usuarios_id)
-    formData.append('disponibilidad', clase.disponibilidad)
-    formData.append('comentarios', clase.comentarios)
 
     try
     {

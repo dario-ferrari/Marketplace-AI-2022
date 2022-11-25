@@ -40,9 +40,7 @@ function App() {
             <Route path="menu" element={<Menu/>}/>
             <Route path="perfil" element={<Perfil/>}/>
             <Route path="inscripciones" element={<Inscripciones/>}/>
-            <Route path="clases/:clasesId" element={<Clases/>}/>
-            <Route path="clasesCompradas/:clasesId" element={<ClasesCompradas/>}
-                loader={({params}) => clasesInscriptas.clasesInscriptas.find(clases => clases.id === Number(params.clasesId))}/>    
+            <Route path="clases/:clasesId" element={<Clases/>}/>    
             <Route path="historial" element={<Historial/>}/>
             <Route path="busqueda" element={<Busqueda/>}/>
           </Route>
@@ -53,8 +51,7 @@ function App() {
             <Route path="perfilprofesor" element={<PerfilProfesor/>}/>
             <Route path="busquedaprofesor" element={<BusquedaProfesor/>}/>
             <Route path="crearclase" element={<CrearClase/>}/>
-            <Route path="clasesProfesor/:clasesprofesorId" element={<ClasesProfesor/>}
-                loader={({params}) => clasesInscriptas.clasesInscriptas.find(clases => clases.id === Number(params.clasesprofesorId))}/>
+            <Route path="clasesProfesor/:clasesprofesorId" element={<ClasesProfesor/>}/>
             <Route path="gestionarclase" element={<GestionarClase/>}/>
             <Route path="contrataciones" element={<Contrataciones/>}/>
           </Route>
