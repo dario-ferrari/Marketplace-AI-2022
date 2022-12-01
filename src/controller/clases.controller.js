@@ -162,6 +162,62 @@ export const buscarClasePorNombre = async function(titulo)
     };
 }
 
+export const actualizarClase = async function(clase,id)
+{
+    console.log("llego al controller actualizar",clase,id)
+    let url = urlWebServices.actualizarClase;
+
+    let objetoId = {
+        _id : id
+    }
+
+    let union = Object.assign(objetoId,clase)
+
+    console.log("objeto resultante", union)
+
+    const formData = new URLSearchParams();
+    formData.append('titulo', clase.titulo);
+
+    console.log("asi es el formdata",formData)
+    //armo json con datos
+    //console.log("dato",formData);
+    //console.log("url",url);
+
+    console.log("esto voy a pasar",JSON.stringify(union))
+    try{
+        let response = await fetch(url,{
+            method: 'PUT', // or 'PUT'
+            mode: "cors",
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(union),
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, clase:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+
+}
+
 export const buscarClasePorId = async function(id)
 {//url webservices
     console.log("uid que le llega al controller",id)
@@ -218,13 +274,10 @@ export const crearClaseNueva = async function(clase)
     formData.append('descripcion', clase.descripcion)
     formData.append('frecuencia', clase.frecuencia)
     formData.append('duracion', clase.duracion)
-    formData.append('fechaLimite', clase.fechaLimite)
     formData.append('precio', clase.precio)
     formData.append('tipo', clase.tipo)
     formData.append('rating', clase.rating)
     formData.append('Usuarios_id', clase.Usuarios_id)
-    formData.append('disponibilidad', clase.disponibilidad)
-    formData.append('comentarios', clase.comentarios)
 
     try
     {

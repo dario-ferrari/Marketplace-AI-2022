@@ -311,3 +311,56 @@ export const getImagenesByUser = async function()
         console.log("error",error);
     };
 }
+
+
+export const actualizarUser= async function(user,id)
+{
+    console.log("llego al controller actualizar",user,id)
+    let url = urlWebServices.actualizarUsuario;
+
+    let objetoId = {
+        _id : id
+    }
+
+    let union = Object.assign(objetoId,user)
+
+    console.log("objeto resultante", union)
+
+    //armo json con datos
+    //console.log("dato",formData);
+    //console.log("url",url);
+
+    console.log("esto voy a pasar",JSON.stringify(union))
+    try{
+        let response = await fetch(url,{
+            method: 'PUT', // or 'PUT'
+            mode: "cors",
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(union),
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, user:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+
+}

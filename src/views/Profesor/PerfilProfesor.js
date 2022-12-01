@@ -20,7 +20,8 @@ import {
 } from '@mui/material';
 import { useEffect } from "react";
 import { UserContext } from '../../Contexts/UserContext';
-import {buscarUsuarioPorId} from '../../controller/usuarios.controller'
+import {buscarUsuarioPorId, actualizarUser} from '../../controller/usuarios.controller'
+import Swal from 'sweetalert2';
 
 
 let theme = createTheme({
@@ -232,6 +233,40 @@ export default function PerfilProfesor() {
   
   }, [currentUser]);
 
+
+  const handleSubmit = ()=>{
+    const updateUser = async function () {
+      const respuesta = await actualizarUser(nuevaData,currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuesta)
+      );
+      if (respuesta.rdo === 1) {
+        alert("Ocurrio un error al guardar");
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+        })
+      }
+    };
+    updateUser();
+    setEdit(!edit)
+  }
+
+  const handleCancel = ()=>{
+    setNuevaData({
+      email: user.email,
+      nombre: user.nombre,
+      apellido: user.apellido,
+      telefono: user.telefono,
+      fechaNac: user.fechaNac,
+      avatar: user.avatar,
+      titulo: user.estudios,
+    })
+    setEdit(!edit)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -451,14 +486,14 @@ export default function PerfilProfesor() {
                     sx={{marginRight:"2vh"}}
                     color="success"
                     variant="contained"
-                    onClick={handleOnClick}
+                    onClick={handleSubmit}
                   >
                     Guardar
                   </Button>
                   <Button
                   color="error"
                   variant="contained"
-                  onClick={handleOnClick}
+                  onClick={handleCancel}
                 >
                   Cancelar
                 </Button>

@@ -106,7 +106,7 @@ export const buscarComentarioPorId = async function(id)
             switch(rdo){
                 case 200:
                 {
-                    return ({rdo:0, Comentario:data.data});
+                    return ({rdo:0, comentario:data.data});
                 }
                 default:
                 {

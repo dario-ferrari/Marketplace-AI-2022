@@ -15,9 +15,8 @@ import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 
 export default function CardProfesor(props) {
-  var valorada;
-  if (props.valorada === true) valorada = "Valorada";
-  else valorada = "Aun no valorada";
+  console.log(props.clase)
+  const clase= props.clase
   return (
     <Card
       sx={{
@@ -39,27 +38,19 @@ export default function CardProfesor(props) {
       <Grid container justifyContent={'center'}>
         <CardContent xs={12} sx={{width:"100%"}}>
           <Grid item>
-            <Typography sx={{ fontSize: 14 }} color="success" gutterBottom>
-              {props.estado}
-            </Typography>
             <Typography variant="h5" component="div">
-              {props.titulo}
+              {clase.titulo}
             </Typography>
             <Typography variant="body2">Cant Alumnos</Typography>
           </Grid>
           <CardActions>
           <Grid container item justifyContent={"space-around"}>
               <Grid item>
-                <Link to={`/profesor/clasesprofesor/${props.id}`}>
+              <Link to={`/profesor/clasesProfesor/${clase._id}`}>
                   <Button variant="outlined" size="small">
                     Detalles
                   </Button>
                 </Link>
-              </Grid>
-              <Grid item >
-                <Badge color="secondary" badgeContent={props.comentariosNuevos}>
-                  <CommentIcon />
-                </Badge>
               </Grid>
           </Grid>
           </CardActions>

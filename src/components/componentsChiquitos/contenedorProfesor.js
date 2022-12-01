@@ -35,7 +35,7 @@ export default function ContenedorProfesor(props){
               </Typography>
               <Typography>{props.titulo}</Typography>
               <Typography>{props.cantClases} Clases</Typography>
-              <Typography>{props.cantAlumnos} Alumnos</Typography>
+              <Typography>{props.experiencia}</Typography>
               <Rating
                 name="half-rating-read"
                 defaultValue={props.rating}

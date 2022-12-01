@@ -13,13 +13,18 @@ import {
   CardContent,
   Divider,
   Grid,
-  TextField
+  TextField,
+  TextareaAutosize,
+  Typography
 } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import Swal from "sweetalert2";
+import { UserContext } from '../../Contexts/UserContext';
+import { crearClaseNueva } from '../../controller/clases.controller';
+
 
 
 /*function Copyright() {
@@ -181,34 +186,60 @@ const drawerWidth = 256;
 
 const frecuencias = [
   {
-    value: '1',
+    value: "Unica",
     label: 'Única',
   },
   {
-    value: '7',
+    value: 'Semanal',
     label: 'Semanal',
   },
   {
-    value: '30',
+    value: 'Mensual',
     label: 'Mensual',
   },
+];
+
+const tipos = [
+  {
+    value: "Individual",
+    label: 'Individual',
+  },
+  {
+    value: 'Grupal',
+    label: 'Grupal',
+  }
 ];
 
 
 export default function CrearClase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const currentUser = React.useContext(UserContext)
+
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const [clase,setClase] = React.useState({
+    titulo: "",
+    imagen: "",
+    descripcion: "",
+    duracion: 0,
+    precio: 0,
+    tipo: "",
+    rating: 0,
+    Usuarios_id: currentUser
+  })
+
   const handleChange = (event) => {
-    /**setValues({
-      ...values,
+    setClase({
+      ...clase,
       [event.target.name]: event.target.value
-    }); */
+    })
   };
+
 
   const handleClassCreation = () => {
     Swal.fire({
@@ -222,11 +253,27 @@ export default function CrearClase() {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Publicada!',
-          'La clase ha sido creada y publicada.',
-          'success'
-        )
+        const createClase = async function () {
+          const respuesta = await crearClaseNueva(clase)
+          console.log(
+            "Console log de respuesta de back ",
+            JSON.stringify(respuesta)
+          );
+          if (respuesta.rdo === 1) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ocurrio un error',
+              showConfirmButton: false,
+            })
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Se creo correctamente',
+              showConfirmButton: false,
+            })
+          }
+        }
+        createClase()
       }
     })
   }
@@ -265,6 +312,7 @@ export default function CrearClase() {
                 <CardHeader
                   title="Crear una Nueva Clase"
                 />
+                <Typography sx={{ marginLeft: 2}} variant='body1'>Todos los campos son obligatorios</Typography>
                 <Divider />
                 <CardContent>
                   <Grid
@@ -279,7 +327,7 @@ export default function CrearClase() {
                       <TextField
                         fullWidth
                         label="Nombre"
-                        name="firstName"
+                        name="titulo"
                         onChange={handleChange}
                         variant="standard"
                       />
@@ -291,8 +339,10 @@ export default function CrearClase() {
                     >
                       <TextField
                         fullWidth
-                        label="Materia"
-                        name="lastName"
+                        label="Frecuencia"
+                        type="number"
+                        placeholder="Indica cuantas horas durara la sesion de la clase"
+                        name="frecuencia"
                         onChange={handleChange}
                         variant="standard"
                       />
@@ -305,7 +355,9 @@ export default function CrearClase() {
                       <TextField
                         fullWidth
                         label="Duración"
-                        name="email"
+                        type="number"
+                        name="duracion"
+                        placeholder='Cuantas semanas durara la clase'
                         onChange={handleChange}
                         variant="standard"
                       />
@@ -319,6 +371,7 @@ export default function CrearClase() {
                         id="standard-select-frequency-native"
                         fullWidth
                         label="Frecuencia"
+                        name='frecuencia'
                         select
                         onChange={handleChange}
                         SelectProps={{
@@ -343,7 +396,10 @@ export default function CrearClase() {
                         <InputLabel htmlFor="standard-adornment-amount">Costo</InputLabel>
                         <Input
                           id="standard-adornment-amount"
-                          onChange={handleChange('amount')}
+                          type='number'
+                          name='precio'
+                          onChange={handleChange}
+                          placeholder={"Cuanto cuesta la clase en USD"}
                           startAdornment={<InputAdornment position="start">$</InputAdornment>}
                         />
                       </FormControl>
@@ -354,7 +410,53 @@ export default function CrearClase() {
                       md={6}
                       xs={12}
                     >
-                      
+                      <TextareaAutosize
+                        aria-label="minimum height"
+                        minRows={3}
+                        name="descripcion"
+                        onChange={handleChange}
+                        placeholder="Escribi la Descripcion de tu clase"
+                        style={{ width: "100%" }}
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <TextField
+                        fullWidth
+                        label="Imagen"
+                        name="imagen"
+                        placeholder='Pega aqui el url de tu imagen'
+                        onChange={handleChange}
+                        variant="standard"
+                      />
+                    </Grid>
+                     <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    > 
+                    <TextField
+                        id="standard-select-frequency-native"
+                        fullWidth
+                        label="Tipo"
+                        name='tipo'
+                        select
+                        onChange={handleChange}
+                        SelectProps={{
+                          native: true,
+                        }}
+                        helperText="Por favor elige la frecuencia"
+                        variant="standard"
+                      >
+                        {tipos.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </TextField>
                     </Grid>
                   </Grid>
                 </CardContent>

@@ -8,6 +8,8 @@ import Grid from '@mui/material/Grid';
 import SimpleCard from '../../components/componentsChiquitos/cardSimple';
 import {listadoClases} from '../../controller/clases.controller'
 import { UserContext } from '../../Contexts/UserContext';
+import { buscarUsuarioPorId } from '../../controller/usuarios.controller';
+import { Typography } from '@mui/material';
 
 let theme = createTheme({
   palette: {
@@ -166,9 +168,10 @@ export default function Menu() {
   };
 
   
-  const [clases, setClases] = React.useState([]); 
+  const [contrataciones, setContrataciones] = React.useState([]);
+  const [clases, setClases] = React.useState([]);  
 
-  React.useEffect(()=>{
+  /* React.useEffect(()=>{
     console.log('ÉSTE ES EL CURRENT USER', currentUser)
     const getClases = async function () {
       const respuestaClases = await listadoClases()
@@ -183,7 +186,26 @@ export default function Menu() {
       }
     };
     getClases();
-  }, [currentUser])
+  }, [currentUser]) */
+
+  React.useEffect(()=>{
+    console.log('ÉSTE ES EL CURRENT USER', currentUser)
+    const getClases = async function () {
+      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaUsuario)
+      );
+      if (respuestaUsuario.rdo === 1) {
+        alert("Ocurrio un error");
+      } else {
+        respuestaUsuario.user.contrataciones.map((x)=>{
+          setClases([...clases, x.clase])
+        })
+      }
+    };
+    getClases()
+  },[])
 
 
   return (
@@ -208,22 +230,27 @@ export default function Menu() {
             sx={{ display: { sm: 'block', xs: 'none' } }}
           />
         </Box>
+        {(clases === null) ? (
+          <Typography>CARGANDO</Typography>
+
+        ):(
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1'}}>
 
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
               <Grid container spacing={2} alignItems="center">
               {( /**clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
-                clases.map((prop)=>
+                clases.map((x)=>
                 (
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard id={prop.id} titulo={prop.titulo} descripcion={prop.descripcion} duracion={prop.duracion} imagen={prop.imagen} frecuencia={prop.frecuencia}></SimpleCard>
+                <SimpleCard clase={x}></SimpleCard>
                 </Grid>
                 ))
             )}
             </Grid>
           </Box>
         </Box>
+        )}
       </Box>
     </ThemeProvider>
   );

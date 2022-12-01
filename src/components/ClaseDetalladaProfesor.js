@@ -12,11 +12,16 @@ import Comentarios from "./componentsChiquitos/comentarios";
 
 
 export default function ClaseDetalladaProfesor(props) {
+
+  const clase = props.clase
+  const user = props.user
+  console.log(clase,user)
+
   return (
     <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
       {/**la imagen de cover estaria bueno que se achicara un poco al bajar, investigar */}
       <Image
-        src={props.imagen}
+        src={clase.imagen}
         fit="cover"
         height="150px"
         style={{
@@ -32,7 +37,7 @@ export default function ClaseDetalladaProfesor(props) {
       <Grid container>
         <Grid item xs={9}>
             <Typography variant="h1" py={3} px={5}>
-                {props.titulo}
+                {clase.titulo}
             </Typography>
         <Divider></Divider>
         </Grid>
@@ -40,14 +45,14 @@ export default function ClaseDetalladaProfesor(props) {
         {/* seccion donde se describe el curso */}
         <Grid item xs={8}>
           <Typography variant="body1" py={5} px={5}>
-            {props.descripcion}
+            {clase.descripcion}
           </Typography>
         </Grid>
 
         {/* seccion donde se describe al maetro */}
-        <ContenedorProfesor nombre={"Juan Carlos Messi"} linkFoto={'https://images.mubicdn.net/images/cast_member/2552/cache-207-1524922850/image-w856.jpg?size=240x'}
-        cantClases={'13'} cantAlumnos={"1392"} titulo ={'Lic en Cosas Chidas'} rating={'5'} 
-        />
+        <ContenedorProfesor nombre={user.nombre} linkFoto={user.avatar}
+        cantClases={user.clasesPublicadas.length} experiencia={user.experiencia} titulo ={user.titulo}
+        /> 
 
         {/*caracteristicas de la clase la barrita con duracion,frcuencia,etc,etc */}
         <Grid
@@ -59,19 +64,19 @@ export default function ClaseDetalladaProfesor(props) {
           justifyContent="space-around"
           sx={{ bgcolor: "#e2e3e3",boxShadow: " inset 0 0px 8px 10px rgba(0, 0, 0, 0.15)"}}
         >
-          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={props.duracion} />
+          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={clase.duracion} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
 
-          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "4em" }} />} descripcion={props.frecuencia} />
+          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "4em" }} />} descripcion={clase.frecuencia} />
 
           <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion={props.precio} />
+          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion={clase.precio} />
 
           <Divider orientation="vertical" variant="middle" flexItem ></Divider>
           
-          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "4em" }} />} descripcion={props.tipo} />
+          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "4em" }} />} descripcion={clase.tipo} />
 
         </Grid>
       </Grid>
@@ -80,7 +85,7 @@ export default function ClaseDetalladaProfesor(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    <Comentarios idClase={props.id} idUsario={props.user}></Comentarios>
+    <Comentarios comentarios={clase.comentarios}></Comentarios>
     </Box>
   );
 }

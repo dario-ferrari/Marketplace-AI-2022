@@ -12,10 +12,7 @@ import { Link } from "react-router-dom";
 import { Image } from "mui-image";
 
 export default function SimpleCard(props) {
-  var valorada 
-    if(props.valorada===true) 
-      valorada = "Valorada"
-    else valorada = "Aun no valorada"
+  const clase = props.clase
   return (
     <Card
       sx={{
@@ -29,15 +26,15 @@ export default function SimpleCard(props) {
         <Grid item xs={6}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="success" gutterBottom>
-              {props.frecuencia}
+              {clase.frecuencia}
             </Typography>
             <Typography variant="h5" component="div">
-              {props.titulo}
+              {clase.titulo}
             </Typography>
-            <Typography variant="body2">{valorada}
+            <Typography variant="body2">Valorado
             </Typography>
             <CardActions >
-            <Link to={`/alumno/clasesCompradas/${props.id}`}>
+            <Link to={`/alumno/clases/${clase._id}`}>
               <Button variant="outlined" size="small">
                 Detalles
               </Button>
@@ -46,7 +43,7 @@ export default function SimpleCard(props) {
           </CardContent>
         </Grid>
         <Grid item xs={6}>
-          <Image src={props.imagen} fit={"cover"}></Image>
+          <Image src={clase.imagen} fit={"cover"}></Image>
         </Grid>
       </Grid>
     </Card>

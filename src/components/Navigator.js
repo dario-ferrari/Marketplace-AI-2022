@@ -23,7 +23,7 @@ const categories = [
     id: 'Alumno',
     children: [
       {
-        id: 'Dashboard',
+        id: 'Clases',
         icon: <DashboardIcon />,
         path: "/alumno/menu",
         active: true, 
