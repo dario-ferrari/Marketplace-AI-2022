@@ -13,11 +13,11 @@ import { Link } from "react-router-dom";
 export default function CardStyled(props) {
   const clase = props.clase
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 , height:360}}>
       <CardMedia
         component="img"
-        alt="green iguana"
-        height="140"
+        alt="cover"
+        sx={{maxHeight:140}}
         image={clase.imagen}
       />
       <CardContent>
@@ -36,11 +36,11 @@ export default function CardStyled(props) {
           <Grid item position="relative" top={-45} right={-7}>
             <Avatar
               alt="Foto Perfil"
-              src="https://images.mubicdn.net/images/cast_member/2552/cache-207-1524922850/image-w856.jpg?size=240x"
+              src={clase.Usuarios_id.avatar}
               sx={{ width: 56, height: 56 }}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Typography variant="body2" color="text.secondary">
               {clase.descripcion.slice(0,100)}
               <br />

@@ -36,12 +36,6 @@ export default function ContenedorProfesor(props){
               <Typography>{props.titulo}</Typography>
               <Typography>{props.cantClases} Clases</Typography>
               <Typography>{props.experiencia}</Typography>
-              <Rating
-                name="half-rating-read"
-                defaultValue={props.rating}
-                precision={0.5}
-                readOnly
-              />
             </Grid>
           </Grid>
         </Grid>

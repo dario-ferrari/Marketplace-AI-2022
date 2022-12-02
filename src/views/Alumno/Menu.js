@@ -199,10 +199,8 @@ export default function Menu() {
       if (respuestaUsuario.rdo === 1) {
         alert("Ocurrio un error");
       } else {
-        respuestaUsuario.user.contrataciones.map((x)=>{
-          setClases([...clases, x.clase])
-        })
-      }
+        setContrataciones(respuestaUsuario.user.contrataciones)
+        }
     };
     getClases()
   },[])
@@ -240,10 +238,10 @@ export default function Menu() {
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
               <Grid container spacing={2} alignItems="center">
               {( /**clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
-                clases.map((x)=>
+                contrataciones.map((x)=>
                 (
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard clase={x}></SimpleCard>
+                <SimpleCard clase={x.clase}></SimpleCard>
                 </Grid>
                 ))
             )}

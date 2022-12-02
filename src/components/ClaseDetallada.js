@@ -4,7 +4,7 @@ import { Box, Divider, Grid, Typography,Button ,List,
   ListItem,
   ListItemText,
   ListItemAvatar,Avatar,TextField,FormGroup, Paper } from "@mui/material";
-import { buscarClasePorId } from '../controller/clases.controller';
+import { buscarClasePorId,actualizarClase } from '../controller/clases.controller';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaidIcon from "@mui/icons-material/Paid";
@@ -15,11 +15,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
 import ItemBarrita from "./componentsChiquitos/itemsBarrita";
 import Swal from "sweetalert2";
-import { buscarUsuarioPorId } from "../controller/usuarios.controller";
+import { actualizarUser, buscarUsuarioPorId } from "../controller/usuarios.controller";
 import Comentarios from "./componentsChiquitos/comentarios"
 import { UserContext } from '../Contexts/UserContext';
 import { crearContratacionNueva } from "../controller/contratacion.controller";
+import { crearComentarioNuevo } from "../controller/comentario.controller"
 import Modal from '@mui/material/Modal';
+import { CleaningServicesRounded, Update } from "@mui/icons-material";
 
 export default function ClaseDetallada(props) {
 
@@ -32,10 +34,12 @@ export default function ClaseDetallada(props) {
 
   const user = props.user
   const clase = props.clase
-  const profe = props.profe
-
-
-  console.log(profe,clase,user)
+  const [profe,setProfe]= React.useState( props.clase.Usuarios_id)
+  const [comentarios,setComentarios]= React.useState(props.clase.comentarios)
+  const [comentarioText, setComentario]= React.useState(
+    {
+      value:''
+    })
   const [obtenida,setObtenida] = React.useState(false)
 
   const [nuevaContratacion, setContratacion]= React.useState({
@@ -51,6 +55,7 @@ export default function ClaseDetallada(props) {
 
   })
 
+
   let disabled = nuevaContratacion.mensaje === "" || nuevaContratacion.telefono === "" || nuevaContratacion.email === "" || nuevaContratacion.horarioRef === null ? true : false
 
   const [open, setOpen] = React.useState(false);
@@ -62,11 +67,21 @@ export default function ClaseDetallada(props) {
         if(element.clase._id===clase._id){
           setObtenida(true)
         }
-      });
-      //obtengo la clase que me meti
-      
-    }
-  ,[])
+      }); 
+      //obtengo al profe populado para despues la contratacion
+      const getUser = async function () {
+        const respuestaUsuario = await buscarUsuarioPorId(props.clase.Usuarios_id._id)
+        console.log("comentario traido ", respuestaUsuario);
+        if (respuestaUsuario.rdo === 1) {
+          alert("Error al obtener Usuario");
+        } else {
+          setProfe(respuestaUsuario.user);
+          console.log('Usuario traido', respuestaUsuario.user)
+        }
+      }
+      getUser()
+    } 
+  ,[comentarios])
 
 
   const handleChange = (event) => {
@@ -93,29 +108,89 @@ export default function ClaseDetallada(props) {
 
   
 
-  const handleSubmit = ()=>{
-    /* const updateUser = async function () {
-      const respuesta = await actualizarUser(nuevaData,currentUser)
+  const handleSubmitModal = ()=>{
+    const crearContratacion = async function () {
+      const respuesta = await crearContratacionNueva(nuevaContratacion)
       console.log(
         "Console log de respuesta de back ",
         JSON.stringify(respuesta)
       );
       if (respuesta.rdo === 1) {
         alert("Ocurrio un error al guardar");
-      } else { */
+      } else {
+        user.contrataciones.push({_id:respuesta.dataBack.createContratacion})
+        profe.contrataciones.push({_id:respuesta.dataBack.createContratacion})
+        const repuestaUsuario = await actualizarUser(user)
+        if (repuestaUsuario.rdo === 1) {
+          alert("Ocurrio un error al guardar");
+        }
+        const respuestaProfe = await actualizarUser(profe)
+        if (respuestaProfe.rdo === 1) {
+          alert("Ocurrio un error al guardar");
+        }
         Swal.fire({
           icon: 'success',
-          title: 'Your work has been saved',
-          showConfirmButton: false,
-        })/* 
+          title: 'Se ha contratado la clase',
+          showConfirmButton: true,
+        }) 
       }
-    }; */
-  
+    };
+    crearContratacion()
     handleClose()
+  }
+  
+
+
+
+  const handleChangeComentario = (e)=>{
+    setComentario({...comentarioText,
+      value:e.target.value
+    })
   }
 
 
-
+  const handleComment = ()=>{
+    const crearComentario = async function (){
+      var comentarioNuevo ={
+        clase : clase._id,
+        usuario: user._id,
+        mensaje : comentarioText.value,
+        estado: 'ACEPTADO',
+        justificacion:0
+      }
+      const respuestaComentario = await crearComentarioNuevo(comentarioNuevo) 
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaComentario)
+      );
+      if (respuestaComentario.rdo === 1) {
+        alert("Ocurrio un error al guardar");
+      }else{
+      setComentarios(comentarios.concat(comentarioNuevo))
+      clase.comentarios.push({
+        _id:respuestaComentario.dataBack.createComentario
+      })
+      console.log("comentarios act",clase.comentarios)
+      const agregarComment = async function(){
+        console.log('llego a entrar al agragarComment')
+        const respuestaActualizacion = await actualizarClase(clase)
+        console.log(
+          "Console log de respuesta de back ",
+          JSON.stringify(respuestaActualizacion)
+        );
+        if (respuestaActualizacion.rdo === 1) {
+          alert("Ocurrio un error al guardar");
+      }
+    }
+    agregarComment()
+    
+      }
+  }
+  crearComentario()
+    setComentario({
+      value:''
+    })
+  }
 
 
 
@@ -176,7 +251,7 @@ export default function ClaseDetallada(props) {
               color="success"
               variant="contained"
               disabled={disabled}
-              onClick={handleSubmit}
+              onClick={handleSubmitModal}
             >
               Guardar
             </Button>
@@ -307,10 +382,9 @@ export default function ClaseDetallada(props) {
         <Typography variant="h3" paddingX={"1em"}>
           Comentarios
         </Typography>
-        <Comentarios comentarios={clase.comentarios}></Comentarios>
-        <Grid container paddingX={"4em"} paddingY={"3em"}>
+        <Comentarios user={user} comentarios={comentarios}></Comentarios>
+        <Grid container paddingX={"4em"}>
           <List sx={{ width: "100%" }}>
-            <React.Fragment></React.Fragment>
             <ListItem alignItems="flex-start">
               <ListItemAvatar sx={{ paddingRight: "1ex" }}>
                 <Avatar
@@ -326,15 +400,17 @@ export default function ClaseDetallada(props) {
                 primary={
                   <TextField
                     fullWidth
-                    id="standard-basic"
+                    value={comentarioText.value}
+                    name="comentario"
                     label="Escribe tu comentario"
                     variant="standard"
-                    sx={{ margin: "1ex" }}
+                    onChange={handleChangeComentario}
+                    sx={{ margin: "1ex"}}
                   ></TextField>
                 }
                 secondary={
                   <React.Fragment>
-                    <Button variant="outlined">Comentar</Button>
+                    <Button variant="outlined" onClick={handleComment}>Comentar</Button>
                   </React.Fragment>
                 }
               />

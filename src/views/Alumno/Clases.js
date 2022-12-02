@@ -178,7 +178,8 @@ export default function Clases() {
   const [user,setUser]=React.useState(null); 
 
   const [clase, setClase]= React.useState(null); 
-  const [profe, setProfe]= React.useState(null)
+  
+
 
   const idClase = useParams().clasesId
   console.log("id de la calse en clases para encontrarr la caslaes",idClase)
@@ -246,7 +247,6 @@ export default function Clases() {
               <Typography>CARGANDO</Typography>
               ):(
               <ClaseDetallada 
-              profe={clase.Usuarios_id}
               clase={clase}
               user={user}
               ></ClaseDetallada>

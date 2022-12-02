@@ -313,24 +313,16 @@ export const getImagenesByUser = async function()
 }
 
 
-export const actualizarUser= async function(user,id)
+export const actualizarUser= async function(user)
 {
-    console.log("llego al controller actualizar",user,id)
+    console.log("llego al controller actualizar",user)
     let url = urlWebServices.actualizarUsuario;
 
-    let objetoId = {
-        _id : id
-    }
 
-    let union = Object.assign(objetoId,user)
-
-    console.log("objeto resultante", union)
 
     //armo json con datos
     //console.log("dato",formData);
     //console.log("url",url);
-
-    console.log("esto voy a pasar",JSON.stringify(union))
     try{
         let response = await fetch(url,{
             method: 'PUT', // or 'PUT'
@@ -338,8 +330,8 @@ export const actualizarUser= async function(user,id)
             headers:{
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-              },
-            body: JSON.stringify(union),
+            },
+            body: JSON.stringify(user),
             
         });
         

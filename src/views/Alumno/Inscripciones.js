@@ -16,7 +16,6 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import CardStyled from "../../components/CardStyled";
-import clasesInscriptas from "../../data/inscripciones.json";
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -190,8 +189,6 @@ export default function Inscripciones() {
   const currentUser = React.useContext(UserContext)
   const [clases, setClases]= React.useState([]);
 
-  const [cargando,setCargando] = React.useState(false)
-
   const [filtro, setFiltro] = React.useState({
     titulo: {value: ""},
     unica: {value: false,
@@ -199,7 +196,7 @@ export default function Inscripciones() {
     semanal: {value: false,
         query:{frecuencia: "Semanal"}},
     mensual: {value: false,
-        query:{frecuencia: "mensual"}},
+        query:{frecuencia: "Mensual"}},
     individual: {value: false,
         query:{tipo: "Individual"}},
     grupal: {value: false,
