@@ -7,7 +7,6 @@ export const crearComentarioNuevo = async function(comentario)
     formData.append('clase', comentario.clase)
     formData.append('usuario', comentario.usuario)
     formData.append('mensaje', comentario.mensaje)
-    formData.append('likes', comentario.likes)
     formData.append('estado', comentario.estado)
     formData.append('justificacion', comentario.justificacion)
 

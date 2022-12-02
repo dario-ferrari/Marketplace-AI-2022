@@ -85,7 +85,7 @@ export default function ClaseDetalladaProfesor(props) {
     <Typography variant="h3" paddingX={'1em'}>
       Comentarios
     </Typography>
-    <Comentarios comentarios={clase.comentarios}></Comentarios>
+    <Comentarios user={user} comentarios={clase.comentarios}></Comentarios>
     </Box>
   );
 }
