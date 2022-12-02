@@ -17,7 +17,7 @@ const urlWebServices = {
 
     crearClase : urlApi +"clases/create",
     obtenerClases : urlApi +"clases/all",
-    obtenerClasesPorNombre: urlApi +"clases/titulo",
+    obtenerClasesPorFiltro: urlApi +"clases/filter",
     obtenerClasesPorId : urlApi + "clases/id",
     actualizarClase : urlApi +"clases/edit",
     borrarClase: urlApi + "clases/delete",

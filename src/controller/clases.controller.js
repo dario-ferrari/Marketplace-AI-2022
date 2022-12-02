@@ -118,16 +118,27 @@ export const listadoClases = async function()
     };
 }
 
-export const buscarClasePorNombre = async function(titulo)
+export const buscarClasePorFiltro = async function(filtro)
 {
     //url webservices
-    let url = urlWebServices.obtenerClasesPorNombre;
-    //console.log("url",url);
-    //console.log("token",WebToken.webToken);
-    const formData = new URLSearchParams();
-    formData.append('titulo', titulo);
+    let url = urlWebServices.obtenerClasesPorFiltro;
+    
+    let filtroArmado ={$and:[{titulo:{$regex:''}},{$or:[]}]}
 
-    console.log("titulo", titulo )
+    if(filtro.titulo.value !== ""){
+        filtroArmado.$and[0]={titulo:{$regex:`${filtro.titulo.value}`, $options : 'i'}}
+    }
+    
+    for (const prop in filtro) {
+        if(filtro[prop].value && prop !== "titulo"){
+            filtroArmado.$and[1].$or.push(filtro[prop].query)
+        }
+    }
+    
+    if(filtroArmado.$and[1].$or.length=== 0 ){
+        filtroArmado.$and.pop(1)
+    }
+    console.log("print del filtro",JSON.stringify(filtroArmado))
     
     try
     {
@@ -135,11 +146,10 @@ export const buscarClasePorNombre = async function(titulo)
             method: 'POST', // or 'PUT'
             mode: "cors",
             headers:{
-                'Accept':'application/x-www-form-urlencoded',
-                //'x-access-token': localStorage.getItem('x'),
-                'Origin':'http://localhost:3000',
-                'Content-Type': 'application/x-www-form-urlencoded'},
-            body:formData
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(filtroArmado)
         });
         let rdo = response.status;
         console.log("response",response);
