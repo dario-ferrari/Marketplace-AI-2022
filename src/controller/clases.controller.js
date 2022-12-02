@@ -172,28 +172,17 @@ export const buscarClasePorFiltro = async function(filtro)
     };
 }
 
-export const actualizarClase = async function(clase,id)
+export const actualizarClase = async function(clase)
 {
-    console.log("llego al controller actualizar",clase,id)
+    console.log("llego al controller actualizar",clase)
     let url = urlWebServices.actualizarClase;
 
-    let objetoId = {
-        _id : id
-    }
 
-    let union = Object.assign(objetoId,clase)
-
-    console.log("objeto resultante", union)
-
-    const formData = new URLSearchParams();
-    formData.append('titulo', clase.titulo);
-
-    console.log("asi es el formdata",formData)
     //armo json con datos
     //console.log("dato",formData);
     //console.log("url",url);
 
-    console.log("esto voy a pasar",JSON.stringify(union))
+    console.log("esto voy a pasar",JSON.stringify(clase))
     try{
         let response = await fetch(url,{
             method: 'PUT', // or 'PUT'
@@ -201,8 +190,8 @@ export const actualizarClase = async function(clase,id)
             headers:{
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-              },
-            body: JSON.stringify(union),
+            },
+            body: JSON.stringify(clase),
             
         });
         

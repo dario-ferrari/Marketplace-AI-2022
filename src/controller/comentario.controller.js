@@ -1,16 +1,15 @@
 import urlWebServices from './webServices.js';
 
-export const crearComentarioNueva = async function(comentario)
+export const crearComentarioNuevo = async function(comentario)
 {
     let url = urlWebServices.crearComentario;
     const formData = new URLSearchParams();
-    formData.append('Clases_id', comentario.ClasesS_id)
-    formData.append('Usuarios_id', comentario.Usuarios_id)
+    formData.append('clase', comentario.clase)
+    formData.append('usuario', comentario.usuario)
     formData.append('mensaje', comentario.mensaje)
     formData.append('likes', comentario.likes)
     formData.append('estado', comentario.estado)
     formData.append('justificacion', comentario.justificacion)
-    formData.append('fechaCreacion', comentario.fechaCreacion)
 
     try
     {
@@ -26,6 +25,7 @@ export const crearComentarioNueva = async function(comentario)
         });
         let rdo = response.status;
         let dataBack = await response.json();
+        console.log(JSON.stringify(dataBack))
         switch(rdo){
             case 201:
             {                    
