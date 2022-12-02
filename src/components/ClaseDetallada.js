@@ -158,6 +158,7 @@ export default function ClaseDetallada(props) {
         estado: 'ACEPTADO',
         justificacion:0
       }
+      console.log(comentarioNuevo)
       const respuestaComentario = await crearComentarioNuevo(comentarioNuevo) 
       console.log(
         "Console log de respuesta de back ",

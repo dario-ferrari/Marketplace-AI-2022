@@ -14,13 +14,19 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import inscripciones from "../../data/inscripciones.json";
 import usuarios from "../../data/usuarios";
-import { buscarComentarioPorId } from "../../controller/comentario.controller";
+import { buscarComentarioPorId, } from "../../controller/comentario.controller";
 import { buscarUsuarioPorId } from "../../controller/usuarios.controller";
 
 export default function Comentarios(props) {
 
   const comentarios = props.comentarios
   const user = props.user
+  console.log(user)
+
+  const handleBorrarComentario = (comentario)=>{
+    comentario.estado = "ELIMINADO"
+    console.log(comentario)
+  }
   return (
     <>
     {(comentarios.length=== 0) ? (
@@ -60,6 +66,13 @@ export default function Comentarios(props) {
                 </React.Fragment>
               }
             />
+            {user.rol === "PROFESOR" ? (
+            <React.Fragment>
+              <Button variant="outlined" color="error" onClick={handleBorrarComentario(x)}>Borrar comentario</Button>
+            </React.Fragment>):(
+            null
+            )}
+            
           </ListItem>
           <Divider variant="inset"></Divider>
         </React.Fragment>
