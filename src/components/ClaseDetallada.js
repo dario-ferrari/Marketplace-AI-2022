@@ -137,7 +137,7 @@ export default function ClaseDetallada(props) {
               label="Email"
               fullWidth
               name="email"
-              placeholder="Enter email"
+              placeholder="Ingresa tu mail de contacto"
               variant="outlined"
               onChange={handleChange}
             />
@@ -146,7 +146,7 @@ export default function ClaseDetallada(props) {
               label="Numero de telefono"
               fullWidth
               name="telefono"
-              placeholder="Pon Tu numero de contacto"
+              placeholder="Ingresa tu numero de contacto"
               variant="outlined"
               onChange={handleChange}
             />
@@ -164,7 +164,7 @@ export default function ClaseDetallada(props) {
               label="Mensaje"
               fullWidth
               name="mensaje"
-              placeholder="Dejale un mensaje al profesor"
+              placeholder="Deja un mensaje para profesor contandole porque te gustaria asistir al curso"
               margin="dense"
               multiline
               rows="5"

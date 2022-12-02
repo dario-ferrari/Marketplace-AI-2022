@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { listadoClases } from "../controller/clases.controller";
 import {listadoUsuarios} from "../controller/usuarios.controller"
-import { buscarClasePorNombre } from "../controller/clases.controller";
+import { buscarClasePorFiltro } from "../controller/clases.controller";
 import { buscarClasePorId } from "../controller/clases.controller";
 import { crearClaseNueva } from "../controller/clases.controller";
 import { eliminadorClases, actualizarClase } from "../controller/clases.controller";
@@ -36,7 +36,7 @@ const TestConexion = ()=>{
 
         const clasesPorNombre = async function(nombre){
             console.log(nombre)
-            let respuesta = await buscarClasePorNombre(nombre);
+            let respuesta = await buscarClasePorFiltro(nombre);
             if(respuesta.rdo===1){
                 alert("salio mal")
             }
