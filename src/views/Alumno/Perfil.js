@@ -191,6 +191,7 @@ export default function Perfil() {
         console.log("este es el usuario recuperado",respuestaUsuario.user);
         setUser(respuestaUsuario.user)
         setNuevaData({
+          _id: respuestaUsuario.user._id,
           email: respuestaUsuario.user.email,
           nombre: respuestaUsuario.user.nombre,
           apellido: respuestaUsuario.user.apellido,
@@ -210,6 +211,7 @@ export default function Perfil() {
   };
   
   const [nuevaData,setNuevaData] = React.useState({
+    _id: "",
     email: "",
     nombre: "",
     apellido: "",
@@ -246,7 +248,7 @@ export default function Perfil() {
       } else {
         Swal.fire({
           icon: 'success',
-          title: 'Your work has been saved',
+          title: 'Tus cambios han sido guardados',
           showConfirmButton: false,
         })
       }
@@ -257,6 +259,7 @@ export default function Perfil() {
 
   const handleCancel = ()=>{
     setNuevaData({
+      _id: user._id,
       email: user.email,
       nombre: user.nombre,
       apellido: user.apellido,

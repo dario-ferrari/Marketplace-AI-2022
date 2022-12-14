@@ -183,6 +183,7 @@ export default function PerfilProfesor() {
     setMobileOpen(!mobileOpen);
   };
   const [nuevaData,setNuevaData] = React.useState({
+    _id:"",
     email: "",
     nombre: "",
     apellido: "",
@@ -219,6 +220,7 @@ export default function PerfilProfesor() {
         console.log("este es el usuario recuperado",respuestaUsuario.user);
         setUser(respuestaUsuario.user)
         setNuevaData({
+          _id: respuestaUsuario.user._id,
           email: respuestaUsuario.user.email,
           nombre: respuestaUsuario.user.nombre,
           apellido: respuestaUsuario.user.apellido,
@@ -257,6 +259,7 @@ export default function PerfilProfesor() {
 
   const handleCancel = ()=>{
     setNuevaData({
+      _id: user._id,
       email: user.email,
       nombre: user.nombre,
       apellido: user.apellido,
