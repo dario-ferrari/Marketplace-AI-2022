@@ -14,8 +14,9 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import inscripciones from "../../data/inscripciones.json";
 import usuarios from "../../data/usuarios";
-import { buscarComentarioPorId, } from "../../controller/comentario.controller";
+import { actualizarComentario, buscarComentarioPorId, } from "../../controller/comentario.controller";
 import { buscarUsuarioPorId } from "../../controller/usuarios.controller";
+import Swal from "sweetalert2";
 
 export default function Comentarios(props) {
 
@@ -23,10 +24,48 @@ export default function Comentarios(props) {
   const user = props.user
   console.log(user)
 
+
+  const pedirText = async function(comentario){ 
+  const { value: text } = await Swal.fire({
+    input: 'textarea',
+    inputLabel: 'Justificacion por eliminar el mensaje',
+    inputPlaceholder: 'Escribe tu mensaje aqui...',
+    inputAttributes: {
+      'aria-label': 'Escribe tu mensaje aqui'
+    },
+    showCancelButton: true
+  })
+  if (text){
+    comentario.justificacion = text
+    handleBorrarComentario(comentario)
+  }
+  
+  console.log(comentario)
+}
+
   const handleBorrarComentario = (comentario)=>{
     comentario.estado = "ELIMINADO"
+    const updateComentario = async function () {
+      const respuesta = await actualizarComentario(comentario)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuesta)
+      );
+      if (respuesta.rdo === 1) {
+        alert("Ocurrio un error al guardar");
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: 'El mensaje se ha eliminado',
+          showConfirmButton: false,
+        })
+      }
+    };
+    updateComentario();
     console.log(comentario)
   }
+
+
   return (
     <>
     {(comentarios.length=== 0) ? (
@@ -42,6 +81,8 @@ export default function Comentarios(props) {
       
         {comentarios.map((x) => (
         <React.Fragment>
+          {x.estado !== "ELIMINADO" ? (
+            <>
           <ListItem alignItems="flex-start">
             <ListItemAvatar sx={{ paddingRight: "1ex" }}>
               <Avatar src={x.usuario.avatar !== undefined ? x.usuario.avatar : user.avatar}
@@ -67,14 +108,21 @@ export default function Comentarios(props) {
               }
             />
             {user.rol === "PROFESOR" ? (
-            <React.Fragment>
-              <Button variant="outlined" color="error" onClick={handleBorrarComentario(x)}>Borrar comentario</Button>
-            </React.Fragment>):(
+            <>
+              <Button variant="outlined" color="error" onClick={() => pedirText(x)}>
+                Borrar comentario</Button>
+            </>
+            ):(
             null
             )}
             
           </ListItem>
           <Divider variant="inset"></Divider>
+          </>
+          ):(
+            null
+            )}
+          
         </React.Fragment>
         ))
         }   

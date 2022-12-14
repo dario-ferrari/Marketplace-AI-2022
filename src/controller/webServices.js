@@ -27,6 +27,7 @@ const urlWebServices = {
     obtenerComentarios: urlApi+"comentarios/all",
     obtenerComentariosPorId: urlApi+"comentarios/id",
     obtenerComentariosPorUsuario: urlApi+"comentarios/user",
+    actualizarComentario: urlApi+"comentarios/update",
     borrarComentario: urlApi+"comentarios/delete",
 
 

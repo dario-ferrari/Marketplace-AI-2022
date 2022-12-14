@@ -18,10 +18,11 @@ import Swal from "sweetalert2";
 import { actualizarUser, buscarUsuarioPorId } from "../controller/usuarios.controller";
 import Comentarios from "./componentsChiquitos/comentarios"
 import { UserContext } from '../Contexts/UserContext';
-import { crearContratacionNueva } from "../controller/contratacion.controller";
+import { crearContratacionNueva, updateContratacion } from "../controller/contratacion.controller";
 import { crearComentarioNuevo } from "../controller/comentario.controller"
 import Modal from '@mui/material/Modal';
 import { CleaningServicesRounded, Update } from "@mui/icons-material";
+import { text } from "d3";
 
 export default function ClaseDetallada(props) {
 
@@ -49,6 +50,7 @@ export default function ClaseDetallada(props) {
     profesor: profe._id,
     mensaje: "",
     telefono: "",
+    rating: 0, 
     email:"",
     horarioRef: null,
     isValorada: false
@@ -97,6 +99,7 @@ export default function ClaseDetallada(props) {
       clase: clase._id,
       alumno : user._id,  
       profesor: profe._id,
+      rating: 0,
       mensaje: "",
       telefono: "",
       email:"",
@@ -194,6 +197,47 @@ export default function ClaseDetallada(props) {
   }
 
 
+  const handleValorar = ()=>{
+    let contrat
+    user.contrataciones.forEach(element => {
+      if(element.clase._id === clase._id){
+        contrat = element
+      }
+    });
+    if (contrat){
+    const actualizarValor = async function () {
+        const { value: text } = await Swal.fire({
+          title: '¿Con cuanto valorarias esta clase?',
+          icon: 'question',
+          input: 'range',
+          inputLabel: 'Tu puntaje',
+          inputAttributes: {
+            min: 0,
+            max: 5,
+            step: 1
+          },
+          inputValue: 0
+        })
+    
+    if(text){
+      contrat.rating = parseInt(text)
+      contrat.isValorada = true
+      const update = async function () {
+        const respuesta = await updateContratacion(contrat)
+        console.log(
+          "Console log de respuesta de back ",
+          JSON.stringify(respuesta)
+        );
+        if (respuesta.rdo === 1) {
+          alert("Ocurrio un error al guardar");
+        }  
+      }
+      update()
+      }
+    }
+  actualizarValor()
+  }
+}
 
   return (
     <>
@@ -300,6 +344,9 @@ export default function ClaseDetallada(props) {
                   size="large"
                   variant="contained"
                   color="primary"
+                  onClick={()=>{
+                    handleValorar()
+                  }}
                   startIcon={<StarIcon />}
                 >
                   Valorar
