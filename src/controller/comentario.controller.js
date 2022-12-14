@@ -156,3 +156,47 @@ export const eliminadorComentarios = async function(id)
         return false;
     };
 }
+
+export const actualizarComentario= async function(comentario)
+{
+    console.log("llego al controller actualizar",comentario)
+    let url = urlWebServices.actualizarComentario;
+
+
+
+    //armo json con datos
+    //console.log("dato",formData);
+    //console.log("url",url);
+    try{
+        let response = await fetch(url,{
+            method: 'PUT', // or 'PUT'
+            mode: "cors",
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(comentario),
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, comentario:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+
+}
