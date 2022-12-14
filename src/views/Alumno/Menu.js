@@ -4,22 +4,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
-import Content from '../../components/Content';
-import Header from '../../components/Header';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import TranslateIcon from '@mui/icons-material/Translate';
-import CalculateIcon from '@mui/icons-material/Calculate';
-import { useNavigate , useLocation } from "react-router-dom";
-import clasesInscriptas from '../../data/clasesInscriptas.json';
 import Grid from '@mui/material/Grid';
-import ComputerIcon from '@mui/icons-material/Computer';
-import BalanceIcon from '@mui/icons-material/Balance';
 import SimpleCard from '../../components/componentsChiquitos/cardSimple';
 import {listadoClases} from '../../controller/clases.controller'
+import { UserContext } from '../../Contexts/UserContext';
+import { buscarUsuarioPorId } from '../../controller/usuarios.controller';
+import { Typography } from '@mui/material';
 
 let theme = createTheme({
   palette: {
@@ -167,19 +157,22 @@ theme = {
 const drawerWidth = 256;
 
 export default function Menu() {
+
+  const currentUser = React.useContext(UserContext)
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   
-  const [clases, setClases] = React.useState([]); 
+  const [contrataciones, setContrataciones] = React.useState([]);
+  const [clases, setClases] = React.useState([]);  
 
-  React.useEffect(()=>{
+  /* React.useEffect(()=>{
+    console.log('ÉSTE ES EL CURRENT USER', currentUser)
     const getClases = async function () {
       const respuestaClases = await listadoClases()
       console.log(
@@ -193,7 +186,24 @@ export default function Menu() {
       }
     };
     getClases();
-  }, [])
+  }, [currentUser]) */
+
+  React.useEffect(()=>{
+    console.log('ÉSTE ES EL CURRENT USER', currentUser)
+    const getClases = async function () {
+      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaUsuario)
+      );
+      if (respuestaUsuario.rdo === 1) {
+        alert("Ocurrio un error");
+      } else {
+        setContrataciones(respuestaUsuario.user.contrataciones)
+        }
+    };
+    getClases()
+  },[])
 
 
   return (
@@ -218,23 +228,27 @@ export default function Menu() {
             sx={{ display: { sm: 'block', xs: 'none' } }}
           />
         </Box>
+        {(clases === null) ? (
+          <Typography>CARGANDO</Typography>
+
+        ):(
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1'}}>
 
               {/**--CARD CON LAS CLASES QUE EL ALUMNO ESTÁ CURSANDO--*/}
               <Grid container spacing={2} alignItems="center">
               {( /**clasesInscriptas.clasesInscriptas.map(({id, titulo, imagen, frecuencia, valorada, estado}) => Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
-                clases.map((prop)=>
+                contrataciones.map((x)=>
                 (
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard id={prop.id} titulo={prop.titulo} descripcion={prop.descripcion} duracion={prop.duracion} imagen={prop.imagen} frecuencia={prop.frecuencia}></SimpleCard>
+                <SimpleCard clase={x.clase}></SimpleCard>
                 </Grid>
                 ))
             )}
             </Grid>
           </Box>
         </Box>
+        )}
       </Box>
     </ThemeProvider>
   );

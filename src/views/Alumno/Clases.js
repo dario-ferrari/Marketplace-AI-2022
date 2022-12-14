@@ -1,21 +1,18 @@
 import * as React from 'react';
-import {useLoaderData } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import ClaseDetallada from '../../components/ClaseDetallada';
-import { useSelector } from "react-redux";
-import usuarios from '../../data/usuarios';
+import { buscarClasePorId } from '../../controller/clases.controller';
+import { buscarUsuarioPorId } from "../../controller/usuarios.controller";
+import { Typography } from '@mui/material';
+import { UserContext } from '../../Contexts/UserContext';
 
-
-{/**function Copyright() {
+/* {/**function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -25,7 +22,7 @@ import usuarios from '../../data/usuarios';
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {
@@ -175,11 +172,43 @@ const drawerWidth = 256;
 export default function Clases() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  
+  const currentUser = React.useContext(UserContext)
 
-  const user = useSelector((state) => state.user);
+  const [user,setUser]=React.useState(null); 
 
-  const idClase = useParams()
-  console.log("id de la calse en clases para encontrarr l;a caslaes",idClase)
+  const [clase, setClase]= React.useState(null); 
+  
+
+
+  const idClase = useParams().clasesId
+  console.log("id de la calse en clases para encontrarr la caslaes",idClase)
+
+  React.useEffect(()=>{
+    const getClase = async function(){
+    const respuestaClase = await buscarClasePorId(idClase);
+      console.log("Lpara saber que clase traje ", respuestaClase);
+      if (respuestaClase.rdo === 1) {
+        alert("Error al obtener Clase");
+      } else {
+        setClase(respuestaClase.clase);
+        console.log("Clase obtenida: ", respuestaClase.clase);
+    } 
+  }
+  getClase()
+
+  const getUser = async function () {
+    const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+    console.log("comentario traido ", respuestaUsuario);
+    if (respuestaUsuario.rdo === 1) {
+      alert("Error al obtener Usuario");
+    } else {
+      setUser(respuestaUsuario.user)
+      console.log('Usuario traido', respuestaUsuario.user)
+    }
+  }
+  getUser()
+},[])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -209,12 +238,20 @@ export default function Clases() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, bgcolor: '#eaeff1' }}>
             <Content />
-            <ClaseDetallada 
-            id={idClase.clasesId}
-            ></ClaseDetallada>
+            {
+            (clase===null) ? (
+                <Typography>CARGANDO</Typography>
+              ): (user===null)? (
+              <Typography>CARGANDO</Typography>
+              ):(
+              <ClaseDetallada 
+              clase={clase}
+              user={user}
+              ></ClaseDetallada>
+            )}
+            
           </Box>
           {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />

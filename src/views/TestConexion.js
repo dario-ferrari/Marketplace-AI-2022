@@ -3,10 +3,10 @@ import { Button, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { listadoClases } from "../controller/clases.controller";
 import {listadoUsuarios} from "../controller/usuarios.controller"
-import { buscarClasePorNombre } from "../controller/clases.controller";
+import { buscarClasePorFiltro } from "../controller/clases.controller";
 import { buscarClasePorId } from "../controller/clases.controller";
 import { crearClaseNueva } from "../controller/clases.controller";
-import { eliminadorClases } from "../controller/clases.controller";
+import { eliminadorClases, actualizarClase } from "../controller/clases.controller";
 
 
 const TestConexion = ()=>{
@@ -36,7 +36,7 @@ const TestConexion = ()=>{
 
         const clasesPorNombre = async function(nombre){
             console.log(nombre)
-            let respuesta = await buscarClasePorNombre(nombre);
+            let respuesta = await buscarClasePorFiltro(nombre);
             if(respuesta.rdo===1){
                 alert("salio mal")
             }
@@ -68,12 +68,23 @@ const TestConexion = ()=>{
             }
         }
 
+        const editarClase = async function(clase,id){
+            console.log(clase,id)
+            let respuesta = await actualizarClase(clase,id);
+            if(respuesta.rdo===1){
+                alert("salio mal")
+            }
+            if (respuesta.rdo===0){
+                console.log("esta fue la respuesta del back",respuesta)
+            }
+        }
+
 
 
         const clase = {
-          titulo: "Derecho Penal III",
+          titulo: "TEST",
           imagen: "https://concepto.de/wp-content/uploads/2018/09/derecho-penal1-e1538147633685.jpg",
-          descripcion: "Descripción breve de la clase. fdjskalfjdsñfjdsa fkdslañdfkjfkdslajflñdsajf fjdksalfjdñs fdjskal.",
+          descripcion: "Descripción TEST.",
           frecuencia: "Unica",
           duracion: 1,
           fechaLimite: new Date(),
@@ -82,8 +93,15 @@ const TestConexion = ()=>{
           rating: 1,
           Usuarios_id:"635b20092f07badf94bfc03c",
           disponibilidad: true,
-          comentarios: []
         };
+
+
+        const claseTest = {
+            titulo: "Test cambiado",
+            descripcion: "Test cambiado",
+            comentarios: ["635b1f8c2f07badf94bfc031"]
+          
+          };
 
 
         const eliminator = async function(id){
@@ -97,12 +115,15 @@ const TestConexion = ()=>{
             }
         }
 
+        
+
         const handleClick = ()=>{
             //listado()
             //clases()
             //clasesPorNombre("Base")
-            clasesPorId("635b1e862f07badf94bfc02e")
+            //clasesPorId("635b1e862f07badf94bfc02e")
             //creadorClase(clase)
+            //editarClase(claseTest,"6380c81d67f1fb4684e6c3cb")
             //eliminator("6378422f86cbfc59c8cdd968")
             
         }

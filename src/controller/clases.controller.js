@@ -118,16 +118,27 @@ export const listadoClases = async function()
     };
 }
 
-export const buscarClasePorNombre = async function(titulo)
+export const buscarClasePorFiltro = async function(filtro)
 {
     //url webservices
-    let url = urlWebServices.obtenerClasesPorNombre;
-    //console.log("url",url);
-    //console.log("token",WebToken.webToken);
-    const formData = new URLSearchParams();
-    formData.append('titulo', titulo);
+    let url = urlWebServices.obtenerClasesPorFiltro;
+    
+    let filtroArmado ={$and:[{titulo:{$regex:''}},{$or:[]}]}
 
-    console.log("titulo", titulo )
+    if(filtro.titulo.value !== ""){
+        filtroArmado.$and[0]={titulo:{$regex:`${filtro.titulo.value}`, $options : 'i'}}
+    }
+    
+    for (const prop in filtro) {
+        if(filtro[prop].value && prop !== "titulo"){
+            filtroArmado.$and[1].$or.push(filtro[prop].query)
+        }
+    }
+    
+    if(filtroArmado.$and[1].$or.length=== 0 ){
+        filtroArmado.$and.pop(1)
+    }
+    console.log("print del filtro",JSON.stringify(filtroArmado))
     
     try
     {
@@ -135,11 +146,10 @@ export const buscarClasePorNombre = async function(titulo)
             method: 'POST', // or 'PUT'
             mode: "cors",
             headers:{
-                'Accept':'application/x-www-form-urlencoded',
-                //'x-access-token': localStorage.getItem('x'),
-                'Origin':'http://localhost:3000',
-                'Content-Type': 'application/x-www-form-urlencoded'},
-            body:formData
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(filtroArmado)
         });
         let rdo = response.status;
         console.log("response",response);
@@ -162,8 +172,54 @@ export const buscarClasePorNombre = async function(titulo)
     };
 }
 
+export const actualizarClase = async function(clase)
+{
+    console.log("llego al controller actualizar",clase)
+    let url = urlWebServices.actualizarClase;
+
+
+    //armo json con datos
+    //console.log("dato",formData);
+    //console.log("url",url);
+
+    console.log("esto voy a pasar",JSON.stringify(clase))
+    try{
+        let response = await fetch(url,{
+            method: 'PUT', // or 'PUT'
+            mode: "cors",
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(clase),
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, clase:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+
+}
+
 export const buscarClasePorId = async function(id)
 {//url webservices
+    console.log("uid que le llega al controller",id)
     let url = urlWebServices.obtenerClasesPorId;
     //armo json con datos
     const formData = new URLSearchParams();
@@ -217,13 +273,10 @@ export const crearClaseNueva = async function(clase)
     formData.append('descripcion', clase.descripcion)
     formData.append('frecuencia', clase.frecuencia)
     formData.append('duracion', clase.duracion)
-    formData.append('fechaLimite', clase.fechaLimite)
     formData.append('precio', clase.precio)
     formData.append('tipo', clase.tipo)
     formData.append('rating', clase.rating)
     formData.append('Usuarios_id', clase.Usuarios_id)
-    formData.append('disponibilidad', clase.disponibilidad)
-    formData.append('comentarios', clase.comentarios)
 
     try
     {

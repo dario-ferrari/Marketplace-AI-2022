@@ -1,30 +1,20 @@
 import * as React from "react";
 import { Image } from "mui-image";
-import {useLoaderData } from "react-router-dom";
-import { Box, Divider, Rating, Grid, Typography, Avatar, List, ListItem,ListItemText, ListItemAvatar,Button  } from "@mui/material";
+
+import { Box, Divider, Grid, Typography,Button  } from "@mui/material";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PaidIcon from "@mui/icons-material/Paid";
 import PersonIcon from "@mui/icons-material/Person";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ContenedorProfesor from './componentsChiquitos/contenedorProfesor';
 import ItemBarrita from "./componentsChiquitos/itemsBarrita";
-import Comentarios from "./componentsChiquitos/comentarios";
-import Content from "./Content";
 import StarIcon from '@mui/icons-material/Star';
 
 
 export default function ClaseDetalladaComprada(props) {
-  var estado
-  if (props.estado === 'Aceptado'){
-    estado = "#3a7c2d"
-  }if(props.estado === "Finalizada"){
-    estado = "#6741e7"
-  }if (props.estado=== "Cancelada"){
-    estado = "#f6492d"
-  }
+  
+
   return (
     <Box component="main" sx={{ flex: 1, bgcolor: "#eaeff1"}}>
       {/**la imagen de cover estaria bueno que se achicara un poco al bajar, investigar */}

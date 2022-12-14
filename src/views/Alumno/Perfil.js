@@ -4,8 +4,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Navigator from '../../components/Navigator';
-import Content from '../../components/Content';
-import Header from '../../components/Header';
 import {
   Avatar,
   Button,
@@ -18,11 +16,10 @@ import {
   Typography,
   TextField
 } from '@mui/material';
-import { useState } from 'react';
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import usuarios from '../../data/usuarios';
+import { UserContext } from '../../Contexts/UserContext';
+import {buscarUsuarioPorId, actualizarUser} from '../../controller/usuarios.controller'
+import Swal from 'sweetalert2';
 
 
 let theme = createTheme({
@@ -173,29 +170,103 @@ const drawerWidth = 256;
 export default function Perfil() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const [user, setUser]= React.useState(null)
 
-  const navigate=useNavigate();
-  const user = useSelector((state) => state.user);
-  const auth = useSelector((state) => state.auth);
+  const [edit,setEdit]= React.useState(true)
+
+  const currentUser = React.useContext(UserContext)
+
+ 
 
   useEffect(() => {
-    console.log("auth.logged", auth.logged);
-    if (!auth.logged) {
-      return navigate("/login");
-    }
-  }, []);
+    const getUsuario = async function () {
+      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaUsuario)
+      );
+      if (respuestaUsuario.rdo === 1) {
+        alert("No existe el usuario");
+      } else {
+        console.log("este es el usuario recuperado",respuestaUsuario.user);
+        setUser(respuestaUsuario.user)
+        setNuevaData({
+          email: respuestaUsuario.user.email,
+          nombre: respuestaUsuario.user.nombre,
+          apellido: respuestaUsuario.user.apellido,
+          telefono: respuestaUsuario.user.telefono,
+          fechaNac: respuestaUsuario.user.fechaNac,
+          avatar: respuestaUsuario.user.avatar,
+          estudios: respuestaUsuario.user.estudios,
+        })
+      }
+    };
+    getUsuario();
+  
+  }, [currentUser]);
 
-  const us = usuarios.find((u) => u.email === user.email);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  
+  const [nuevaData,setNuevaData] = React.useState({
+    email: "",
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    fechaNac: "",
+    avatar: "",
+    estudios: "",
+  })
+
+
+  const handleOnClick = ()=>{
+    console.log(nuevaData)
+    setEdit(!edit)
+    console.log(nuevaData)
+  }
 
   const handleChange = (event) => {
-    /**setValues({
-      ...values,
+    setNuevaData({
+      ...nuevaData,
       [event.target.name]: event.target.value
-    }); */
+    })
   };
+
+
+  const handleSubmit = ()=>{
+    const updateUser = async function () {
+      const respuesta = await actualizarUser(nuevaData,currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuesta)
+      );
+      if (respuesta.rdo === 1) {
+        alert("Ocurrio un error al guardar");
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+        })
+      }
+    };
+    updateUser();
+    setEdit(!edit)
+  }
+
+  const handleCancel = ()=>{
+    setNuevaData({
+      email: user.email,
+      nombre: user.nombre,
+      apellido: user.apellido,
+      telefono: user.telefono,
+      fechaNac: user.fechaNac,
+      avatar: user.avatar,
+      estudios: user.estudios,
+    })
+    setEdit(!edit)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -211,6 +282,7 @@ export default function Perfil() {
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}
+              nombre={user.nombre}
             />
           )}
 
@@ -219,12 +291,14 @@ export default function Perfil() {
             sx={{ display: { sm: 'block', xs: 'none' } }}
           />
         </Box>
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1', display: 'flex', flexDirection: 'row'}}>
-            <Content />
+        {(user === null) ? (
+          <Typography>CARGANDO</Typography>
 
-            <Card sx={{marginRight: '10px'}}>
+        ):(
+        <Grid container flexDirection={'column'} alignItems={'center'} >
+          <Grid container item xs={4} alignItems={'center'} justifyContent={'center'}>
+            <Grid item>
+            <Card sx={{marginRight: '10px', boxShadow:'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px'}}>
               <CardContent>
                 <Box
                   sx={{
@@ -235,7 +309,7 @@ export default function Perfil() {
                   }}
                 >
                   <Avatar
-                    src={us.avatar}
+                    src={user.avatar}
                     sx={{
                       height: 64,
                       mb: 2,
@@ -247,7 +321,7 @@ export default function Perfil() {
                     gutterBottom
                     variant="h5"
                   >
-                    {us.nombre} {us.apellido}
+                    {user.nombre} {user.apellido}
                   </Typography>
                   <Typography
                     color="textSecondary"
@@ -274,14 +348,17 @@ export default function Perfil() {
                 </Button>
               </CardActions>
             </Card>
-
+            </Grid>
+          </Grid>
+          <Grid container item xs={8}>
+            <Grid item>
             <form
               autoComplete="off"
               noValidate
             >
-              <Card>
+              <Card sx={{boxShadow:'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px'}}>
                 <CardHeader
-                  title="Perfil"
+                  title="Datos Personales"
                 />
                 <Divider />
                 <CardContent>
@@ -296,11 +373,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Nombre"
-                        name="firstName"
+                        name="nombre"
                         onChange={handleChange}
                         required
-                        value={us.nombre}
+                        value={nuevaData.nombre}
                         variant="outlined"
                       />
                     </Grid>
@@ -311,11 +389,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Apellido"
-                        name="lastName"
+                        name="apellido"
                         onChange={handleChange}
                         required
-                        value={us.apellido}
+                        value={nuevaData.apellido}
                         variant="outlined"
                       />
                     </Grid>
@@ -326,11 +405,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Email"
                         name="email"
                         onChange={handleChange}
                         required
-                        value={us.email}
+                        value={nuevaData.email}
                         variant="outlined"
                       />
                     </Grid>
@@ -341,11 +421,11 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Número de Teléfono"
-                        name="phone"
+                        name="telefono"
                         onChange={handleChange}
-                        type="number"
-                        value={us.telefono}
+                        value={nuevaData.telefono}
                         variant="outlined"
                       />
                     </Grid>
@@ -356,11 +436,12 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Fecha de Nacimiento"
-                        name="date"
+                        name="fechaNac"
                         onChange={handleChange}
                         required
-                        value={us.nacimiento}
+                        value={nuevaData.fechaNac}
                         variant="outlined"
                       />
                     </Grid>
@@ -371,14 +452,13 @@ export default function Perfil() {
                     >
                       <TextField
                         fullWidth
+                        disabled={edit}
                         label="Estudios Cursados"
-                        name="state"
+                        name="estudios"
                         onChange={handleChange}
                         required
-                        /**select
-                        SelectProps={{ native: true }}
-                        value=""
-                        variant="outlined"**/
+                        value={nuevaData.estudios}
+                        variant="outlined"
                       >
                       </TextField>
                     </Grid>
@@ -392,22 +472,44 @@ export default function Perfil() {
                     p: 2
                   }}
                 >
-                  <Button
+                  {
+                    (edit === true) ? (
+                      <Button
                     color="primary"
                     variant="contained"
+                    onClick={handleOnClick}
                   >
                     Editar
                   </Button>
+            
+                    ):(
+                      <>
+                    <Button
+                    sx={{marginRight:"2vh"}}
+                    color="success"
+                    variant="contained"
+                    onClick={handleSubmit}
+                  >
+                    Guardar
+                  </Button>
+                  <Button
+                  color="error"
+                  variant="contained"
+                  onClick={handleCancel}
+                >
+                  Cancelar
+                </Button>
+                </>
+                    )
+                  }
+                  
                 </Box>
               </Card>
             </form>
-
-            
-          </Box>
-          {/**<Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
-            <Copyright />
-          </Box>**/}
-        </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
       </Box>
     </ThemeProvider>
   );

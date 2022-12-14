@@ -3,18 +3,17 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
-import Grid from '@mui/material/Grid';
-import Table from "../../components/contrataciones/MuiTable";
 import styles from "../../components/contrataciones/main.module.css";
 import contr from "../../data/contr.json";
+import {listadoClases} from '../../controller/clases.controller'
+import { UserContext } from '../../Contexts/UserContext';
+import { buscarUsuarioPorId } from '../../controller/usuarios.controller';
+import { Typography } from '@mui/material';
+import BasicTable from '../../components/contrataciones/BasicTable';
 
-
-{/**function Copyright() {
+/*function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -24,7 +23,7 @@ import contr from "../../data/contr.json";
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {
@@ -174,10 +173,29 @@ const drawerWidth = 256;
 export default function Contrataciones() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const currentUser = React.useContext(UserContext)
+  const [contrataciones, setContrataciones] = React.useState([]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  React.useEffect(()=>{
+    console.log('ÉSTE ES EL CURRENT USER', currentUser)
+    const getContrataciones = async function () {
+      const respuestaUsuario = await buscarUsuarioPorId(currentUser)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestaUsuario)
+      );
+      if (respuestaUsuario.rdo === 1) {
+        alert("Ocurrio un error");
+      } else {
+        setContrataciones(respuestaUsuario.user.contrataciones)
+      }
+    };
+    getContrataciones()
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -202,13 +220,12 @@ export default function Contrataciones() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
-          <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
+          <Box component="main" sx={{ marginTop: "10vh",flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content/> 
             {/**{inscripciones.clasesI.map(({id, titulo, imagen, estado, precio, rating}) => (**/}
                 <main className={styles.main_section}>
                     <div className={styles.container}>
-                        <Table products={contr} />
+                        <BasicTable contrataciones={contrataciones} />
                     </div>
                 </main> 
             {/**))}*/}

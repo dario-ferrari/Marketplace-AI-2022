@@ -6,15 +6,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link} from "react-router-dom";
 import Content from '../../components/Content';
-import Header from '../../components/Header';
+
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 import clasesCreadas from "../../data/clasesCreadas.json";
-import { useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import todasClasesProfesor from "../../components/todasClasesProfesor";
 
 let theme = createTheme({
   palette: {
@@ -165,11 +163,7 @@ export default function GestionarClase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const navigate=useNavigate();
 
-  const ruta = (id) => {
-    navigate(`/profesor/clasesprofesor/${id}`);
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -198,7 +192,6 @@ export default function GestionarClase() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
               <Grid container spacing={{xs: 2, md:3}} rowSpacing={1} columns={{xs:4, sm:8, md: 12}}>

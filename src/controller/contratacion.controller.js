@@ -7,18 +7,15 @@ export const crearContratacionNueva = async function(contratacion)
     //console.log("url",url);
     //console.log("token",WebToken.webToken);
     const formData = new URLSearchParams();
-    formData.append('Contrataciones_id', contratacion.Contrataciones_id)
     formData.append('estado', contratacion.estado)
-    formData.append('fechaCreacion', contratacion.fechaCreacion)
     formData.append('isValorada', contratacion.isValorada)
     formData.append('telefono', contratacion.telefono)
     formData.append('email', contratacion.email)
     formData.append('horarioRef', contratacion.horarioRef)
     formData.append('mensaje', contratacion.mensaje)
-    formData.append('fechaCreacion', contratacion.fechaCreacion)
-    formData.append('fechaFinalizacion', contratacion.fechaFinalizacion)
     formData.append('alumno', contratacion.alumno)
     formData.append('profesor', contratacion.profesor)
+    formData.append('clase', contratacion.clase)
 
     try
     {
@@ -127,6 +124,49 @@ export const buscarContratacionPorId = async function(id)
         console.log("error",error);
     };
 
+}
+
+export const updateContratacion = async function(contratacion){
+    console.log("llego al controller actualizar",contratacion)
+    let url = urlWebServices.actualizarContrataciones;
+
+
+    //armo json con datos
+    //console.log("dato",formData);
+    //console.log("url",url);
+
+    console.log("esto voy a pasar",JSON.stringify(contratacion))
+    try{
+        let response = await fetch(url,{
+            method: 'PUT', // or 'PUT'
+            mode: "cors",
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contratacion),
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, contratacion:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
 }
 
 export const eliminadorContrataciones = async function(id)

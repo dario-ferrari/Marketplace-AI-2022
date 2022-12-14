@@ -3,13 +3,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import NavigatorProfesor from '../../components/NavigatorProfesor';
 
-{/**function Copyright() {
+/* function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -19,7 +16,7 @@ import NavigatorProfesor from '../../components/NavigatorProfesor';
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+} */
 
 let theme = createTheme({
   palette: {
@@ -197,7 +194,6 @@ export default function BusquedaProfesor() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content />
           </Box>

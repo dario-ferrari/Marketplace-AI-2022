@@ -3,11 +3,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
-import Header from '../../components/Header';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -19,18 +16,17 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import CardStyled from "../../components/CardStyled";
-import clasesInscriptas from "../../data/inscripciones.json";
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
-import {listadoClases} from '../../controller/clases.controller'
+import {listadoClases,buscarClasePorFiltro} from '../../controller/clases.controller'
+import { UserContext } from '../../Contexts/UserContext';
 
 
 
-{/**function Copyright() {
+/* {/**function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
@@ -40,7 +36,7 @@ import {listadoClases} from '../../controller/clases.controller'
       {new Date().getFullYear()}.
     </Typography>
   );
-}**/}
+}**/
 
 let theme = createTheme({
   palette: {
@@ -190,11 +186,36 @@ const drawerWidth = 256;
 export default function Inscripciones() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-
+  const currentUser = React.useContext(UserContext)
   const [clases, setClases]= React.useState([]);
+
+  const [filtro, setFiltro] = React.useState({
+    titulo: {value: ""},
+    unica: {value: false,
+        query:{frecuencia: "Unica"}},
+    semanal: {value: false,
+        query:{frecuencia: "Semanal"}},
+    mensual: {value: false,
+        query:{frecuencia: "Mensual"}},
+    individual: {value: false,
+        query:{tipo: "Individual"}},
+    grupal: {value: false,
+        query:{tipo: "Grupal"}},
+    uno : {value: false,
+        query:{rating : 1}},
+    dos : {value: false,
+        query:{rating : 2}},
+    tres : {value: false,
+        query:{rating : 3}},
+    cuatro : {value: false,
+        query:{rating : 4}},
+    cinco : {value: false,
+        query:{rating : 5}}
+  });
 
 
   React.useEffect(()=>{
+    /* console.log('ÉSTE ES EL CURRENT USER', currentUser)
     const getClases = async function () {
       const respuestaClases = await listadoClases()
       console.log(
@@ -207,117 +228,75 @@ export default function Inscripciones() {
         setClases(respuestaClases.clase);
       }
     };
-    getClases();
-  }, [])
+    getClases(); */
+    const filtrarClases = async function () {
+      console.log('llamada al back con filtro:',filtro)
+      const respuestasFiltradas = await buscarClasePorFiltro(filtro)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestasFiltradas)
+      );
+      if (respuestasFiltradas.rdo === 1) {
+        alert("No existe el doctor");
+      } else {
+        setClases(respuestasFiltradas.clase);
+      }
+    };
+    filtrarClases();
+  }, [filtro])
   
-  const [busqueda, setBusqueda] = React.useState('');
   
-  const [checkbox, setCheckbox] = React.useState({
-    unica: false,
-    semanal: false,
-    mensual: false,
-    individual: false,
-    grupal: false,
-    1 : false,
-    2 : false,
-    3 : false,
-    4 : false,
-    5 : false
-  });
+  
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
 
-  let filtro = {
-    titulo : '',
-    chekboxs : checkbox
-  }
-
-
-
-  const handleChange=(e)=>{
-    setBusqueda(e.target.value);
-    filtro.titulo = e.target.value
-    filtrarClases(filtro);
-  }
-
-/*funsiones por filtros*/
-
-  
-
-  const fusionResultados = (array1, array2)=>{
-    console.log(array1,array2)
-    var newArray= [];
-    for (var component in array2){
-      if(array1.includes(array2[component]))
-        newArray.push(array2[component])
-    }
-    return newArray;
-  }
-
-
-  const filtrarCheck=(filtro)=>{
-    let clasesTotales = clasesInscriptas.clasesI
-    let resultadosBusqueda = clasesTotales
-    var active =  false
-    for( var check in filtro.chekboxs){
-      if(filtro.chekboxs[check])
-        active = true
+  const llamadaBack = ()=>{
+    const filtrarClases = async function () {
+      console.log('llamada al back con filtro:',filtro)
+      const respuestasFiltradas = await buscarClasePorFiltro(filtro)
+      console.log(
+        "Console log de respuesta de back ",
+        JSON.stringify(respuestasFiltradas)
+      );
+      if (respuestasFiltradas.rdo === 1) {
+        alert("No existe el doctor");
+      } else {
+        setClases(respuestasFiltradas.clase);
       }
-    if(active){
-      resultadosBusqueda = clasesTotales.filter((clase)=>{
-        for( var check in filtro.chekboxs){
-          console.log(check);
-          console.log(clasesTotales);
-          if(filtro.chekboxs[check]){
-            if(clase.tipo.toString().toLowerCase().includes(check.toString()) || 
-            clase.frecuencia.toString().toLowerCase().includes(check.toString()) ||
-            clase.rating.toString().toLowerCase().includes(check.toString())){
-              console.log(check,filtro.chekboxs[check])
-              return clase
-            }
-          } 
-        }
-      })
-    }
-    return resultadosBusqueda
-    }
-
-    const filtrarTexto =(filtro)=>{
-      let clasesTotales = clasesInscriptas.clasesI
-      let resultadosBusqueda = clasesTotales.filter((clase)=>{
-        if(clase.titulo.toString().toLowerCase().includes(filtro.titulo.toLowerCase()))
-        {
-          return clase;
-        }
-      });
-      return resultadosBusqueda
-    }
-  
-  const filtrarClases=(filtro)=>{
-    console.log(filtro.titulo)
-    var resultadosBusquedaTexto = filtrarTexto(filtro)
-    var resultadosBusquedaCheck = filtrarCheck(filtro)
-    var resultadosBusquedaJuntos = fusionResultados(resultadosBusquedaCheck,resultadosBusquedaTexto)
-    console.log(resultadosBusquedaJuntos)
-    setClases(resultadosBusquedaJuntos);
+    };
+    filtrarClases();
   }
-  /**Seccion para filtrar con checkbox */
- 
 
-  const handleCheckEvent = (event) => {
-    setCheckbox({
-      ...checkbox,
-      [event.target.name]: event.target.checked,
-    });
-    filtro.titulo = busqueda
-    filtro.chekboxs[event.target.name]= event.target.checked
-    filtrarClases(filtro)
+  
+
+
+
+
+  
+
+  const handleChange = (event) => {
+    let variable
+    if(event.target.name === "titulo"){
+      variable = filtro[event.target.name]
+      setFiltro({...filtro,
+        [event.target.name] : {...variable, value : event.target.value }
+      })
+      console.log("este es el texto buscado", filtro.titulo)
+    }else{
+      variable = filtro[event.target.name]
+      setFiltro({...filtro,
+        [event.target.name] : {...variable, value:!variable.value}
+      })
+      llamadaBack()
+    }
   };
 
-  const { unica, semanal, mensual, individual, grupal,uno, dos ,tres, cuatro,cinco } = checkbox;
+
+  
 
 
 
@@ -349,7 +328,6 @@ export default function Inscripciones() {
           />
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             <Content/>
 {/**BARRA DE BÚSQUEDA DE CLASES*/}
@@ -370,8 +348,9 @@ export default function Inscripciones() {
                   <Grid item xs>
                     <TextField
                       fullWidth
-                      placeholder="Buscar por materia, tipo de clase, frecuencia o calificación"
-                      value={busqueda}
+                      name="titulo"
+                      placeholder="Buscar por nombre de la materia"
+                      value={filtro.titulo.value}
                       InputProps={{
                         disableUnderline: true,
                         sx: { fontSize: 'default' },
@@ -405,19 +384,19 @@ export default function Inscripciones() {
                           <FormGroup>
                             <FormControlLabel
                               control={
-                                <Checkbox checked={unica} onChange={handleCheckEvent} name="unica" />
+                                <Checkbox checked={filtro.unica.value} onChange={handleChange} name="unica" />
                               }
                               label="Unica"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={semanal} onChange={handleCheckEvent} name="semanal" />
+                                <Checkbox checked={filtro.semanal.value} onChange={handleChange} name="semanal" />
                               }
                               label="Semanal"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={mensual} onChange={handleCheckEvent} name="mensual" />
+                                <Checkbox checked={filtro.mensual.value} onChange={handleChange} name="mensual" />
                               }
                               label="Mensual"
                             />
@@ -428,13 +407,13 @@ export default function Inscripciones() {
                           <FormGroup>
                             <FormControlLabel
                               control={
-                                <Checkbox checked={individual} onChange={handleCheckEvent} name="individual" />
+                                <Checkbox checked={filtro.individual.value} onChange={handleChange} name="individual" />
                               }
                               label="Individual"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={grupal} onChange={handleCheckEvent} name="grupal" />
+                                <Checkbox checked={filtro.grupal.value} onChange={handleChange} name="grupal" />
                               }
                               label="Grupal"
                             />
@@ -445,31 +424,31 @@ export default function Inscripciones() {
                           <FormGroup>
                             <FormControlLabel
                               control={
-                                <Checkbox checked={uno} onChange={handleCheckEvent} name="1" />
+                                <Checkbox checked={filtro.uno.value} onChange={handleChange} name="uno" />
                               }
                               label="1 Estrella"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={dos} onChange={handleCheckEvent} name="2" />
+                                <Checkbox checked={filtro.dos.value} onChange={handleChange} name="dos" />
                               }
                               label="2 Estrellas"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={tres} onChange={handleCheckEvent} name="3" />
+                                <Checkbox checked={filtro.tres.value} onChange={handleChange} name="tres" />
                               }
                               label="3 Estrellas"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={cuatro} onChange={handleCheckEvent} name="4" />
+                                <Checkbox checked={filtro.cuatro.value} onChange={handleChange} name="cuatro" />
                               }
                               label="4 Estrellas"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={cinco} onChange={handleCheckEvent} name="5" />
+                                <Checkbox checked={filtro.cinco.value} onChange={handleChange} name="cinco" />
                               }
                               label="5 Estrellas"
                             />
@@ -482,17 +461,10 @@ export default function Inscripciones() {
 {/**CLASES PARA INSCRIBIRSE:*/}
 
             <Grid container spacing={2} alignItems="center" >
-                {clases.map(({_id, titulo, imagen, descripcion, frecuencia, duracion, rating,precio}) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
+                {clases.map((clase) => ( /**Con el método map recorres las variables de los objetos que hayas puesto en el arreglo */
                 <Grid item xl={3} md={6}>
                   <CardStyled 
-                  id={_id} 
-                  titulo={titulo} 
-                  imagen={imagen} 
-                  descripcion={descripcion} 
-                  frecuencia={frecuencia} 
-                  duracion={duracion}
-                  rating={rating}
-                  precio={precio}></CardStyled>
+                  clase={clase}></CardStyled>
                 </Grid>  
             ))}
               </Grid>

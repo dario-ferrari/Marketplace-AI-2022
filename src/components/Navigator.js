@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useState } from "react";
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -9,28 +8,22 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
-import TimerIcon from '@mui/icons-material/Timer';
-import SettingsIcon from '@mui/icons-material/Settings';
-import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
+
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import SchoolIcon from '@mui/icons-material/School';
+
 import HistoryIcon from '@mui/icons-material/History';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useNavigate , useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { loggOut } from "../store/auth/authSlice";
-import {loadUserData} from "../store/user/usersSlice";
-import usuarios from '../data/usuarios';
-import {buscarUsuarioPorEmail} from "../controller/usuarios.controller"
+import { Button } from '@mui/material';
 
 const categories = [
   {
     id: 'Alumno',
     children: [
       {
-        id: 'Dashboard',
+        id: 'Clases',
         icon: <DashboardIcon />,
         path: "/alumno/menu",
         active: true, 
@@ -70,28 +63,6 @@ export default function Navigator(props) {
   const navigate=useNavigate();
   const location=useLocation();
 
-  {/**Trayendo los datos del usuario loggeado:*/}
-  const userMail = useSelector((state) => state.user);
-  const auth = useSelector((state) => state.auth);
-  const [user,setUser]= useState(null)
-
-  useEffect(() => {
-    console.log("auth.logged", auth.logged);
-    if (!auth.logged) {
-      return navigate("/login");
-    }
-    const getUser = async function(){
-      console.log(userMail.email)
-      let respuestaUsuario = await buscarUsuarioPorEmail(userMail.email)
-      console.log(
-        "Console log de respuesta de back para usuario ",
-        JSON.stringify(respuestaUsuario)
-      );
-      setUser(respuestaUsuario.user[0])
-      console.log(user)
-      }
-      getUser()
-  }, []);
 
 
   return (
@@ -104,7 +75,7 @@ export default function Navigator(props) {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>¡Hola !</ListItemText>
+          <ListItemText>¡Bievenido Alumno!</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }} >
@@ -113,7 +84,7 @@ export default function Navigator(props) {
             </ListItem>
             {children.map(({ id: childId, icon, path, active }) => ( /**Acá arranca la lista con las distintas vistas accesibles */
               <ListItem disablePadding key={childId} onClick={()=>navigate(path)}> {/**Método navigate que recibe como parámetro la variable path con la ruta */}
-                <ListItemButton selected={location.pathname==path ? active=true : false} sx={itemC}> {/**Si coincide la ruta con el path la variable active pasa a true y se marca el item */}
+                <ListItemButton selected={location.pathname===path ? active=true : false} sx={itemC}> {/**Si coincide la ruta con el path la variable active pasa a true y se marca el item */}
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText>{childId}</ListItemText>
                 </ListItemButton>
@@ -125,6 +96,21 @@ export default function Navigator(props) {
           </Box>
         ))}
       </List>
+
+      <Button
+                variant="body2"
+                sx={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  '&:hover': {
+                    color: 'white',
+                  },
+                }}
+                rel="noopener noreferrer"
+                target="_blank"
+                >
+                Cerrar Sesión
+                </Button>
     </Drawer>
   );
 }
