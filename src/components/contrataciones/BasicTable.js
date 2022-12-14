@@ -68,8 +68,17 @@ export default function BasicTable(props) {
     title: 'Email',
     field: 'email'
   },{
+    title: 'Mensaje',
+    field: 'mensaje'
+  },{
     title: 'Calificacion',
-    field: 'rating'
+    field: 'rating',
+    render: rowData => <Rating
+    name="half-rating-read"
+    defaultValue={Number(rowData.rating)}
+    precision={1}
+    readOnly
+  />
   }]
 
   const data = props.contrataciones
