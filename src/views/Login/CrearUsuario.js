@@ -4,22 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import ButtonForm from "../../components/ButtonForm";
 import InputForm from "../../components/InputForm";
 import Swal from "sweetalert2";
-import { crearUsuarioNuevo } from '../../controller/ussuarios.controller';
+import { crearUsuarioNuevo } from '../../controller/usuarios.controller';
 import { UserContext } from '../../Contexts/UserContext';
 
 
 const CrearUsuario = () => {
 
-    /**const navigate = useNavigate();
+    const navigate = useNavigate();
     const volver = () =>{
         navigate("/login");
-    };**/
+    };
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const currentUser = React.useContext(UserContext)
   
-    const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+    /**const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));**/
   
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
