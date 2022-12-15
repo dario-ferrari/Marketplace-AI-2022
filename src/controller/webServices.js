@@ -13,6 +13,7 @@ const urlWebServices = {
     //guardarImgUser: urlApi + "users/guardarImgUser",
     //getImgUser: urlApi + "users/imgUserByMail",
     //uploadFileImg: urlApi + "users/uploadImg",
+    enviarMail : urlApi + "usuarios/sendMail",
 
 
     crearClase : urlApi +"clases/create",

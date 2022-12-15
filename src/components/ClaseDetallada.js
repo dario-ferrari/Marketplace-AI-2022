@@ -23,6 +23,7 @@ import { crearComentarioNuevo } from "../controller/comentario.controller"
 import Modal from '@mui/material/Modal';
 import { CleaningServicesRounded, Update } from "@mui/icons-material";
 import { text } from "d3";
+import { enviarMailProfesor } from "../controller/mail.controller";
 
 export default function ClaseDetallada(props) {
 
@@ -135,7 +136,11 @@ export default function ClaseDetallada(props) {
           icon: 'success',
           title: 'Se ha contratado la clase',
           showConfirmButton: true,
-        }) 
+        })
+        const respuestaMail = await enviarMailProfesor(nuevaContratacion,profe,clase)
+        if (respuestaMail.rdo === 1) {
+          alert("Ocurrio un error al enviar el mail");
+        }
       }
     };
     crearContratacion()

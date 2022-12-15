@@ -17,6 +17,7 @@ import usuarios from "../../data/usuarios";
 import { actualizarComentario, buscarComentarioPorId, } from "../../controller/comentario.controller";
 import { buscarUsuarioPorId } from "../../controller/usuarios.controller";
 import Swal from "sweetalert2";
+import { enviarMailAlumno } from "../../controller/mail.controller";
 
 export default function Comentarios(props) {
 
@@ -59,6 +60,10 @@ export default function Comentarios(props) {
           title: 'El mensaje se ha eliminado',
           showConfirmButton: false,
         })
+        const respuestaMail = await enviarMailAlumno(comentario)
+        if (respuestaMail.rdo === 1) {
+          alert("Ocurrio un error al enviar el mail");
+        }
       }
     };
     updateComentario();
