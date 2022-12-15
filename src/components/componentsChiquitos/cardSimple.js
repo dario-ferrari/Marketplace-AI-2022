@@ -31,7 +31,7 @@ export default function SimpleCard(props) {
             <Typography variant="h5" component="div">
               {clase.titulo}
             </Typography>
-            <Typography variant="body2">Valorado
+            <Typography variant="body2">{props.estado}
             </Typography>
             <CardActions >
             <Link to={`/alumno/clases/${clase._id}`}>
