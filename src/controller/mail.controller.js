@@ -14,7 +14,7 @@ export const enviarMailProfesor = async function(contratacion,profesor,clase)
     Su Mensaje: ${contratacion.mensaje} <br/>
     Mail de Contacto: ${contratacion.email} <br/>
     Telefono de Contacto: ${contratacion.telefono} <br/>
-    Horario Apto para Contacto: ${contratacion.horarioRef} <br/>
+    Horario Apto para Contacto: ${contratacion.horarioRef} hs <br/>
     <br/>
     Este es un mail informativo NO debe responderse</p>`)
 

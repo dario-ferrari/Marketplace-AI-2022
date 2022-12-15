@@ -141,6 +141,7 @@ export default function ClaseDetallada(props) {
         if (respuestaMail.rdo === 1) {
           alert("Ocurrio un error al enviar el mail");
         }
+        console.log(respuestaMail)
       }
     };
     crearContratacion()
