@@ -354,7 +354,7 @@ export const getcontrasenaesByUser = async function()
 }
 export const crearUsuarioNuevo = async function(Usuario)
 {
-    let url = urlWebServices.crearUsuario;
+    let url = urlWebServices.registration;
     const formData = new URLSearchParams();
     formData.append('email', Usuario.email)
     formData.append('contrasena', Usuario.contrasena)

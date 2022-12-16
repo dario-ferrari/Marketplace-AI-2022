@@ -5,33 +5,41 @@ import ButtonForm from "../../components/ButtonForm";
 import InputForm from "../../components/InputForm";
 import Swal from "sweetalert2";
 import { crearUsuarioNuevo } from '../../controller/usuarios.controller';
-import { UserContext } from '../../Contexts/UserContext';
+import {
+  Button,
+  TextField
+} from '@mui/material';
 
+const roles = [
+  {
+    value: "PROFESOR",
+    label: 'PROFESOR',
+  },
+  {
+    value: 'ALUMNO',
+    label: 'ALUMNO',
+  },
+];
 
-const CrearUsuario = () => {
+export default function CrearUsuario ()  {
 
     const navigate = useNavigate();
     const volver = () =>{
         navigate("/login");
     };
-
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    const currentUser = React.useContext(UserContext)
-  
-    /**const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));**/
-  
-    const handleDrawerToggle = () => {
-      setMobileOpen(!mobileOpen);
-    };
-  
+    
     const [usuario,setUsuario] = React.useState({
       nombre: "",
+      apellido:"",
       email: "",
-      contrasena: 0,
+      contrasena: "",
       fechaNac: "",
       experiencia: "",
       titulo: "",
+      rol: "",
+      avatar: "",
+      contrataciones: "",
+      clasesPublicadas: ""
     })
   
     const handleChange = (event) => {
@@ -43,36 +51,20 @@ const CrearUsuario = () => {
 
     const handleCreate = () => {
       Swal.fire({
-        icon: 'success',
-        title: '¡Usuario creado!',
-        showConfirmButton: false,
-        timer: 1500
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const createUsuario = async function () {
-          const respuesta = await crearUsuarioNuevo(usuario)
-          console.log(
-            "Console log de respuesta de back ",
-            JSON.stringify(respuesta)
-          );
-          if (respuesta.rdo === 1) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Ocurrio un error',
-              showConfirmButton: false,
-            })
-          } else {
-            Swal.fire({
-              icon: 'success',
-              title: 'Se creo correctamente',
-              showConfirmButton: false,
-            })
-          }
-        }
-        createUsuario()
+      icon: 'success',
+      title: '¡Usuario creado!',
+      showConfirmButton: false,
+      timer: 1500
+      })
+      const createUsuario = async function () {
+        const respuesta = await crearUsuarioNuevo(usuario)
+        console.log(
+          "Console log de respuesta de back ",
+          JSON.stringify(respuesta)
+        );
       }
-    })
-};
+      createUsuario()
+  };
 
   
 
@@ -80,21 +72,23 @@ const CrearUsuario = () => {
         <div className="w-screen h-screen flex justify-center items-center ">
         <div className="bg-white w-1/3 max-w-2xl h-3/5 max-h-2xl py-10 rounded-lg">
           <h1 className="uppercase text-6xl text-center font-light">Crear Usuario</h1>
-          <div className="h-4/6 max-w-sm my-14 mx-auto flex flex-col justify-between">
-            <div className="h-2/5 flex flex-col justify-around">
-              <InputForm type="text" placeholder="Nombre y Apellido"/>
-              <InputForm type="text" placeholder="Email"/>
-              <InputForm type="password" placeholder="Contraseña" />
-              <InputForm type="text" placeholder="Fecha de Nacimiento" />
-              <InputForm type="text" placeholder="Experiencia" />
-              <InputForm type="text" placeholder="Titulo" />
-    
-            </div>
-            <ButtonForm text={"Crear"} onClick={() => handleCreate()}/> <ButtonForm text={"Volver"} onClick={() => volver()}/>
-          </div>
+          <form autoComplete="off" noValidate>
+            <div className="h-4/6 max-w-sm my-14 mx-auto flex flex-col justify-between">
+              <div className="h-2/5 flex flex-col justify-around">
+              <TextField type="text" placeholder="Nombre" name="nombre" onChange={handleChange}/>
+              <TextField type="text" placeholder="Apellido" name="apellido" onChange={handleChange}/>
+              <TextField type="text" placeholder="Email" name="email" onChange={handleChange}/>
+              <TextField type="password" placeholder="Contraseña" name="contrasena" onChange={handleChange}/>
+              <TextField type="text" placeholder="Fecha de Nacimiento" name="fechaNac" onChange={handleChange}/>
+              <TextField type="text" placeholder="PROFESOR o ALUMNO?" name="rol" onChange={handleChange}/>
+              <TextField type="text" placeholder="Experiencia" name="experiencia" onChange={handleChange}/>
+              <TextField type="text" placeholder="Titulo" name="titulo" onChange={handleChange}/>
+              </div> 
+            <Button text={"Crear"} onClick={() => handleCreate()}>Crear</Button> <Button onClick={() => volver()}>Volver</Button>
+            </div> 
+          </form>
         </div>
       </div>
     );
 };
     
-export default CrearUsuario;
