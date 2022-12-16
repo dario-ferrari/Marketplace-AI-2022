@@ -31,6 +31,7 @@ import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import SearchIcon from "@material-ui/icons/Search";
 import ViewColumnIcon from "@material-ui/icons/ViewColumn";
 import { updateContratacion } from "../../controller/contratacion.controller";
+import Swal from "sweetalert2";
 
 
 
@@ -62,6 +63,10 @@ export default function BasicTable(props) {
     title: 'Clase',
     field: 'clase.titulo'
   },{
+    title: 'Estado',
+    field: 'estado',
+    
+  },{
     title: 'Telefono',
     field: 'telefono'  
   },{
@@ -84,6 +89,7 @@ export default function BasicTable(props) {
   const data = props.contrataciones
 
 
+
   return (
     <MaterialTable
       icons={tableIcons}
@@ -95,91 +101,82 @@ export default function BasicTable(props) {
           icon: DoneIcon,
           tooltip:'Aceptar',
           onClick:(event,contratacion)=>{
+            contratacion["estado"]="ACEPTADA"
             console.log('que locura', contratacion)
-            contratacion["Estado"]='ACEPTADA'
-            
-          }
+            const cambiarEstado = async function(){
+              const respuestaActualizacion = await updateContratacion(contratacion)
+              console.log(
+                "Console log de respuesta de back ",
+                JSON.stringify(respuestaActualizacion)
+              );
+              if (respuestaActualizacion.rdo === 1) {
+                alert("Ocurrio un error al guardar");
+              }else{
+                Swal.fire(
+                'Aceptada',
+                'La solicitud ha sido aceptada!',
+                'success')
+              }
+            }
+            cambiarEstado()
+            }
         },
         {
           icon: CloseIcon,
           tooltip:'Cancelar',
-          onClick:(rowData)=>{
-            console.log('que locura', rowData)
-          }
+          onClick:(event,contratacion)=>{
+            contratacion["estado"]="CANCELADA"
+            console.log('que locura', contratacion)
+            const cambiarEstado = async function(){
+              const respuestaActualizacion = await updateContratacion(contratacion)
+              console.log(
+                "Console log de respuesta de back ",
+                JSON.stringify(respuestaActualizacion)
+              );
+              if (respuestaActualizacion.rdo === 1) {
+                alert("Ocurrio un error al guardar");
+              }else{
+                Swal.fire(
+                'Cancelada',
+                'La solicitud ha sido cancelada!',
+                'success')
+              }
+            }
+            cambiarEstado()
+            }
         },
         {
           icon: DoneAllIcon,
           tooltip:'Finalizar',
-          onClick:(event,rowData)=>{
-            console.log('que locura', rowData)
-          }
+          onClick:(event,contratacion)=>{
+            contratacion["estado"]="FINALIZADA"
+            console.log('que locura', contratacion)
+            const cambiarEstado = async function(){
+              const respuestaActualizacion = await updateContratacion(contratacion)
+              console.log(
+                "Console log de respuesta de back ",
+                JSON.stringify(respuestaActualizacion)
+              );
+              if (respuestaActualizacion.rdo === 1) {
+                alert("Ocurrio un error al guardar");
+              }else{
+                Swal.fire(
+                'Finalizada',
+                'La solicitud ha sido finalizada!',
+                'success')
+              }
+            }
+            cambiarEstado()
+            }
         },
         {
           icon: EmailIcon,
           tooltip:'Enviar Mail',
           onClick:(event,rowData)=>{
-            console.log('que locura', rowData)
-          
-          const cambiarEstado = async function(){
-            const respuestaActualizacion = await updateContratacion()
-            console.log(
-              "Console log de respuesta de back ",
-              JSON.stringify(respuestaActualizacion)
-            );
-            if (respuestaActualizacion.rdo === 1) {
-              alert("Ocurrio un error al guardar");
-            }
-          }
-          cambiarEstado()
+            alert("se ha enviado el mail")
           }
         }
       ]}
     />
   )
-    {/* <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Clase</TableCell>
-            <TableCell align="right">Telefono</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Calificación</TableCell>
-            <TableCell align="right">Estado</TableCell>
-            <TableCell align="right">Accion</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.contrataciones.map((row) => (
-            <TableRow
-              key={row.clase.titulo}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.clase.titulo}
-              </TableCell>
-              <TableCell align="right">{row.telefono}</TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">
-                <Rating value={row.rating} readOnly />
-              </TableCell>
-              <TableCell align="right">{row.estado}</TableCell>
-              <TableCell align="right">
-                  <IconButton aria-label="acept" onClick={handleAcept(rowData)}>
-                    <DoneIcon />
-                  </IconButton>
-                  <IconButton aria-label="cancel" disabled color="primary">
-                    <CloseIcon />
-                  </IconButton>
-                  <IconButton color="secondary" aria-label="add an alarm">
-                    <DoneAllIcon />
-                  </IconButton>
-                  <IconButton color="primary" aria-label="add to shopping cart">
-                    <EmailIcon />
-                  </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer> */}
 }

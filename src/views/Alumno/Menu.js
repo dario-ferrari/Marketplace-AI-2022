@@ -241,7 +241,7 @@ export default function Menu() {
                 contrataciones.map((x)=>
                 (
                 <Grid item xs={2} sm={3} md={3}>
-                <SimpleCard clase={x.clase}></SimpleCard>
+                <SimpleCard clase={x.clase} estado={x.estado}></SimpleCard>
                 </Grid>
                 ))
             )}
