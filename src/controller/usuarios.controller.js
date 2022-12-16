@@ -93,7 +93,7 @@ export const buscarUsuarioPorId = async function(id)
             switch(rdo){
                 case 200:
                 {
-                    return ({rdo:0, User:data.data});//correcto
+                    return ({rdo:0, user:data.data});//correcto
                 }
                 default:
                 {
@@ -237,7 +237,7 @@ export const guardarImgUser = async function(message)
 export const actualizarUser = async function(user)
 {
     console.log("llego al controller actualizar",user)
-    let url = urlWebServices.actualizarUser;
+    let url = urlWebServices.actualizarUsuario;
 
     console.log("esto voy a pasar",JSON.stringify(user))
     try{
@@ -251,6 +251,7 @@ export const actualizarUser = async function(user)
             body: JSON.stringify(user),
             
         });
+        console.log(response)
         
         let rdo = response.status;
         console.log("response",response);
@@ -364,10 +365,10 @@ export const crearUsuarioNuevo = async function(Usuario)
     formData.append('rol', Usuario.rol)
     formData.append('fechaNac', Usuario.fechaNac)
     formData.append('avatar', Usuario.avatar)
-    formData.append('contrataciones', Usuario.contrataciones)
     formData.append('titulo', Usuario.titulo)
     formData.append('experiencia', Usuario.experiencia)
-    formData.append('clasesPublicadas', Usuario.clasesPublicadas)
+    formData.append('estudios', Usuario.estudios)
+
 
     try
     {

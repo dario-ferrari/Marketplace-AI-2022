@@ -15,7 +15,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
 
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import { useNavigate , useLocation } from "react-router-dom";
+import { useNavigate , useLocation, Link } from "react-router-dom";
+import { Button } from '@mui/material';
 
 
 const categories = [
@@ -94,6 +95,22 @@ export default function NavigatorProfesor(props) {
           </Box>
         ))}
       </List>
+      <Link to={'/login'}>
+      <Button
+                variant="body2"
+                sx={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  '&:hover': {
+                    color: 'white',
+                  },
+                }}
+                rel="noopener noreferrer"
+                target="_blank"
+                >
+                Cerrar Sesión
+                </Button>
+                </Link>
     </Drawer>
   );
 }

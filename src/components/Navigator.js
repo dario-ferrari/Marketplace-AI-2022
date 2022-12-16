@@ -15,7 +15,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import HistoryIcon from '@mui/icons-material/History';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import { useNavigate , useLocation } from "react-router-dom";
+import { useNavigate , useLocation, Link } from "react-router-dom";
 import { Button } from '@mui/material';
 
 const categories = [
@@ -96,7 +96,7 @@ export default function Navigator(props) {
           </Box>
         ))}
       </List>
-
+      <Link to={'/login'}>
       <Button
                 variant="body2"
                 sx={{
@@ -111,6 +111,7 @@ export default function Navigator(props) {
                 >
                 Cerrar Sesión
                 </Button>
+                </Link>
     </Drawer>
   );
 }
