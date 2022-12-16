@@ -64,19 +64,31 @@ export default function ClaseDetalladaProfesor(props) {
           justifyContent="space-around"
           sx={{ bgcolor: "#e2e3e3",boxShadow: " inset 0 0px 8px 10px rgba(0, 0, 0, 0.15)"}}
         >
-          <ItemBarrita icono={<AccessTimeIcon sx={{ fontSize: "4em" }} />} descripcion={clase.duracion} />
+          <ItemBarrita
+              icono={<AccessTimeIcon sx={{ fontSize: "3.5em" }} />}
+              descripcion={clase.duracion + " hs"}
+            />
 
-          <Divider orientation="vertical" variant="middle" flexItem ></Divider>
+            <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<CalendarMonthIcon sx={{ fontSize: "4em" }} />} descripcion={clase.frecuencia} />
+            <ItemBarrita
+              icono={<CalendarMonthIcon sx={{ fontSize: "3.5em" }} />}
+              descripcion={clase.frecuencia}
+            />
 
-          <Divider orientation="vertical" variant="middle" flexItem></Divider>
+            <Divider orientation="vertical" variant="middle" flexItem></Divider>
 
-          <ItemBarrita icono={<PaidIcon sx={{ fontSize: "4em" }} />} descripcion={clase.precio} />
+            <ItemBarrita
+              icono={<PaidIcon sx={{ fontSize: "3.5em" }} />}
+              descripcion={clase.precio + " USD"}
+            />
 
-          <Divider orientation="vertical" variant="middle" flexItem ></Divider>
-          
-          <ItemBarrita icono={<PersonIcon sx={{ fontSize: "4em" }} />} descripcion={clase.tipo} />
+            <Divider orientation="vertical" variant="middle" flexItem></Divider>
+
+            <ItemBarrita
+              icono={<PersonIcon sx={{ fontSize: "3.5em" }} />}
+              descripcion={clase.tipo}
+            />
 
         </Grid>
       </Grid>

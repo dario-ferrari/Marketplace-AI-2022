@@ -3,7 +3,7 @@ import { Image } from "mui-image";
 import { Box, Divider, Grid, Typography,Button ,List,
   ListItem,
   ListItemText,
-  ListItemAvatar,Avatar,TextField,FormGroup, Paper } from "@mui/material";
+  ListItemAvatar,Avatar,TextField,FormGroup, Paper, ButtonGroup } from "@mui/material";
 import { buscarClasePorId,actualizarClase } from '../controller/clases.controller';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -43,6 +43,7 @@ export default function ClaseDetallada(props) {
       value:''
     })
   const [obtenida,setObtenida] = React.useState(false)
+  const [contrat, setContrat] = React.useState(null)
 
   const [nuevaContratacion, setContratacion]= React.useState({
     estado:'PENDIENTE',
@@ -69,6 +70,7 @@ export default function ClaseDetallada(props) {
       user.contrataciones.forEach(element => {
         if(element.clase._id===clase._id){
           setObtenida(true)
+          setContrat(element)
         }
       }); 
       //obtengo al profe populado para despues la contratacion
@@ -204,12 +206,6 @@ export default function ClaseDetallada(props) {
 
 
   const handleValorar = ()=>{
-    let contrat
-    user.contrataciones.forEach(element => {
-      if(element.clase._id === clase._id){
-        contrat = element
-      }
-    });
     if (contrat){
     const actualizarValor = async function () {
         const { value: text } = await Swal.fire({
@@ -244,6 +240,50 @@ export default function ClaseDetallada(props) {
   actualizarValor()
   }
 }
+  const handleCancelar = () =>{
+    if(contrat){
+      contrat.estado = "CANCELADA"
+      const update = async function () {
+        const respuesta = await updateContratacion(contrat)
+        console.log(
+          "Console log de respuesta de back ",
+          JSON.stringify(respuesta)
+        );
+        if (respuesta.rdo === 1) {
+          alert("Ocurrio un error al guardar");
+        }else{
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha Cancelado la clase'
+          })
+        }   
+      }
+      update()
+      }
+    }
+
+  const handleFinalizar = () =>{
+    if(contrat){
+      contrat.estado = "FINALIZADA"
+      const update = async function () {
+        const respuesta = await updateContratacion(contrat)
+        console.log(
+          "Console log de respuesta de back ",
+          JSON.stringify(respuesta)
+        );
+        if (respuesta.rdo === 1) {
+          alert("Ocurrio un error al guardar");
+        }else{
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha Finalizado la clase'
+          })
+        } 
+      }
+      update()
+      }
+  }
+
 
   return (
     <>
@@ -345,28 +385,57 @@ export default function ClaseDetallada(props) {
             sx={{ paddingRight: "1vh", margin: "0" }}
           >
             <Grid item alignSelf={"center"}>
-              {obtenida ? (
+              {obtenida === false ? ( 
                 <Button
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  onClick={()=>{
-                    handleValorar()
-                  }}
-                  startIcon={<StarIcon />}
-                >
-                  Valorar
-                </Button>
+                onClick={handleOpen}
+                size="large"
+                variant="contained"
+                color="success"
+                startIcon={<ShoppingCartIcon />}
+              >
+                Comprar
+              </Button>
               ) : (
-                <Button
-                  onClick={handleOpen}
+                contrat.estado === "PENDIENTE" ? (
+                  <Button
                   size="large"
                   variant="contained"
-                  color="success"
-                  startIcon={<ShoppingCartIcon />}
+                  color="warning"
+                  onClick={()=>{
+                    Swal.fire(
+                    'Contratacion Pendiente',
+                    'Debes esperar a que el profesor acepte tu solicitud',
+                    'question'
+                  )
+                }}
                 >
-                  Comprar
+                  Pendiente
                 </Button>
+                ):(
+                  <ButtonGroup variant="outlined" >
+                        <Button
+                          onClick={() => {
+                            handleValorar()
+                          }}
+                        >
+                          Valorar
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            handleCancelar()
+                          }}
+                        >
+                          Cancelar
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            handleFinalizar()
+                          }}
+                        >
+                          Finalizar
+                        </Button>
+                  </ButtonGroup>
+                )
               )}
             </Grid>
           </Grid>
