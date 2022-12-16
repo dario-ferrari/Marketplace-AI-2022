@@ -93,7 +93,7 @@ export const buscarUsuarioPorId = async function(id)
             switch(rdo){
                 case 200:
                 {
-                    return ({rdo:0, user:data.data});//correcto
+                    return ({rdo:0, User:data.data});//correcto
                 }
                 default:
                 {
@@ -199,7 +199,7 @@ export const guardarImgUser = async function(message)
     //console.log("token",WebToken.webToken);
     const formData = new URLSearchParams();
     formData.append('email', message.email);
-    formData.append('nombreImagen',message.imagen);
+    formData.append('nombrecontrasena',message.contrasena);
     
     try
     {
@@ -233,6 +233,47 @@ export const guardarImgUser = async function(message)
         console.log("error",error);
     };
 }
+
+export const actualizarUser = async function(user)
+{
+    console.log("llego al controller actualizar",user)
+    let url = urlWebServices.actualizarUser;
+
+    console.log("esto voy a pasar",JSON.stringify(user))
+    try{
+        let response = await fetch(url,{
+            method: 'PUT', // or 'PUT'
+            mode: "cors",
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+            
+        });
+        
+        let rdo = response.status;
+        console.log("response",response);
+        let data = await response.json();
+        console.log("jsonresponse",data);
+            switch(rdo){
+                case 200:
+                {
+                    return ({rdo:0, User:data.data});//correcto
+                }
+                default:
+                {
+                    //otro error
+                    return ({rdo:1,mensaje:data.message});                
+                }
+            }
+    }
+    catch(error){
+        console.log("error",error);
+    };
+
+}
+
 
 export const uploadFileImg= async function(files,nombres)
 {
@@ -270,7 +311,7 @@ export const uploadFileImg= async function(files,nombres)
         console.log('Error uploading the files', err)
     }
 }
-export const getImagenesByUser = async function()
+export const getcontrasenaesByUser = async function()
 {
     //url webservices
     let url = urlWebServices.getImgUser;
@@ -311,48 +352,51 @@ export const getImagenesByUser = async function()
         console.log("error",error);
     };
 }
-
-
-export const actualizarUser= async function(user)
+export const crearUsuarioNuevo = async function(Usuario)
 {
-    console.log("llego al controller actualizar",user)
-    let url = urlWebServices.actualizarUsuario;
+    let url = urlWebServices.registration;
+    const formData = new URLSearchParams();
+    formData.append('email', Usuario.email)
+    formData.append('contrasena', Usuario.contrasena)
+    formData.append('nombre', Usuario.nombre)
+    formData.append('apellido', Usuario.apellido)
+    formData.append('telefono', Usuario.telefono)
+    formData.append('rol', Usuario.rol)
+    formData.append('fechaNac', Usuario.fechaNac)
+    formData.append('avatar', Usuario.avatar)
+    formData.append('contrataciones', Usuario.contrataciones)
+    formData.append('titulo', Usuario.titulo)
+    formData.append('experiencia', Usuario.experiencia)
+    formData.append('clasesPublicadas', Usuario.clasesPublicadas)
 
-
-
-    //armo json con datos
-    //console.log("dato",formData);
-    //console.log("url",url);
-    try{
+    try
+    {
         let response = await fetch(url,{
-            method: 'PUT', // or 'PUT'
+            method: 'POST', // or 'PUT'
             mode: "cors",
             headers:{
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
-            
+                'Accept':'application/x-www-form-urlencoded',
+                //'x-access-token': localStorage.getItem('x'),
+                'Origin':'http://localhost:3000',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body:formData
         });
-        
         let rdo = response.status;
-        console.log("response",response);
-        let data = await response.json();
-        console.log("jsonresponse",data);
-            switch(rdo){
-                case 200:
-                {
-                    return ({rdo:0, user:data.data});//correcto
-                }
-                default:
-                {
-                    //otro error
-                    return ({rdo:1,mensaje:data.message});                
-                }
+        let dataBack = await response.json();
+        switch(rdo){
+            case 201:
+            {                    
+                return ({rdo:0,dataBack});
             }
+            default:
+            {
+                return ({rdo:1,mensaje:dataBack.message});                
+            }
+        }
     }
-    catch(error){
+    catch(error)
+    {
         console.log("error",error);
+        return false;
     };
-
 }
